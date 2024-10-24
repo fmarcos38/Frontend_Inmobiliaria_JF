@@ -1,11 +1,16 @@
 
 import './App.css';
+import Navbar from './componentes/Navbar';
+import { InmobiliariaProvider } from './context';
 
 function App() {
   return (
-    <div className="App">
-      pepe
-    </div>
+    <InmobiliariaProvider>
+      <div className="App">
+        <Navbar/>
+        pepe
+      </div>
+    </InmobiliariaProvider>
   );
 }
 
