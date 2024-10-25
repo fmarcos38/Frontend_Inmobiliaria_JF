@@ -116,9 +116,6 @@ function Navbar() {
                                         <NavLink to='/alquiler' className='link-navbar'>Alquiler</NavLink>
                                     </li>
                                     <li className='items-pChica'>
-                                        <NavLink to='/emprendimientos' className='link-navbar'>Emprendimientos</NavLink>
-                                    </li>
-                                    <li className='items-pChica'>
                                         <NavLink to='/favoritos' className='link-navbar'>Favoritos</NavLink>
                                     </li>
                                     <li className='items-pChica'>

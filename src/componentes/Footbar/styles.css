@@ -1,0 +1,156 @@
+.contFooter{
+    /*
+    position: fixed;
+    bottom: 0; */ /*SI quiero q qde fija como pie de pag o en el view heigth*/
+    /* left: 0; */
+    width: 100%;
+    height: auto;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    align-items: center;
+    background-color: var(--color-negro);
+}
+.footer {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+}
+.divF{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+footer ul {
+    display: flex;
+    width: 100%;
+}
+.logo-footbar {
+    width: 320px;
+    height: 260px;
+}
+footer ul li {
+    display: inline-block;
+    position: relative;
+    width: 40%;
+}
+/* color linea sup y titulo*/
+footer ul li h2 {
+    margin-bottom: 3px;
+    font-size: 18px;
+    font-weight: 200;
+    color: var(--color-blanco);
+    border-bottom: 1px solid var(--color-blanco);
+}
+/* textos contáctenos */
+.info-contactos{
+    margin: 3px 0 3px 0;
+    font-size: 17px;
+    font-weight: 200;
+    color: var(--color-blanco);
+}
+.titulo-col-foot{
+    font-size: 15px;
+    font-weight: 200;
+}
+.divLinks{
+    display: flex;
+    flex-direction: column;
+}
+/* textos Link */
+.link-footbar{
+    font-size: 15px;
+    font-weight: 200;
+    color: var(--color-blanco);
+}
+.contTodasMedidas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;  
+}
+/* color linea inferior */
+.line {
+    margin-top: 10px;
+    width: 100%; /* Ancho de la línea */
+    height: 1px; /* Grosor de la línea */
+    background-color: var(--color-blanco); /* Color de la línea */    
+    margin-bottom: 5px;
+}
+.icono-redes-foot{
+    width: 50px;
+    height: 50px;
+}
+.cont-info-derechos{
+    width: 90%;
+    border-top: 1px solid var(--color-blanco);
+}
+.info-derechos{
+    font-size: 12px;
+    color: var(--color-blanco);
+}
+
+@media screen and (max-width: 900px){
+    .footer {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 750px){
+    footer ul li {
+        text-align: center;
+    }
+}
+@media screen and (max-width: 650px) {
+    .divF {
+        flex-direction: column;
+        align-items: center;
+    }
+    .logo-footbar {
+        width: 220px;
+        height: 180px;
+        margin-top: 20px;
+    }
+    footer ul {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+    footer ul li {
+        display: block;        
+        position: relative;
+        width: 90%;
+        margin-bottom: 10px;
+    }
+    footer ul li h2 {
+        width: 100%;
+    }
+    .divLinks{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        width: 90%; 
+    }
+    footer ul li h4 p, footer ul li p, footer ul li .link {
+        font-size: 15px;
+        line-height: 17px;
+        display: flex;
+        justify-content: center;
+    }
+    .cont-iconos-redes{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .info-derechos {
+        font-size: 10px;
+    }
+} 
+
+
