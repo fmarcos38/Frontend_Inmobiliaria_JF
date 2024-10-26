@@ -1,0 +1,34 @@
+.cont-landing-b{
+    width: 100%;
+    height: 707px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-landing-b-sup,
+.cont-landing-b-inf{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-landing-b-sup {
+    background-color: aquamarine;
+}
+.cont-landing-b-inf {
+    background-color: blueviolet;
+}
+.cont-sup-A, 
+.cont-sup-B, 
+.cont-inf-A,
+.cont-inf-B {
+    width: 50%;
+    height: 100%;
+    background-color: aliceblue;
+}
+.cont-sup-B,
+.cont-inf-A {
+    background-color: aquamarine;
+}

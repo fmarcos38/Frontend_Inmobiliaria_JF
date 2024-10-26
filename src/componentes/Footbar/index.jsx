@@ -71,8 +71,12 @@ function Footbar() {
             
             <div className='cont-info-derechos'>
                 <p className='info-derechos'>
-                    Todas las medidas enunciadas son meramente orientativas, las medidas exactas serán las que se expresen en el respectivo título de propiedad de cada inmueble. Todas las fotos, imagenes y videos son meramente ilustrativos y no contractuales. Los precios enunciados son meramente orientativos y no contractuales..
-                    © 2024 Mendive Negocios Inmobiliario.
+                    Todas las medidas enunciadas son meramente orientativas, 
+                    las medidas exactas serán las que se expresen en el respectivo 
+                    título de propiedad de cada inmueble. Todas las fotos, 
+                    imagenes y videos son meramente ilustrativos y no contractuales. 
+                    Los precios enunciados son meramente orientativos y no contractuales..
+                    © 2024 Juan Forastieri Negocios Inmobiliario. DESARROLLO WEB: Marcos Forastiere
                 </p>
             </div>
         </footer>
