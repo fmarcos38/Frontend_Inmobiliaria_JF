@@ -1,0 +1,26 @@
+.cont-nosotros {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../imagenes/img-2.jpg');
+    background-size: cover; 
+    background-position: center;
+}
+.cont-textos-nosotros {
+    width: 60%;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-negro);
+}
+.p-texto-nosotros {
+    font-size: 22px;
+    font-weight: 500;
+    text-align: center;
+    padding: 10px;
+    color: var(--color-blanco);
+}

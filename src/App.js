@@ -5,6 +5,8 @@ import Home from './paginas/Home';
 import Footbar from './componentes/Footbar';
 
 import './App.css';
+import FormularioContacto from './componentes/formularioContacto';
+import Nosotros from './componentes/Nosotros';
 
 function App() {
   return (
@@ -15,7 +17,8 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home />} />
-          
+          <Route path='/contacto' element={<FormularioContacto/>} />
+          <Route path='/nosotros' element={<Nosotros/>} />
         </Routes>
 
         <Footbar />

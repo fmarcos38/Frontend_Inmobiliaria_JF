@@ -68,11 +68,6 @@ function Navbar() {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to='/emprendimientos'>
-                                    Emprendimientos
-                                </NavLink>
-                            </li>
-                            <li>
                                 <NavLink to='/contacto' >
                                     Contacto
                                 </NavLink>
