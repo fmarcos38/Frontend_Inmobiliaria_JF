@@ -1,0 +1,49 @@
+.cont-grlCotizaciones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-cotizaciones{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.dolarBlue {
+    width: 320px;
+    height: 260px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 4px rgb(0 0 0 / 25%);
+    display: flex;
+    justify-content: center;
+    border: 1px solid #bcbcbc;
+}
+
+/* Responsive */
+@media screen and (max-width: 1100px){
+    .dolarBlue {
+        width: 250px;
+        height: 220px;
+    }
+}
+@media screen and (max-width: 890px){
+    .cont-cotizaciones{
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+    .dolarBlue {
+        width: 280px;
+        height: 255px;
+        margin-bottom: 10px;
+    }
+}

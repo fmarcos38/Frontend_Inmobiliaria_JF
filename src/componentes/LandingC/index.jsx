@@ -2,7 +2,7 @@ import React from 'react';
 import GroupIcon from '@mui/icons-material/Group';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import CampaignIcon from '@mui/icons-material/Campaign';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import BalanceIcon from '@mui/icons-material/Balance';
 import './estilos.css';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ function LandingC() {
                     <p className='texto-fila-2'>Marketing de propiedades</p>
                 </div>
                 <div className='col-4'>
-                    <AttachMoneyIcon sx={{'fontSize':'60px'}}/>
+                    <BalanceIcon sx={{'fontSize':'60px'}}/>
                     <p className='texto-fila-2'>Asesoría legal y gestión de transacciones</p>
                 </div>
             </div>

@@ -1,0 +1,22 @@
+.cont-noHayProps{
+    width: 95%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../imagenes/noHayProps.jpg');
+    background-size: cover; 
+    background-position: center;
+    border-radius: 10px;
+}
+.cont-texto-noProps{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.718);
+    padding: 10px;
+    border-radius: 20px;
+}

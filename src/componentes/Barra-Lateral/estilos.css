@@ -1,0 +1,119 @@
+.cont-barra {  
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  border-radius: 0 10px 10px 0;
+  margin-top: 55px;
+  /* border: 2px solid var(--primary-color); */
+  /* background-color: rgba(234, 231, 229, 1); */
+  /* background-image: url('../../Imagenes/Texturas/Textura-02.jpg'); */
+}
+/* est. 1er div */
+.cont-titulo-filtro,
+.cont-titulo-filtro-Sin-muestrVentaAlq {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid var(--color-blanco);
+}
+/* si la vista es Venta/Alq/Alq Temp. */
+.cont-titulo-filtro-Sin-muestrVentaAlq{
+  margin-bottom: 5px;
+}
+.titulo-filtros {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-blanco);
+}
+/* estilos 2do div */
+.opc-venta-alq{
+  width: 250px;
+  align-items: center;
+  margin: 10px 0px 10px 0px;
+}
+.cont-venta-alq{
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.label-filtro-tipo-operacion,
+.label-filtro-tipo-ope-Alq-Temp {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-blanco);
+}
+.label-filtro-tipo-ope-Alq-Temp {
+  font-size: 19px;
+  margin-top: 7px;
+}
+.input-check-venta, 
+.input-check-alq {
+  transform: scale(1.2); /* agranda el tamaño del checkbox */
+  margin-left: 10px;
+}
+.input-check-venta {
+  margin-right: 10px;
+}
+/* estilos 3er div */
+.cont-btn-filtros {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.boton-filtros {
+  width: 130px;
+  height: 40px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  color: var(--color-negro);
+  background-color: var(--color-blanco);
+}
+.boton-filtros:hover {
+  color: var(--color-negro);
+  background-color: var(--color-blanco);
+}
+.boton-filtros:active {
+  top: 2px;
+}
+.label-precio-min-max{
+  color: var(--color-blanco);
+}
+
+/* responsive */
+@media screen and (max-width: 700px){
+  .cont-barra {
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+  /* estilos 3er div */
+  .cont-btn-filtros {
+    width: 90%;
+    flex-direction: row; /* como usé flex-direction antes acá tamb SOLO q cambio x row */
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .boton-filtros {
+    width: 80px;
+    height: 35px;
+    padding: 5px 5px;
+    margin: 5px;
+  }
+}

@@ -56,6 +56,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    margin-bottom: 30px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url('../../imagenes/img-3.jpg');
     background-size: cover; 
     background-position: center;
@@ -97,4 +98,34 @@
     border-radius: 10px 10px 10px 10px;
     padding: 15px 50px 15px 50px;
     cursor: pointer;
+}
+
+/* responsive */
+@media screen and (max-width: 800px){
+    .cont-landing-C{
+        height: auto;
+    }
+    .cont-fila-1 {
+        width: 90%;
+    }
+    .cont-fila-2 {
+        width: 90%;
+        height: auto;
+        display: flexbox;
+        flex-wrap: wrap; /* apila */
+        justify-content: space-around;
+        align-items: center;
+        margin: 50px 0 50px 0;
+    }
+    .cont-fila-3 {
+        width: 95%;
+        height: auto;
+        
+    }
+    .texto-3-fila-3 {
+        font-weight: 200
+    }
+    .btn-fila-3 {
+        margin-bottom: 10px;
+    }
 }
