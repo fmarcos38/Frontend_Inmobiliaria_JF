@@ -1,0 +1,37 @@
+.cont-prop-Venta{
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(222, 222, 222);
+}
+.titulo-peopsVenta {
+    margin: 10px 0 0 0;
+}
+.cont-filtros-listaProps-venta{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.cont-barraL {
+    position: sticky;
+    top: 0; /* La distancia desde la parte superior de la ventana */
+    max-height: calc(100vh - 20px); /* Ajusta la altura máxima para evitar que salga del contenedor */
+    overflow-y: auto; /* Permite el desplazamiento dentro de la barra lateral si el contenido es más largo */
+}
+.cont-listaProps {
+    width: 80%;
+    margin-top: 70px;
+}
+
+@media screen and (max-width:700px){
+    .cont-filtros-listaProps-venta{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
