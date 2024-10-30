@@ -1,0 +1,38 @@
+.miniaturas-container {
+    display: flex;
+    justify-content: flex-start; /* Alineación a la izquierda */
+    margin-top: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+    width: 100%; /* Hacer que ocupe el mismo ancho que la imagen grande */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+.miniatura {
+    width: 100px;
+    height: 100px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.miniatura.active {
+    opacity: 0.5; /* Reducir opacidad de la imagen seleccionada */
+    border-color: blue; /* Añadir un borde para destacar la imagen activa */
+}
+
+/* Scroll personalizado */
+.miniaturas-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.miniaturas-container::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+}
+
+.miniaturas-container::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}

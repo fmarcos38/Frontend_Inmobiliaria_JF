@@ -7,6 +7,7 @@ import PropsVenta from './paginas/PropsVenta';
 import PropsAlquiler from './paginas/PropsAlquiler';
 import NosotrosPage from './paginas/Nosotros';
 import Contactanos from './paginas/Contactanos';
+import DetalleProp from './paginas/DetallePropiedad';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/venta' element={<PropsVenta/>} />
           <Route path='/alquiler' element={<PropsAlquiler />} />
           <Route path='/nosotros' element={<NosotrosPage/>} />
+          <Route path='/detalle/:id' element={<DetalleProp/>} />
         </Routes>
 
         <Footbar />
