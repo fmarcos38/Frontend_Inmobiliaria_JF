@@ -34,7 +34,7 @@ footer ul {
 footer ul li {
     display: inline-block;
     position: relative;
-    width: 40%;
+    width: 90%;
 }
 /* color linea sup y titulo*/
 footer ul li h2 {
@@ -101,12 +101,7 @@ footer ul li h2 {
         align-items: center;
     }
 }
-@media screen and (max-width: 750px){
-    footer ul li {
-        text-align: center;
-    }
-}
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 800px) {
     .divF {
         flex-direction: column;
         align-items: center;

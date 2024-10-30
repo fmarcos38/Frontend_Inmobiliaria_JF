@@ -7,7 +7,6 @@ function ListaPropiedades({allProps}) {
 
     return (
         <div className='contGralListaP'>
-            <h1 className='titulo-lista-props'>Conocé nuestras Propiedades</h1>       
             <div className='contListaP'>
                 {
                     allProps[0] ?

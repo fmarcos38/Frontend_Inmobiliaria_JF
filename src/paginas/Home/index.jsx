@@ -61,6 +61,7 @@ function Home() {
                 />
               </div>
               <div className='cont-listaProps-Y-paginacion'>
+                <h1 className='titulo-lista-props'>Conocé nuestras Propiedades</h1> 
                 <ListaPropiedades allProps={allProps} id='listaProps' />
                 {
                   allProps[0] &&

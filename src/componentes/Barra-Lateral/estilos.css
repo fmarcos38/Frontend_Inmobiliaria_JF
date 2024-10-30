@@ -7,9 +7,6 @@
   height: auto;
   border-radius: 0 10px 10px 0;
   margin-top: 55px;
-  /* border: 2px solid var(--primary-color); */
-  /* background-color: rgba(234, 231, 229, 1); */
-  /* background-image: url('../../Imagenes/Texturas/Textura-02.jpg'); */
 }
 /* est. 1er div */
 .cont-titulo-filtro,
@@ -20,7 +17,7 @@
   align-items: center;
   padding: 8px;
   border-radius: 10px 10px 0 0;
-  border-bottom: 2px solid var(--color-blanco);
+  border-bottom: 2px solid var(--color-negro);
 }
 /* si la vista es Venta/Alq/Alq Temp. */
 .cont-titulo-filtro-Sin-muestrVentaAlq{
@@ -33,7 +30,7 @@
   align-items: center;
   font-size: 20px;
   font-weight: 600;
-  color: var(--color-blanco);
+  color: var(--color-negro);
 }
 /* estilos 2do div */
 .opc-venta-alq{
@@ -51,7 +48,7 @@
 .label-filtro-tipo-ope-Alq-Temp {
   font-size: 20px;
   font-weight: 400;
-  color: var(--color-blanco);
+  color: var(--color-negro);
 }
 .label-filtro-tipo-ope-Alq-Temp {
   font-size: 19px;
@@ -82,8 +79,8 @@
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  color: var(--color-negro);
-  background-color: var(--color-blanco);
+  color: var(--color-blanco);
+  background-color: var(--color-negro);
 }
 .boton-filtros:hover {
   color: var(--color-negro);
@@ -93,11 +90,11 @@
   top: 2px;
 }
 .label-precio-min-max{
-  color: var(--color-blanco);
+  color: var(--color-negro);
 }
 
 /* responsive */
-@media screen and (max-width: 700px){
+@media screen and (max-width: 780px){
   .cont-barra {
     height: auto;
     margin-bottom: 20px;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { formatMoney } from '../../Helps';
 import Favorito from '../Favoritos';
-import IconoUbicacion from '../../imagenes/Iconos/iconoUbicacion.png';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import IconoSup from '../../imagenes/Iconos/IconoSup';
 import IconoAmb from '../../imagenes/Iconos/IconoAmb';
 import IconoDormitorio from '../../imagenes/Iconos/IconoDormitorios';
@@ -45,7 +45,7 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
                     <span className='tituloPublicacion'>{tituloPublicacion}</span>
                 </div>
                 <div className='cont-info1'>
-                    <img src={IconoUbicacion} alt='iconoUbi' style={{width:'30px', height:'30px'}}/>
+                    <LocationOnIcon />
                     <span className='direccion-card'>
                         {/* Barrio: {ubicacion.barrio} | */} {direccionF}
                     </span>

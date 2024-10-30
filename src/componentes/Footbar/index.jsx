@@ -35,6 +35,22 @@ function Footbar() {
                                 </p>
                             </div>
                         </li>
+                        {/* Redes */}
+                        <li>
+                            <div className='divLinks'>
+                            <h2>
+                                <p className='titulo-col-foot'>Seguinos</p>
+                            </h2>
+                            <div className='cont-iconos-redes'>
+                                <a href='https://www.instagram.com/jf.negociosinmobiliarios/'>
+                                    <InstagramIcon sx={{'color':'rgba(255, 255, 255, 1)'}}/>
+                                </a>
+                                <a href='http://api.whatsapp.com/send?phone=2281359060'>
+                                    <WhatsAppIcon sx={{'color':'rgba(255, 255, 255, 1)'}}/>
+                                </a>
+                                </div>
+                            </div>
+                        </li>
                         {/* Links */}
                         <li>
                             <div className='divLinks'>
@@ -47,22 +63,6 @@ function Footbar() {
                                 <Link to={'/destacadas'} className='link-footbar'>Destacadas</Link>
                                 <Link to={'/contacto'} className='link-footbar'>Contacto</Link>
                                 <Link to={'/nosotros'} className='link-footbar'>Nosotros</Link>
-                            </div>
-                        </li>
-                        {/* Redes */}
-                        <li>
-                        <div className='divLinks'>
-                            <h2>
-                                <p className='titulo-col-foot'>Seguinos</p>
-                            </h2>
-                            <div className='cont-iconos-redes'>
-                                <a href='https://www.instagram.com/jf.negociosinmobiliarios/'>
-                                    <InstagramIcon sx={{'color':'rgba(255, 255, 255, 1)'}}/>
-                                </a>
-                                <a href='http://api.whatsapp.com/send?phone=2281359060'>
-                                    <WhatsAppIcon sx={{'color':'rgba(255, 255, 255, 1)'}}/>
-                                </a>
-                                </div>
                             </div>
                         </li>
                     </ul>

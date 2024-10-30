@@ -6,10 +6,7 @@
     align-items: center;
     margin-bottom: 20px;
 }
-.titulo-lista-props {
-    text-align: center;
-    color: var(--color-blanco);
-}
+
 .contListaP {
     display: flex;
     flex-wrap: wrap;
