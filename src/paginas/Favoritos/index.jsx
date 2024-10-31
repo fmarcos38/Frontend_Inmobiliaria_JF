@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import ListaFavoritos from '../../components/ListaFavoritos';
+import ListaFavoritos from '../../componentes/ListaFavoritos';
 import './estilos.css'
 
 function FavoritosPage() {

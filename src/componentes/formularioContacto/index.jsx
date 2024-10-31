@@ -51,73 +51,65 @@ function FormularioContacto({tituloPublicacion, codigoReferencia}) {
     }, [mensaje]); 
 
 
-    return (
-        <div className='cont-form-contacto'>
-            <div className='cont-titulo'>
-                <p className='titulo'>CONTACTO</p>
-                <p className='texto-titulo'>Lo invitamos a dejarnos sus datos y nos contactaremos con usted a la brevedad.</p>
+    return (           
+        <form onSubmit={() => { handleSubmit() }} className='formulario-contacto'>
+            <div className='cont-logo-titulo-form'>
+                <div className='cont-logo-formaulario'>
+                    <img src={Logo} alt='' className='logo-formulario' />
+                </div>
+                <div className='cont-titulo-formulario'>
+                    <p className='titulo-formulario'>JUAN FORASTIERI</p>
+                    <p className='titulo-formulario'>NEGOCIOS INMOBILIARIOS</p>
+                </div>
             </div>
-            <div className='cont-formulario'>
-                <form onSubmit={() => { handleSubmit() }} className='formulario-contacto'>
-                    <div className='cont-logo-titulo-form'>
-                        <div className='cont-logo-formaulario'>
-                            <img src={Logo} alt='' className='logo-formulario' />
-                        </div>
-                        <div className='cont-titulo-formulario'>
-                            <p className='titulo-formulario'>JUAN FORASTIERI</p>
-                            <p className='titulo-formulario'>NEGOCIOS INMOBILIARIOS</p>
-                        </div>
-                    </div>
-                    <div className="form__group field">
-                        <input required className="form__field" type="text" name='nombre' value={nombre} onChange={(e) => setNombre(e.target.value)} />
-                        <label className="form__label" >Nombre y Apellido</label>
-                    </div>
-
-                    <div className="form__group field">
-                        <input required className="form__field" type="text" name='telefono' value={telefono} onChange={(e) => setTelefono(e.target.value)} />
-                        <label className="form__label" >Telefono</label>
-                    </div>
-
-                    <div className="form__group field">
-                        <input required className="form__field" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <label className="form__label" >Email</label>
-                    </div>
-
-                    <div className="form__group field">
-                        <textarea
-                            required
-                            className="textarea-form-contacto form__field"
-                            value={mensaje}
-                            name="msj"
-                            onChange={(e) => setMensaje(e.target.value)}
-                            onInput={autoResizeTextarea}
-                            style={{ overflow: 'hidden', fontSize: '16px' }}  // Ajusta el tamaño de fuente
-                        />
-                        <label className="form__label" >Mensaje</label>
-                    </div>
-                    {/* botones */}
-                    <div className='btn-enviar-contacto'>
-                        <button
-                            variant="outlined"
-                            type="submit"
-                            className='btn-form'
-                        >
-                            Enviar
-                        </button>
-                        <button
-                            type='button'
-                            className='btn-form'
-                            onClick={handleLlamar}
-                        >
-                            Llamar
-                        </button>
-                        <button type='button' className='btn-form-whatsApp' onClick={handleWhatsApp}>
-                            WhatsApp
-                        </button>
-                    </div>
-                </form>
+            <div className="form__group field">
+                <input required className="form__field" type="text" name='nombre' value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                <label className="form__label" >Nombre y Apellido</label>
             </div>
-        </div>
+
+            <div className="form__group field">
+                <input required className="form__field" type="text" name='telefono' value={telefono} onChange={(e) => setTelefono(e.target.value)} />
+                <label className="form__label" >Telefono</label>
+            </div>
+
+            <div className="form__group field">
+                <input required className="form__field" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label className="form__label" >Email</label>
+            </div>
+
+            <div className="form__group field">
+                <textarea
+                    required
+                    className="textarea-form-contacto form__field"
+                    value={mensaje}
+                    name="msj"
+                    onChange={(e) => setMensaje(e.target.value)}
+                    onInput={autoResizeTextarea}
+                    style={{ overflow: 'hidden', fontSize: '16px' }}  // Ajusta el tamaño de fuente
+                />
+                <label className="form__label" >Mensaje</label>
+            </div>
+            {/* botones */}
+            <div className='btn-enviar-contacto'>
+                <button
+                    variant="outlined"
+                    type="submit"
+                    className='btn-form'
+                >
+                    Enviar
+                </button>
+                <button
+                    type='button'
+                    className='btn-form'
+                    onClick={handleLlamar}
+                >
+                    Llamar
+                </button>
+                <button type='button' className='btn-form-whatsApp' onClick={handleWhatsApp}>
+                    WhatsApp
+                </button>
+            </div>
+        </form>
     )
 }
 

@@ -1,12 +1,10 @@
 .contGralDetalle{
-    position: relative;
-    top: 80px;
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: start; /* eje y */
-    margin-bottom: 80px;
+    background-color: rgb(216, 215, 215);
 }
 .cont-detail{
     width: 95%;
@@ -131,10 +129,11 @@
     justify-content: center;
     align-items: center;
 }
-.cont-form-contacto{
-    top: 60px;
-    width: 25%;
+.cont-form-contacto-detalle{
+    width: 28%;
     height: 700px;
+    display: flex;
+    align-items: stretch;
 }
 .info-textos{
     width: 35%;
@@ -190,27 +189,27 @@
     min-height: 380px;
     height: auto;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: var(--color-negro);
 }
 .caracteristicas-prop{
     width: 47.5%;
     height: auto;
 }
 .titulo-descrip-prop {
-    color: var(--color-negro-logo);
+    color: var(--color-blanco);
     font-size: 28px;
     font-weight: 200;
     margin: 0;
     padding: 15px;
     width: 90%;
-    border-bottom: 1px solid var(--color-negro-logo);
+    border-bottom: 1px solid var(--color-blanco);
 }
 .p-descrip-detalle{
     font-size: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
     font-weight: 300;
     padding: 5px 20px;
-    color: rgb(63, 63, 63);
+    color: var(--color-blanco);
 }
 .col-descrip-prop{
     width: 100%;
@@ -229,14 +228,14 @@
     width: 88%;
     display: flex;
     justify-content: space-around;
-    background-color: var(--color-gris);
+    background-color: rgb(216, 215, 215);
     margin-top: 3px;
 
 }
 .p-col-1 {
     font-size: 20px;
-    font-weight: 300;
-    color: rgb(63, 63, 63);
+    font-weight: 500;
+    color: black;
 }
 /* para formulario */
 .formulario-detalle{
@@ -307,8 +306,8 @@
         margin-top: 15px;
     }
     /* cont form */
-    .cont-form-contacto{
-        width: 60%;
+    .cont-form-contacto-detalle{
+        width: 80%;
         height: auto;
         margin-top: 20px;
         margin-bottom: 20PX;
@@ -452,8 +451,8 @@
         width: 100%;
     }
     /* cont form */
-    .cont-form-contacto{
-        width: 90%;
+    .cont-form-contacto-detalle{
+        width: 95%;
         height: auto;
         margin-top: 20px;
         margin-bottom: 20PX;
@@ -493,7 +492,7 @@
     }
     /* mapa */
     .cont-map{
-    width: 90%;
+    width: 95%;
     height: 550px;
     margin-top: 0px;
     }

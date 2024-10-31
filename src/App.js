@@ -8,6 +8,7 @@ import PropsAlquiler from './paginas/PropsAlquiler';
 import NosotrosPage from './paginas/Nosotros';
 import Contactanos from './paginas/Contactanos';
 import DetalleProp from './paginas/DetallePropiedad';
+import FavoritosPage from './paginas/Favoritos';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path='/alquiler' element={<PropsAlquiler />} />
           <Route path='/nosotros' element={<NosotrosPage/>} />
           <Route path='/detalle/:id' element={<DetalleProp/>} />
+          <Route path='/favoritos' element={<FavoritosPage/>} />
         </Routes>
 
         <Footbar />

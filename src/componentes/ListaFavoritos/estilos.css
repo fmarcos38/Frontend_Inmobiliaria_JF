@@ -1,0 +1,18 @@
+.cont-listaProps-fav{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.titulo-lista-props-fav{
+    margin: 10px 0 10px 0;
+}
+.cont-card-lista-props{
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap; /* para el orden de las CARDS */
+    justify-content: center;
+    align-items: center;
+}

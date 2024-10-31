@@ -120,11 +120,11 @@ function DetalleProp(){
                         }
                     </div>
 
-                    <div className='cont-form-contacto'>
-                        {/* <FormularioContacto 
+                    <div className='cont-form-contacto-detalle'>
+                        <FormularioContacto 
                             tituloPublicacion={propiedad.tituloPublicacion}
                             codigoReferencia={propiedad.codigoReferencia}
-                        /> */}
+                        />
                     </div>
                 </div>
 
