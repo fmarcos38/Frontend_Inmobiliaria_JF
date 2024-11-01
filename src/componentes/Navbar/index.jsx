@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../imagenes/ScreenShot146.jpg';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -6,13 +6,15 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import MailIcon from '@mui/icons-material/Mail';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './estilos.css';
-
-
+import { InmobiliariaContext } from '../../context';
 
 function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
+    const context = useContext(InmobiliariaContext);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -82,6 +84,22 @@ function Navbar() {
                                     Favoritos
                                 </NavLink>
                             </li>
+                            {/* login */}
+                            <li>
+                                {
+                                    context.nombreUser ? (
+                                        <>
+                                            <LogoutIcon/>
+                                        </>
+                                    ) : (
+                                        <NavLink 
+                                            to='/login' 
+                                            style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
+                                                <LoginIcon sx={{'fontSize':'15px'}}/>
+                                        </NavLink>
+                                    )
+                                }
+                            </li>                            
                         </ul>
                     </div>
                 </div>

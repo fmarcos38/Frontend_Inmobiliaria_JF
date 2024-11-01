@@ -1,10 +1,25 @@
 import axios from "axios";
 import { 
-    GET_PROPERTY,  GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING, MUESTRA_DESTACADAS, RESET_PROPERTY,   
+    LOGIN, RESET_LOGIN, GET_PROPERTY,  GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING, MUESTRA_DESTACADAS, RESET_PROPERTY,   
 } from "./actionType.js";
 import { actual } from "../../urls";
 
+//---LOGIN--------------------------------------------------------
+export function login(data){ console.log("enetré")
+    return async function (dispatch) {
+        const resp = await axios.post(`${actual}/auth/login`, data); 
+        //asigno data del user al localStorage
+        localStorage.setItem("userData", JSON.stringify(resp.data));
+        dispatch({ type: LOGIN, payload: resp.data });        
+    }
+}
+export function resetLogin(){
+    return function(dispatch){
+        dispatch({type: RESET_LOGIN, payload: null})
+    }
+}
 
+//---PROPIEDADES----------------------------------------------------
 //trae props
 export const getProps = (limit, offset, operacion, tipo, precioMin, precioMax) => {
     return async function (dispatch) {

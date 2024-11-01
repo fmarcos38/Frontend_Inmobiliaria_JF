@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { InmobiliariaProvider } from './context';
 import Navbar from './componentes/Navbar';
 import Home from './paginas/Home';
+import LoginPage from './paginas/Login';
 import Footbar from './componentes/Footbar';
 import PropsVenta from './paginas/PropsVenta';
 import PropsAlquiler from './paginas/PropsAlquiler';
@@ -20,6 +21,7 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/login' element={<LoginPage/>} />
           <Route path='/contacto' element={<Contactanos/>} />
           <Route path='/venta' element={<PropsVenta/>} />
           <Route path='/alquiler' element={<PropsAlquiler />} />
