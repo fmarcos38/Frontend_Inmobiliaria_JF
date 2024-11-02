@@ -8,7 +8,7 @@ export const InmobiliariaContext = createContext();
 export const InmobiliariaProvider = ({children}) => {
 
     //estado data usuario logeado, por eso null es un objeto
-    const [userLog, setUserLog] = useState(null); console.log("UserDataLog:", userLog)
+    const [userLog, setUserLog] = useState(null); //console.log("UserDataLog:", userLog?.user)
     //estado para login
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     //estado nombre admin logeado
@@ -31,15 +31,13 @@ export const InmobiliariaProvider = ({children}) => {
 
     //efecto para el login
     useEffect(()=>{
-        const userLog = userData();
-        if(userLog){
-            if(userData.esAdmin){
-                setUserLog(userLog);
-                setIsAuthenticated(true);
-                setNombreUser(userLog.user?.nombre);
-            }
+        const userLogin = userData(); 
+        if(userLogin){
+            setUserLog(userLogin);
+            setIsAuthenticated(true);
+            setNombreUser(userLogin.user?.nombre)
         }
-    },[]);
+    }, []);
 
 
     return (

@@ -11,6 +11,7 @@ import Contactanos from './paginas/Contactanos';
 import DetalleProp from './paginas/DetallePropiedad';
 import FavoritosPage from './paginas/Favoritos';
 import './App.css';
+import CreaPropiedad from './paginas/CreaPropiedad';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/nosotros' element={<NosotrosPage/>} />
           <Route path='/detalle/:id' element={<DetalleProp/>} />
           <Route path='/favoritos' element={<FavoritosPage/>} />
+          <Route path='/creaPropiedad' element={<CreaPropiedad/>} />
         </Routes>
 
         <Footbar />

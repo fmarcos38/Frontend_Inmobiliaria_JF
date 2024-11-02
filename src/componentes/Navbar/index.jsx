@@ -13,9 +13,19 @@ import { InmobiliariaContext } from '../../context';
 
 function Navbar() {
 
+    //estado menú hambur
     const [isOpen, setIsOpen] = useState(false);
+    //estado menú Admin
+    const [muestraMenuAdmin, setMuestraMenuAdmin] = useState(false);
     const context = useContext(InmobiliariaContext);
 
+    const handleMouseEnterAdmin = () => {
+        setMuestraMenuAdmin(true);
+    };
+    const handleMouseLeaveAdmin = () => {
+        setMuestraMenuAdmin(false);
+    };
+    //abre/cierra menú Hambur
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -84,18 +94,45 @@ function Navbar() {
                                     Favoritos
                                 </NavLink>
                             </li>
+                            {
+                                context.nombreUser &&
+                                <li
+                                    className='navbar-item-admin'
+                                    onMouseEnter={handleMouseEnterAdmin}
+                                    onMouseLeave={handleMouseLeaveAdmin}
+                                >
+                                    Admin
+                                    {/* menú admin */}
+                                    {
+                                        muestraMenuAdmin && (
+                                            <ul className="dropdown-menu">
+                                                <li className="dropdown-item">
+                                                    <NavLink to='/creaPropiedad' className='link-menu' >
+                                                        Crea Propiedad                                        
+                                                    </NavLink>
+                                                </li>
+                                                <li className="dropdown-item">
+                                                    <NavLink to='/listaPropiedadesAdmin' className='link-menu' >
+                                                        Lista Propiedades                                        
+                                                    </NavLink>
+                                                </li>
+                                            </ul>
+                                        )
+                                    }
+                                </li>
+                            }
                             {/* login */}
                             <li>
                                 {
                                     context.nombreUser ? (
                                         <>
-                                            <LogoutIcon/>
+                                            <LogoutIcon sx={{'fontSize':'18px'}}/>
                                         </>
                                     ) : (
                                         <NavLink 
                                             to='/login' 
                                             style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
-                                                <LoginIcon sx={{'fontSize':'15px'}}/>
+                                                <LoginIcon sx={{'fontSize':'18px'}}/>
                                         </NavLink>
                                     )
                                 }
