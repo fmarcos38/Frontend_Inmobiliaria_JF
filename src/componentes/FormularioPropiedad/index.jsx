@@ -29,10 +29,21 @@ function FormularioProp() {
         direccion: '',
         barrio: ''
     });
+    //estado tipos de operacion
+    const [opVenta, setOpVenta] = useState(''); 
+    const [opAlquiler, setOpAlquiler] = useState('');
+    //estado moneda
+    const [monedaVenta, setMonedaVenta] = useState('U$D');
+    const [monedaAlq, setMonedaAlq] = useState('$');
+    //estado precios
+    const [precioVenta, setPrecioVenta] = useState();
+    const [precioAlq, setPrecioAlq] = useState(); 
+    //estado operacio
     const [operacion, setOperacion] = useState([]);
-    const [imagenes, setImagenes] = useState([]); console.log("imgs:", imagenes)
-    const [vistaPrevia, setVistaPrevia] = useState([]);console.log("prevI:", vistaPrevia)//vista previa
+    const [imagenes, setImagenes] = useState([]); 
+    const [vistaPrevia, setVistaPrevia] = useState([]);//vista previa
     const [video, setVideos] = useState();  
+    const [vistaPreviaVideo, setVistaPreviaVideo] = useState([]);//vista previa
     const [servicios, setServicios] = useState([]);
     const [errors, setErrors] = useState({});
     const [errorsU, setErrorsU] = useState({});
@@ -42,10 +53,22 @@ function FormularioProp() {
     //const [errorsS, setErrorsS] = useState({});
 
     // Validación para habilitar/deshabilitar el botón "Siguiente" en la vista 1
-    const isVista1Complete = () => {
+    const validaDatosVista1 = () => {
         return data.tituloPublicacion && data.descripcion && data.tipoPropiedad;
     };
-
+    //valida vista 2
+    const validaDatosVista2 = () => {
+        return ubicacion.direccion && ubicacion.barrio && data.ambientes 
+            && data.dormitorios && data.baños && data.supCubierta
+            && data.supSemiCub && data.supDescubierta && data.cantCocheras;
+    };
+    //valida vista 3
+    const validaDatosVista3 = () => {
+        if(imagenes.length){
+            return true
+        }
+        return false;
+    };
     const handleOnChangeData = (e) => {
         const { id, value } = e.target;
         setData({...data, [id]: value});
@@ -69,15 +92,51 @@ function FormularioProp() {
             setErrorsU(erroresU);
         }
     };
-    const handleOnChangeOperacion = (e) => {
-        const { id, value } = e.target;
-        const newOperacion = operacion.map(item => {
-            if(item === id){
-                operacion.item = value;
-            }
-            return operacion;
-        });
-        setOperacion(newOperacion);
+    const handleOnChangeOpVenta = (e) => {
+        const { value, checked } = e.target;
+        if(checked){
+            setOpVenta(value);
+            setOperacion([
+                ...operacion, 
+                {
+                    tipoOperacion: value,
+                    moneda: monedaVenta,
+                    precio: precioVenta,
+                }
+            ]);
+        }else{
+            setOpVenta('');
+            setPrecioVenta(0);
+        }
+    };
+    const handleOnChangeOpAlquiler = (e) => {
+        const { value, checked } = e.target;
+        if(checked){
+            setOpAlquiler(value);
+            setOperacion([
+                ...operacion, 
+                {
+                    tipoOperacion: value,
+                    moneda: monedaAlq,
+                    precio: precioAlq,
+                }
+            ]);
+        }else{
+            setOpAlquiler('');
+            setPrecioAlq(0);
+        }
+    };
+    const handleOnChangeMonedaVenta = (e) => {
+        setMonedaVenta(e.target.value);
+    };
+    const handleOnChangeMonedaAlq = (e) => {
+        setMonedaAlq(e.target.value);
+    };
+    const handleOnChangePrecioVenta = (e) => {
+        setPrecioVenta(e.target.value);
+    };
+    const handleOnChangePrecioAlq = (e) => {
+        setPrecioAlq(e.target.value);
     };
     const handleOnChangeImgs = (e) => {
         setImagenes(e.target.files);
@@ -120,7 +179,36 @@ function FormularioProp() {
         setVista2(true);
         setVista3(false);
     };
-    const handleOnSubmit = (e) => {};
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+
+        if(validaDatosVista1 && validaDatosVista2 && validaDatosVista3){
+            //creo obj para enviar al Back
+            const newObj = {
+                tituloPublicacion: data.tituloPublicacion,
+                descripcion: data.descripcion,
+                tipoPropiedad: data.tipoPropiedad,
+                /* operacion,
+                expesnsas,
+                ubicacion,
+                cantPisos,
+                ambientes,
+                dormitorios,
+                baños,
+                imagenes,
+                video,
+                supCubierta,
+                supSemiCub,
+                supDescubierta,
+                supTotal,
+                unidadMedida,
+                servicios,
+                estado,
+                antiguedad,
+                cantCocheras, */
+            }
+        }
+    };
 
 
     return (
@@ -130,6 +218,7 @@ function FormularioProp() {
                 {/* vista-1 */}
                 <div className={vista1 ? 'vista-1' : 'notVista1'} id='vista-1'>
                     <div className='cont-data-vista-1'>
+                        {/* titulo prop */}
                         <div className='cont-dato'>
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Titulo publicación</label>
@@ -137,6 +226,7 @@ function FormularioProp() {
                             </div>
                             <input type='text' id='tituloPublicacion' value={data.tituloPublicacion} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                         </div>
+                        {/* tipo prop */}
                         <div className='cont-dato'>
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Tipo propiedad</label>
@@ -144,12 +234,78 @@ function FormularioProp() {
                             </div>
                             <input type='text' id='tipoPropiedad' value={data.tipoPropiedad} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                         </div>
+                        {/* operacion */}
                         <div className='cont-dato'>
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Tipo operación</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
                             </div>
-                            <input type='text' id='operacion' value={data.operacion} onChange={(e) => { handleOnChangeOperacion(e) }} className='input-tituloPublicacion' />
+                            <div className='cont-operaciones'>
+                                {/* venta */}
+                                <div className='cont-opVenta-y-precio'>
+                                    <div className='cont-venta'>
+                                        <label className='label-venta'>Venta</label>
+                                        <input
+                                            type='checkbox'
+                                            id='venta'
+                                            value={"Venta"}
+                                            onChange={(e) => { handleOnChangeOpVenta(e) }}
+                                            className='input-check-venta'
+                                        />
+                                    </div>
+                                    <div className='cont-precio-venta'>
+                                        <label className='label-precio-venta'>P. Venta: </label>
+                                        <input 
+                                            type='text' 
+                                            id='monedaVenta' 
+                                            value={monedaVenta} 
+                                            onChange={(e) => { handleOnChangeMonedaVenta(e) }} 
+                                            className='input-moneda-venta' 
+                                            disabled={!opVenta}
+                                        />
+                                        <input 
+                                            type='number' 
+                                            id='precioVenta' 
+                                            value={precioVenta} 
+                                            onChange={(e) => { handleOnChangePrecioVenta(e) }} 
+                                            className='input-precio-venta' 
+                                            disabled={!opVenta}
+                                        />
+                                    </div>                                    
+                                </div>
+                                {/* Alq */}
+                                <div className='cont-opAlq-y-precio'>
+                                    <div className='cont-alquiler'>
+                                        <label className='label-alq'>Alquiler</label>
+                                        <input 
+                                            type='checkbox' 
+                                            id='alquiler' 
+                                            value={"Alquiler"} 
+                                            onChange={(e) => { handleOnChangeOpAlquiler(e) }} 
+                                            className='input-check-venta' 
+                                        />
+                                    </div>                                    
+                                    <div className='cont-precio-alq'>
+                                        <label className='label-precio-venta'>P. Alquiler: </label>
+                                        <input 
+                                            type='text' 
+                                            id='monedaAlq' 
+                                            value={monedaAlq} 
+                                            onChange={(e) => { handleOnChangeMonedaAlq(e) }} 
+                                            className='input-moneda-alq' 
+                                            disabled={!opVenta}
+                                        />
+                                        <input 
+                                            type='number' 
+                                            id='precioAlq' 
+                                            value={precioAlq} 
+                                            onChange={(e) => { handleOnChangePrecioAlq(e) }} 
+                                            className='input-precio-venta'
+                                            disabled={!opAlquiler}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className='cont-dato'>
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>

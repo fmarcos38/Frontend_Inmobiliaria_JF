@@ -43,13 +43,54 @@
     justify-content: center;
     align-items: start;
 }
-.label-crea-prop{
+.cont-operaciones {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-opVenta-y-precio,
+.cont-opAlq-y-precio {
+    width: 50%;
+    display: flex;
+    justify-content: cester;
+    align-items: center;
+}
+.cont-venta,
+.cont-alquiler {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-precio-venta,
+.cont-precio-alq {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* estilo labels */
+.label-crea-prop,
+.label-venta,
+.label-alq,
+.label-precio-venta
+.label-precio-alq {
     font-size: 25px;
     font-weight: 400;
-    color: var(--color-negro);
     margin-right: 3px;
     margin-bottom: 3px;
+    color: var(--color-negro);
 }
+.label-precio-venta,
+.label-precio-alq {
+    font-size: 20px;
+    font-weight: 400;
+    margin-right: 2px;
+}
+/* estilos inputs */
+.input-precio-venta,
+.input-check-venta,
 .input-tituloPublicacion,
 .input-descripcion-prop {
     width: 99%;
@@ -58,6 +99,19 @@
     border: none;
     padding: 3px;
     background-color: rgb(236, 235, 235);
+}
+.input-check-venta {
+    width: 15px;
+    height: 15px;
+}
+.input-moneda-venta,
+.input-moneda-alq {
+    width: 35px;
+    font-size: 15px;
+    text-align: center;
+}
+.input-precio-venta {
+    width: 150px;
 }
 /* botones */
 .cont-campReq-botones,
