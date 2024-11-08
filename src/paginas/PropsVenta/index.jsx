@@ -11,15 +11,16 @@ import './estilos.css';
 function PropsVenta() {
 
     const loading = useSelector(state => state.loading);
-    //const [operacion, setOperacion] = useState('');
+    const [operacion, setOperacion] = useState('Venta');
     const [tipoPropiedad, setTipoPropiedad] = useState('todas');
+    const [precioMin, setPrecioMin] = useState(10000);
+    const [precioMax, setPrecioMax] = useState(1000000);
     const [currentPage, setCurrentPage] = useState(1);
     const allProps = useSelector(state => state.propiedades);
     const totalPropiedades = useSelector(state => state.totPropiedades);
     const dispatch = useDispatch();
-
     const propiedadesPorPagina = 12;
-    const limit = propiedadesPorPagina;    
+    const limit = propiedadesPorPagina;
     const offset = (currentPage - 1) * limit;
 
     //efecto para iniciar la Pag desd la parte SUPERIOR
@@ -29,8 +30,8 @@ function PropsVenta() {
     }, []); // El array vacío asegura que se ejecute solo al montar el componente
     
     useEffect(()=>{
-        dispatch(getProps(limit, offset, "Venta", tipoPropiedad));
-    },[dispatch, limit, offset, tipoPropiedad]);
+        dispatch(getProps(limit, offset, operacion, tipoPropiedad, precioMin, precioMax));
+    },[dispatch, limit, offset, operacion, precioMax, precioMin, tipoPropiedad]);
 
     return (
         <div className='cont-prop-Venta'>
@@ -43,11 +44,14 @@ function PropsVenta() {
                         <div className='cont-barraL'>
                             <BarraLateral
                                 muestraVentaAlq={'false'}
-                                limit={limit}  // Aquí pasamos el valor de limit al componente BarraLateral
-                                offset={offset} // También pasamos el offset
+                                soloAlq={'false'}
                                 setCurrentPage={setCurrentPage}
-                                /* setOperacion={setOperacion} */
-                                setTipoPropiedad={setTipoPropiedad}  // Nuevo prop para manejar tipoPropiedad
+                                setOperacion={setOperacion}
+                                setTipoPropiedad={setTipoPropiedad}
+                                precioMin={precioMin}
+                                setPrecioMin={setPrecioMin}
+                                precioMax={precioMax}
+                                setPrecioMax={setPrecioMax}
                             />
                         </div>
 

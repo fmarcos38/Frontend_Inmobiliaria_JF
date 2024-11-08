@@ -1,30 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getProps } from '../../redux/actions';
+import React from 'react';
 import './styles.css';
 
-const FiltraPrecio = ({limit, operacion, tipoPropiedad}) => {
-    const [precioMin, setPrecioMin] = useState(10000);
-    const [precioMax, setPrecioMax] = useState(1000000);
-    const dispatch = useDispatch();
+const FiltraPrecio = ({precioMin, precioMax, setPrecioMin, setPrecioMax, setCurrentPage }) => {
 
     const handleMinPriceChange = (event) => {
         const value = Math.min(Number(event.target.value), precioMax - 10000);
         setPrecioMin(value);
+        setCurrentPage(1);
     };
 
     const handleMaxPriceChange = (event) => {
         const value = Math.max(Number(event.target.value), precioMin + 10000);
         setPrecioMax(value);
+        setCurrentPage(1);
     };
 
-    /* para btn aplicar filtro precio */
-    const handleClickFiltroPrecio = () => {
-        // Asegurarnos de que limit nunca sea undefined
-        if (limit) {
-            dispatch(getProps(limit, 0, operacion, tipoPropiedad, precioMin, precioMax));  // Pasamos todos los parámetros necesarios
-        }        
-    };
 
     return (
         <div className="price-range-filter">
@@ -50,15 +40,7 @@ const FiltraPrecio = ({limit, operacion, tipoPropiedad}) => {
             </div>
             <div className="price-range-values">
                 <span>{precioMin.toLocaleString()}</span> - <span>{precioMax.toLocaleString()}</span>
-            </div>
-            {/* btn aplicar filtro precio */}
-            <button 
-                variant="contained"
-                onClick={() => {handleClickFiltroPrecio()}}
-                className='btn-filtros'
-            >
-                Aplicar Filtro de Precios
-            </button>
+            </div>           
         </div>
     );
 };

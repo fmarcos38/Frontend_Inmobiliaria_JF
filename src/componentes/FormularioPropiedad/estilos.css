@@ -221,6 +221,11 @@
     height: 100px;
     margin-right: 2px;
 }
+.cont-botones-crea-prop {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .btn-crea {
     width: 50%;
 

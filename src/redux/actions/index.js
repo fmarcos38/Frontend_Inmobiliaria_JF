@@ -1,6 +1,6 @@
 import axios from "axios";
 import { 
-    LOGIN, RESET_LOGIN, GET_PROPERTY,  GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING, MUESTRA_DESTACADAS, RESET_PROPERTY,   
+    LOGIN, RESET_LOGIN, GET_PROPERTY,  GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING, MUESTRA_DESTACADAS, RESET_PROPERTY, 
 } from "./actionType.js";
 import { actual } from "../../urls";
 
@@ -20,6 +20,13 @@ export function resetLogin(){
 }
 
 //---PROPIEDADES----------------------------------------------------
+//crea
+export const creaProp = (data) => {
+    return async function(dispatch) {
+        await axios.post(`${actual}/propiedades`, data);
+        
+    }
+};
 //trae props
 export const getProps = (limit, offset, operacion, tipo, precioMin, precioMax) => {
     return async function (dispatch) {

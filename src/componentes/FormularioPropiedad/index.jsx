@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './estilos.css';
+import { useDispatch } from 'react-redux';
+import { creaProp } from '../../redux/actions';
+import { actual } from '../../urls';
 
 function FormularioProp() {
 
@@ -8,18 +11,17 @@ function FormularioProp() {
         descripcion: '',
         tipoPropiedad: '',
         expesnsas: '',       
-        cantPisos: '',
-        ambientes: '',
-        dormitorios: '',
-        baños: '',
-        supCubierta: '',
-        supSemiCub: '',
-        supDescubierta: '',
-        supTotal: '',
-        unidadMedida: '',
+        cantPisos: 0,
+        ambientes: 0,
+        dormitorios: 0,
+        baños: 0,
+        supCubierta: 0,
+        supSemiCub: 0,
+        supDescubierta: 0,
+        supTotal: 0,
         estado: '',
-        antiguedad: '',
-        cantCocheras: '',
+        antiguedad: 0,
+        cantCocheras: 0,
     });
     //estado para vistas
     const [vista1, setVista1] = useState(true);  
@@ -40,17 +42,17 @@ function FormularioProp() {
     const [precioAlq, setPrecioAlq] = useState(); 
     //estado operacio
     const [operacion, setOperacion] = useState([]);
+    //estado imgs
     const [imagenes, setImagenes] = useState([]); 
     const [vistaPrevia, setVistaPrevia] = useState([]);//vista previa
+    //estado video
     const [video, setVideos] = useState();  
     const [vistaPreviaVideo, setVistaPreviaVideo] = useState([]);//vista previa
+    //servicios
     const [servicios, setServicios] = useState([]);
     const [errors, setErrors] = useState({});
     const [errorsU, setErrorsU] = useState({});
-    //const [errorsOp, setErrorsOp] = useState({});
-    //const [errorsI, setErrorsI] = useState({});
-    //const [errorsV, setErrorsV] = useState({});
-    //const [errorsS, setErrorsS] = useState({});
+    //const dispatch = useDispatch();
 
     // Validación para habilitar/deshabilitar el botón "Siguiente" en la vista 1
     const validaDatosVista1 = () => {
@@ -69,6 +71,7 @@ function FormularioProp() {
         }
         return false;
     };
+
     const handleOnChangeData = (e) => {
         const { id, value } = e.target;
         setData({...data, [id]: value});
@@ -139,8 +142,10 @@ function FormularioProp() {
         setPrecioAlq(e.target.value);
     };
     const handleOnChangeImgs = (e) => {
-        setImagenes(e.target.files);
+        const filesArray = Array.from(e.target.files); //convierto e.target.files en un array
+        setImagenes(filesArray);
         const files = Array.from(e.target.files);
+        //para la vista previa
         const previews = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
@@ -150,7 +155,6 @@ function FormularioProp() {
     const handleOnChangeVideos = (e) => {
         setVideos(e.target.files[0]);
     };
-
     const handleOnChangeServicios = (e) => {
         const {value, checked} = e.target;
         
@@ -179,34 +183,26 @@ function FormularioProp() {
         setVista2(true);
         setVista3(false);
     };
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async(e) => {
         e.preventDefault();
 
-        if(validaDatosVista1 && validaDatosVista2 && validaDatosVista3){
-            //creo obj para enviar al Back
-            const newObj = {
-                tituloPublicacion: data.tituloPublicacion,
-                descripcion: data.descripcion,
-                tipoPropiedad: data.tipoPropiedad,
-                /* operacion,
-                expesnsas,
-                ubicacion,
-                cantPisos,
-                ambientes,
-                dormitorios,
-                baños,
-                imagenes,
-                video,
-                supCubierta,
-                supSemiCub,
-                supDescubierta,
-                supTotal,
-                unidadMedida,
-                servicios,
-                estado,
-                antiguedad,
-                cantCocheras, */
-            }
+        let formData = new FormData();
+        formData.append('data', data);
+        formData.append('operacion', operacion);
+        // Agrega cada archivo de imagen al FormData
+        imagenes.forEach((img, index) => {
+            formData.append('imagenes', img);
+        });
+        console.log("formData:", formData);
+
+        try {
+            const response = await fetch(`${actual}/propiedades`, {
+                method: 'POST',
+                body: formData,
+            });
+
+        } catch (error) {
+            
         }
     };
 
@@ -325,7 +321,7 @@ function FormularioProp() {
                                         type='button' //sino se recarga la pag pensando q es el submit
                                         className='btn-sgt-vista1'
                                         onClick={() => onClickSgtVista1()}
-                                    //disabled={!isVista1Complete()} // deshabilitado si no se completan todos los campos
+                                        disabled={!validaDatosVista1()} // deshabilitado si no se completan todos los campos
                                     >
                                         Siguiente
                                     </button>
@@ -336,6 +332,7 @@ function FormularioProp() {
                 {/* vista-2 */}
                 <div className={vista2 ? 'vista-2' : 'notVista2'} id='vista-2'>
                     <div className='cont-data-vista-2'>
+                        {/* direcc y barrio */}
                         <div className='cont-ubicacion'>
                             <div className='cont-ubicacion-direcc'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
@@ -352,66 +349,66 @@ function FormularioProp() {
                                 <input type='text' id='barrio' value={ubicacion.barrio} onChange={(e) => { handleOnChangeUbicacion(e) }} className='input-tituloPublicacion' />
                             </div>
                         </div>
-
+                        {/* amb, dorm, baño,  */}
                         <div className='cont-ubicacion'>
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Ambientes</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='ambientes' value={data.ambientes} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='ambientes' value={data.ambientes} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-dormi'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Dormitorios</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='dormitorios' value={data.dormitorios} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='dormitorios' value={data.dormitorios} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-baños'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Baños</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='baños' value={data.baños} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='baños' value={data.baños} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-pisos'>
                                 <label className='label-crea-prop'>Cant. pisos</label>
-                                <input type='text' id='pisos' value={data.cantPisos} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='cantPisos' value={data.cantPisos} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                         </div>
-
+                        {/* superficies*/}
                         <div className='cont-ubicacion'>
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup cubierta</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='supCubierta' value={data.supCubierta} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='supCubierta' value={data.supCubierta} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-dormi'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup semicub</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='supSemicubierta' value={data.supSemiCub} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='supSemiCub' value={data.supSemiCub} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-baños'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup decubierta</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='supDescubierta' value={data.supDescubierta} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='supDescubierta' value={data.supDescubierta} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-pisos'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup Total</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='pisos' value={data.cantPisos} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='supTotal' value={data.supTotal} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                         </div>
-
+                        {/* estado, antiguedad, cant cocheras */}
                         <div className='cont-ubicacion'>
                             <div className='cont-amb'>
                                 <label className='label-crea-prop'>Estado</label>
@@ -419,14 +416,14 @@ function FormularioProp() {
                             </div>
                             <div className='cont-dormi'>
                                 <label className='label-crea-prop'>Antiguedad</label>
-                                <input type='text' id='antiguedad' value={data.antiguedad} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='antiguedad' value={data.antiguedad} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                             <div className='cont-baños'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Cant cocheras</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='cantCocheras' value={data.cantCocheras} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input type='number' id='cantCocheras' value={data.cantCocheras} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
                         </div>
                         {/* btns Sgt-Atras */}
@@ -437,7 +434,14 @@ function FormularioProp() {
                             </div>
                             <div className='cont-botones-sgt-atras-vista-2'>
                                 <button type='button' className='btn-atras-vista-2' onClick={()=>onClickAtrasVista2()}>Atrás</button>
-                                <button type='button' className='btn-sgt-vista-2' onClick={()=>onClickSgtVista2()}>Siguiente</button>
+                                <button 
+                                    type='button' 
+                                    className='btn-sgt-vista-2' 
+                                    onClick={()=>onClickSgtVista2()}
+                                    disabled={!validaDatosVista2()}
+                                >
+                                    Siguiente
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -508,7 +512,15 @@ function FormularioProp() {
                     </div>
                 </div>
                 {/* btns crea */}
-                <div className={vista1 && vista2 ? 'cont-botones-crea-prop' : 'cont-botones-crea-prop-Disable'}>
+                <div 
+                    className={
+                        validaDatosVista1() && 
+                        validaDatosVista2() && 
+                        validaDatosVista3() 
+                        ? 'cont-botones-crea-prop' 
+                        : 'cont-botones-crea-prop-Disable'
+                    }
+                >
                     <button type='onSubmit' className='btn-crea'>Crear propiedad</button>
                 </div>
             </form>
