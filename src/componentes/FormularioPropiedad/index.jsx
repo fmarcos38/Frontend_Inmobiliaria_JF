@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import './estilos.css';
-import { useDispatch } from 'react-redux';
-import { creaProp } from '../../redux/actions';
 import { actual } from '../../urls';
+import './estilos.css';
+
 
 function FormularioProp() {
+
+    //tipo de propiedad
+    const tipoProps = ['Casa', 'Departamento', 'PH', 'Terreno', 'Local', 'Oficina', 'Cochera', 'Galpón', 'Depósito', 'Quinta', 'Campo'];
 
     const [data, setData] = useState({
         tituloPublicacion: '',
@@ -22,15 +24,7 @@ function FormularioProp() {
         estado: '',
         antiguedad: 0,
         cantCocheras: 0,
-    });
-    //estado para vistas
-    const [vista1, setVista1] = useState(true);  
-    const [vista2, setVista2] = useState(false);
-    const [vista3, setVista3] = useState(false);
-    const [ubicacion, setUbicacion] = useState({
-        direccion: '',
-        barrio: ''
-    });
+    }); 
     //estado tipos de operacion
     const [opVenta, setOpVenta] = useState(''); 
     const [opAlquiler, setOpAlquiler] = useState('');
@@ -42,8 +36,17 @@ function FormularioProp() {
     const [precioAlq, setPrecioAlq] = useState(); 
     //estado operacio
     const [operacion, setOperacion] = useState([]);
+    //estado ubicacion
+    //direc real, direc publi, prov, ciudad, barrio
+    const [ubicacion, setUbicacion] = useState({
+        direccionPublicacion: '',
+        direccionReal: '',
+        barrio: '',
+        ciudad: '',
+        provincia: '',
+    });
     //estado imgs
-    const [imagenes, setImagenes] = useState([]); 
+    const [imagenes, setImagenes] = useState([]); console.log(imagenes);
     const [vistaPrevia, setVistaPrevia] = useState([]);//vista previa
     //estado video
     const [video, setVideos] = useState();  
@@ -52,7 +55,12 @@ function FormularioProp() {
     const [servicios, setServicios] = useState([]);
     const [errors, setErrors] = useState({});
     const [errorsU, setErrorsU] = useState({});
-    //const dispatch = useDispatch();
+    //estado para vistas
+    const [vista1, setVista1] = useState(true);  
+    const [vista2, setVista2] = useState(false);
+    const [vista3, setVista3] = useState(false);
+    const [vista4, setVista4] = useState(false);
+    
 
     // Validación para habilitar/deshabilitar el botón "Siguiente" en la vista 1
     const validaDatosVista1 = () => {
@@ -60,12 +68,23 @@ function FormularioProp() {
     };
     //valida vista 2
     const validaDatosVista2 = () => {
-        return ubicacion.direccion && ubicacion.barrio && data.ambientes 
-            && data.dormitorios && data.baños && data.supCubierta
-            && data.supSemiCub && data.supDescubierta && data.cantCocheras;
+        return ubicacion.direccionPublicacion 
+            && ubicacion.direccionReal
+            && ubicacion.barrio 
+            && ubicacion.ciudad
+            && ubicacion.provincia; 
     };
     //valida vista 3
     const validaDatosVista3 = () => {
+        return data.ambientes
+            && data.dormitorios
+            && data.baños
+            && data.supCubierta
+            && data.supTotal
+            && data.cantCocheras;
+    };
+    //valida vista 4
+    const validaDatosVista4 = () => {
         if(imagenes.length){
             return true
         }
@@ -154,6 +173,9 @@ function FormularioProp() {
     };
     const handleOnChangeVideos = (e) => {
         setVideos(e.target.files[0]);
+        //para la vista previa
+        const file = e.target.files[0];
+        setVistaPreviaVideo(URL.createObjectURL(file));
     };
     const handleOnChangeServicios = (e) => {
         const {value, checked} = e.target;
@@ -177,32 +199,56 @@ function FormularioProp() {
         setVista2(false);
         setVista3(true);
     };
-    //btns vista 
+    //btns vista 3
     const onClickAtrasVista3 = () => {
         setVista1(false);
         setVista2(true);
         setVista3(false);
     };
+    const onClickSgtVista3 = () => {
+        setVista1(false);
+        setVista2(false);
+        setVista3(false);
+        setVista4(true);
+    };
+    //btns vista 4
+    const onClickAtrasVista4 = () => {
+        setVista1(false);
+        setVista2(false);
+        setVista3(true);
+        setVista4(false);
+    };
+    //btns crea
     const handleOnSubmit = async(e) => {
         e.preventDefault();
 
-        let formData = new FormData();
-        formData.append('data', data);
-        formData.append('operacion', operacion);
-        // Agrega cada archivo de imagen al FormData
-        imagenes.forEach((img, index) => {
-            formData.append('imagenes', img);
-        });
-        console.log("formData:", formData);
+        const formData = new FormData();
+        formData.append('data', JSON.stringify({
+            ...data,
+            operacion,
+            ubicacion,
+            servicios,
+            video,
+        }));
+
+    imagenes.forEach((imagen, index) => {
+        formData.append('imagenes', imagen);
+    });
 
         try {
             const response = await fetch(`${actual}/propiedades`, {
                 method: 'POST',
                 body: formData,
             });
+            
+            if(response.ok){
+                alert('Propiedad creada con éxito');
+            }else{
+                alert('Error al crear la propiedad');
+            }
 
         } catch (error) {
-            
+            console.log(error);
         }
     };
 
@@ -228,7 +274,14 @@ function FormularioProp() {
                                 <label className='label-crea-prop'>Tipo propiedad</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
                             </div>
-                            <input type='text' id='tipoPropiedad' value={data.tipoPropiedad} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                            <select id='tipoPropiedad' onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion'>
+                                <option value=''>Seleccione una opción</option>
+                                {
+                                    tipoProps.map((tipo, index) => (
+                                        <option key={index} value={tipo}>{tipo}</option>
+                                    ))
+                                }
+                            </select>
                         </div>
                         {/* operacion */}
                         <div className='cont-dato'>
@@ -332,53 +385,163 @@ function FormularioProp() {
                 {/* vista-2 */}
                 <div className={vista2 ? 'vista-2' : 'notVista2'} id='vista-2'>
                     <div className='cont-data-vista-2'>
-                        {/* direcc y barrio */}
+                        {/* direccPubli y direccReal */}
                         <div className='cont-ubicacion'>
                             <div className='cont-ubicacion-direcc'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
-                                    <label className='label-crea-prop'>Dirección</label>
+                                    <label className='label-crea-prop'>Dirección Publicación</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='direccion' value={ubicacion.direccion} onChange={(e) => { handleOnChangeUbicacion(e) }} className='input-tituloPublicacion' />
+                                <input 
+                                    type='text' 
+                                    id='direccionPublicacion' 
+                                    value={ubicacion.direccionPublicacion} 
+                                    onChange={(e) => { handleOnChangeUbicacion(e) }}
+                                    placeholder='Lavalle al 2500'
+                                    className='input-tituloPublicacion' 
+                                />
                             </div>
                             <div className='cont-ubicacion-barrio'>
+                                <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
+                                    <label className='label-crea-prop'>Dirección Real</label>
+                                    <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
+                                </div>
+                                <input 
+                                    type='text' 
+                                    id='direccionReal' 
+                                    value={ubicacion.direccionReal} 
+                                    onChange={(e) => { handleOnChangeUbicacion(e) }}
+                                    placeholder='Lavalle al 2570'
+                                    className='input-tituloPublicacion' 
+                                />
+                            </div>
+                        </div>                        
+                        {/* barrio y ciudad */}
+                        <div className='cont-ubicacion'>
+                            <div className='cont-ubicacion-direcc'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Barrio</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='text' id='barrio' value={ubicacion.barrio} onChange={(e) => { handleOnChangeUbicacion(e) }} className='input-tituloPublicacion' />
+                                <input 
+                                    type='text' 
+                                    id='barrio' 
+                                    value={ubicacion.barrio} 
+                                    onChange={(e) => { handleOnChangeUbicacion(e) }}
+                                    placeholder='Centro'
+                                    className='input-tituloPublicacion' 
+                                />
+                            </div>
+                            <div className='cont-ubicacion-barrio'>
+                                <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
+                                    <label className='label-crea-prop'>Ciudad</label>
+                                    <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
+                                </div>
+                                <input 
+                                    type='text' 
+                                    id='ciudad' 
+                                    value={ubicacion.ciudad} 
+                                    onChange={(e) => { handleOnChangeUbicacion(e) }} 
+                                    placeholder='Mar del Plata'
+                                    className='input-tituloPublicacion' 
+                                />
                             </div>
                         </div>
-                        {/* amb, dorm, baño,  */}
+                        {/* provincia */}
                         <div className='cont-ubicacion'>
+                            <label className='label-crea-prop'>Provincia</label>
+                            <input
+                                type='text'
+                                id='provincia'
+                                value={ubicacion.provincia}
+                                onChange={(e) => { handleOnChangeUbicacion(e) }}
+                                placeholder='Buenos Aires'
+                                className='input-tituloPublicacion'
+                            />
+                        </div>
+                        {/* btns Sgt-Atras */}
+                        <div className='cont-campReq-botones'>
+                            <div className='cont-campo-requerido'>
+                                <p>Campo requerido</p>
+                                <p style={{ 'color': 'red', 'marginLeft': '3px' }}>*</p>
+                            </div>
+                            <div className='cont-botones-sgt-atras-vista-2'>
+                                <button 
+                                    type='button' 
+                                    className='btn-atras-vista-2' 
+                                    onClick={()=>onClickAtrasVista2()}
+                                >
+                                    Atrás
+                                </button>
+                                <button 
+                                    type='button' 
+                                    className='btn-sgt-vista-2' 
+                                    onClick={()=>onClickSgtVista2()}
+                                    disabled={!validaDatosVista2()}
+                                >
+                                    Siguiente
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* vista-3 */}
+                <div className={vista3 ? 'vista-3' : 'notVista3'} id='vista-3'>
+                    <div className='cont-data-vista-3'>
+                        {/* amb, dorm, baño,  */}
+                        <div className='cont-ambts'>
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Ambientes</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='number' id='ambientes' value={data.ambientes} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input 
+                                    type='number' 
+                                    id='ambientes' 
+                                    value={data.ambientes} 
+                                    onChange={(e) => { handleOnChangeData(e) }} 
+                                    className='input-amb' 
+                                />
                             </div>
-                            <div className='cont-dormi'>
+                            <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Dormitorios</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='number' id='dormitorios' value={data.dormitorios} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input 
+                                    type='number' 
+                                    id='dormitorios' 
+                                    value={data.dormitorios} 
+                                    onChange={(e) => { handleOnChangeData(e) }} 
+                                    className='input-amb' 
+                                />
                             </div>
-                            <div className='cont-baños'>
+                            <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Baños</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
-                                <input type='number' id='baños' value={data.baños} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input 
+                                    type='number' 
+                                    id='baños' 
+                                    value={data.baños} 
+                                    onChange={(e) => { handleOnChangeData(e) }} 
+                                    className='input-amb' 
+                                />
                             </div>
-                            <div className='cont-pisos'>
+                            <div className='cont-amb'>
                                 <label className='label-crea-prop'>Cant. pisos</label>
-                                <input type='number' id='cantPisos' value={data.cantPisos} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
+                                <input 
+                                    type='number' 
+                                    id='cantPisos' 
+                                    value={data.cantPisos} 
+                                    onChange={(e) => { handleOnChangeData(e) }} 
+                                    className='input-amb' 
+                                />
                             </div>
                         </div>
                         {/* superficies*/}
-                        <div className='cont-ubicacion'>
+                        <div className='cont-ambts'>
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup cubierta</label>
@@ -386,21 +549,21 @@ function FormularioProp() {
                                 </div>
                                 <input type='number' id='supCubierta' value={data.supCubierta} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
-                            <div className='cont-dormi'>
+                            <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup semicub</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
                                 <input type='number' id='supSemiCub' value={data.supSemiCub} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
-                            <div className='cont-baños'>
+                            <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup decubierta</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
                                 <input type='number' id='supDescubierta' value={data.supDescubierta} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
-                            <div className='cont-pisos'>
+                            <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Sup Total</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
@@ -409,16 +572,16 @@ function FormularioProp() {
                             </div>
                         </div>
                         {/* estado, antiguedad, cant cocheras */}
-                        <div className='cont-ubicacion'>
+                        <div className='cont-ambts'>
                             <div className='cont-amb'>
                                 <label className='label-crea-prop'>Estado</label>
                                 <input type='text' id='estado' value={data.estado} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
-                            <div className='cont-dormi'>
+                            <div className='cont-amb'>
                                 <label className='label-crea-prop'>Antiguedad</label>
                                 <input type='number' id='antiguedad' value={data.antiguedad} onChange={(e) => { handleOnChangeData(e) }} className='input-tituloPublicacion' />
                             </div>
-                            <div className='cont-baños'>
+                            <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Cant cocheras</label>
                                     <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
@@ -433,12 +596,15 @@ function FormularioProp() {
                                 <p style={{ 'color': 'red', 'marginLeft': '3px' }}>*</p>
                             </div>
                             <div className='cont-botones-sgt-atras-vista-2'>
-                                <button type='button' className='btn-atras-vista-2' onClick={()=>onClickAtrasVista2()}>Atrás</button>
+                                <button 
+                                    type='button' 
+                                    className='btn-atras-vista-2' 
+                                    onClick={()=>onClickAtrasVista3()}>Atrás</button>
                                 <button 
                                     type='button' 
                                     className='btn-sgt-vista-2' 
-                                    onClick={()=>onClickSgtVista2()}
-                                    disabled={!validaDatosVista2()}
+                                    onClick={()=>onClickSgtVista3()}
+                                    disabled={!validaDatosVista3()}
                                 >
                                     Siguiente
                                 </button>
@@ -446,8 +612,8 @@ function FormularioProp() {
                         </div>
                     </div>
                 </div>
-                {/* vista-3*/}
-                <div className={vista3 ? 'vista-3' : 'notVista3'} id='vista-3'>
+                {/* vista-4*/}
+                <div className={vista4 ? 'vista-4' : 'notVista4'} id='vista-4'>
                     <div className='cont-data-vista-2'>
                         <div className='cont-servicios'>
                             <p className='titulo-servicio'>Servicios</p>
@@ -486,7 +652,7 @@ function FormularioProp() {
                         <div className="image-preview">
                             {
                                 vistaPrevia.map((img, index) => (
-                                    <div key={index} >
+                                    <div key={index} className='cont-img-miniatura'>
                                         <img src={img.url} alt={`preview-${index}`} className='img-miniatura'/>
                                     </div>
                                 ))
@@ -498,6 +664,15 @@ function FormularioProp() {
                             <label className='label-crea-prop'>Video</label>
                             <input type="file" accept="video/*" onChange={(e)=>{handleOnChangeVideos(e)}} />
                         </div>
+                        {/* muestra video */}
+                        <div className="video-preview">
+                            {
+                                vistaPreviaVideo && (
+                                    <video src={vistaPreviaVideo} /* controls */ className='video-miniatura'></video>
+                                )
+                            }
+                            
+                        </div>
 
                         {/* btns Sgt-Atras */}
                         <div className='cont-campReq-botones'>
@@ -506,7 +681,13 @@ function FormularioProp() {
                                 <p style={{ 'color': 'red', 'marginLeft': '3px' }}>*</p>
                             </div>
                             <div className='cont-botones-sgt-atras-vista-2'>
-                                <button type='button' className='btn-atras-vista-2' onClick={()=>onClickAtrasVista3()}>Atrás</button>
+                                <button 
+                                    type='button' 
+                                    className='btn-atras-vista-2' 
+                                    onClick={()=>onClickAtrasVista4()}
+                                >
+                                    Atrás
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -516,12 +697,13 @@ function FormularioProp() {
                     className={
                         validaDatosVista1() && 
                         validaDatosVista2() && 
-                        validaDatosVista3() 
+                        validaDatosVista3() &&
+                        validaDatosVista4()
                         ? 'cont-botones-crea-prop' 
                         : 'cont-botones-crea-prop-Disable'
                     }
                 >
-                    <button type='onSubmit' className='btn-crea'>Crear propiedad</button>
+                    <button type='submit' className='btn-crea'>Crear propiedad</button>
                 </div>
             </form>
         </div>
@@ -529,3 +711,9 @@ function FormularioProp() {
 }
 
 export default FormularioProp;
+
+/*
+
+
+
+*/

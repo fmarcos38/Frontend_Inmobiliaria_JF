@@ -1,5 +1,6 @@
 .cont-crea-prop {
     width: 100%;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +8,7 @@
 }
 .formulario-crea-prop {
     width: 70%;
-    height: 500px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -16,7 +17,8 @@
 }
 .vista-1,
 .vista-2,
-.vista-3 {
+.vista-3,
+.vista-4 {
     width: 80%;
     display: flex;
     justify-content: center;
@@ -25,11 +27,13 @@
 }
 .notVista1,
 .notVista2,
-.notVista3 {
+.notVista3,
+.notVista4 {
     display: none;
 }
 .cont-data-vista-1,
-.cont-data-vista-2 {
+.cont-data-vista-2,
+.cont-data-vista-3 {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -170,16 +174,29 @@
 .cont-ubicacion-barrio {
     width: 49%;
 }
-.cont-amb,
-.cont-dormi,
-.cont-baños,
-.cont-pisos {
-    width: 23%;
-}
 .cont-btns-sgt-atras-vista-2{
     margin-top: 20px;
 }
 /* vista 3 */
+.cont-ambts{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cont-amb{
+    width: 23%;
+    height: 100%;
+}
+.input-amb{
+    width: 97%;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 3px;
+    background-color: rgb(236, 235, 235);
+}
+/* vista 4 */
 .cont-servicios {
     position: relative;
     width: 100%;
@@ -187,6 +204,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid grey;
+    background-color: rgb(229, 232, 231);
 }
 .titulo-servicio {
     position: absolute;
@@ -204,19 +222,26 @@
     width: 100%;
     margin: 20px 0 10px 0;
 }
-.video-cloudinary {
+.image-preview,
+.video-preview{
+    width: 100%; /* Ajusta el ancho al 100% del contenedor principal */
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre las miniaturas */
+    overflow: hidden; /* Evita el desbordamiento */
+    justify-content: center; /* Centra las miniaturas */
+    padding: 10px;
+    box-sizing: border-box;
 }
-.image-preview{
-    width: 100%;
-    height: 100%;
+.cont-img-miniatura{
+    width: 100px; /* Ajusta el tamaño de cada contenedor de miniatura */
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    margin: 0;
+    margin-top: 10px;
 }
-.img-miniatura {
+.img-miniatura,
+.video-miniatura {
     width: 100px;
     height: 100px;
     margin-right: 2px;
@@ -228,5 +253,5 @@
 }
 .btn-crea {
     width: 50%;
-
+    margin-bottom: 20px;
 }
