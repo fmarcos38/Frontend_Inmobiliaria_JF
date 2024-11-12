@@ -7,10 +7,26 @@ import IconoSup from '../../imagenes/Iconos/IconoSup';
 import IconoAmb from '../../imagenes/Iconos/IconoAmb';
 import IconoDormitorio from '../../imagenes/Iconos/IconoDormitorios';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import WcIcon from '@mui/icons-material/Wc';
 import './styles.css'
 
-function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublicacion, ambientes, dormitorios, unidadMedida, tipo }) {
-
+function Card({ 
+    id, 
+    tituloPublicacion,
+    ubicacion,
+    operacion,
+    imagenes,
+    cantCocheras,
+    ambientes, 
+    dormitorios, 
+    tipoPropiedad,
+    supTotal,
+    supDescubierta,
+    supCubierta,
+    supSemiCub ,
+    baños
+}) {
+console.log("tipoPropiedad", tipoPropiedad);
     //estado para el hover
     const [showDetail, setShowDetail] = useState(false);
 
@@ -18,7 +34,7 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
         <div className='contCard'>
             {/* titulo */}
             <div className='card-title'>
-                <h2 className='titulo-card'>{operacion[0].operacion}</h2>
+                <h2 className='titulo-card'>{operacion[0].tipoOperacion}</h2>
             </div>
 
             {/* img + animacion + abre detalle */}
@@ -29,7 +45,7 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
                 >
                     {/* imagen */}
                     <div className='card-image'>
-                        <img src={imagenes[0].original} alt='not found' className='card-img' />
+                        <img src={imagenes[0]} alt='not found' className='card-img' />
                     </div>
 
                     {/* msj detalle si hay hover */}
@@ -39,7 +55,7 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
                 </div>
             </NavLink>
 
-            {/* info 1 */}
+            {/* Titulo - direcc -  */}
             <div className='card-info1'>
                 <div className='cont-titulo-publicacion'>
                     <span className='tituloPublicacion'>{tituloPublicacion}</span>
@@ -47,28 +63,28 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
                 <div className='cont-info1'>
                     <LocationOnIcon />
                     <span className='direccion-card'>
-                        {/* Barrio: {ubicacion.barrio} | */} {direccionF}
+                        {ubicacion.direccionPublicacion}
                     </span>
                 </div>
 
                 <div className='cont-precio-fav'>
                     <div className='cont-precio'>
                         <p className='precio'>
-                            {operacion[0].precios[0].moneda} {formatMoney(operacion[0].precios[0].precio)}
+                            {operacion[0].moneda} {formatMoney(operacion[0].precio)}
                         </p>
                     </div>
                     <div className='cont-fav'>
                         <Favorito 
                             id={id}
-                            direccionF={direccionF}
+                            direccionF={ubicacion.direccionPublicacion}
                             cantCocheras={cantCocheras}
                             operacion={operacion}
                             imagenes={imagenes}
                             tituloPublicacion={tituloPublicacion}
                             ambientes={ambientes}
                             dormitorios={dormitorios}
-                            unidadMedida={unidadMedida}
-                            tipo={tipo}
+                            unidadMedida={'m2'}
+                            tipo={tipoPropiedad}
                         />
                     </div>
                 </div>
@@ -76,15 +92,20 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
             
             {/* info 2 */}
             <div className='card-info2'>
+                {/* sup total  común para todas las props*/}
                 <div className='div-info2'>
                     <IconoSup />                    
-                    <p className='info2'>Superficie</p>
-                    <p className='info2'>{unidadMedida}</p>
+                    <p className='info2'>Sup Tot</p>
+                    <p className='info2'>{supTotal}m2</p>
                 </div>
-
+                {/* casa, depto, ph */}
                 {
-                    tipo.name !== "Terreno" && (
-                        <>
+                    tipoPropiedad === "Casa" 
+                    || tipoPropiedad === "Departamento"
+                    || tipoPropiedad === "PH" 
+                    || tipoPropiedad === "Oficina" ?
+                        (
+                            <>
                             <div className='div-info2'>
                                 <IconoAmb />
                                 <p className='info2'>Ambientes</p>
@@ -103,7 +124,54 @@ function Card({ id, direccionF, cantCocheras, operacion, imagenes, tituloPublica
                                 <p className='info2'>{cantCocheras}</p>
                             </div>
                         </>
-                    )
+                        ) : null
+                }
+                {/* local, cochera, galpón */}
+                {
+                    tipoPropiedad === "Local" 
+                    || tipoPropiedad === "Cocher"
+                    || tipoPropiedad === "Galpón" ?
+                        <>
+                            <div className='div-info2'>
+                                <IconoSup />
+                                <p className='info2'>Sup Desc</p>
+                                <p className='info2'>{supDescubierta}m2</p>
+                            </div>
+                            <div className='div-info2'>
+                                <IconoSup />
+                                <p className='info2'>Sup Cub</p>
+                                <p className='info2'>{supCubierta}m2</p>
+                            </div>
+                            <div className='div-info2'>
+                                <WcIcon sx={{'color': 'rgba(171, 132, 94, 1)'}}/>
+                                <p className='info2'>Baños</p>
+                                <p className='info2'>{baños}m2</p>
+                            </div>                            
+                        </> : null
+                    
+                }
+                {/* terreno, quinta, campo */}
+                {
+                    tipoPropiedad === "Terreno" 
+                    || tipoPropiedad === "Quinta"
+                    || tipoPropiedad === "Campo" ?
+                        <>
+                            <div className='div-info2'>
+                                <IconoSup />
+                                <p className='info2'>Sup Cub</p>
+                                <p className='info2'>{supCubierta}m2</p>
+                            </div>
+                            <div className='div-info2'>
+                                <IconoSup />
+                                <p className='info2'>Sup SemiC</p>
+                                <p className='info2'>{supSemiCub}m2</p>
+                            </div>                            
+                            <div className='div-info2'>
+                                <IconoSup />
+                                <p className='info2'>Sup SemiC</p>
+                                <p className='info2'>{supSemiCub}m2</p>
+                            </div>
+                        </> : null
                 }
             </div>
         </div>

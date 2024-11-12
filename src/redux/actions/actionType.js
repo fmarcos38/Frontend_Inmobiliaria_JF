@@ -3,7 +3,6 @@ export const RESET_LOGIN = "RESET_LOGIN";
 export const LOADING = "LOADING";
 export const IS_OPEN_MODAL_PICTURE = "IS_OPEN_MODAL_PICTURE";
 //props
-export const CREA_PROP = "CREA_PROP";
 export const GET_PROPS = "GET_PROPS";
 export const GET_PROPERTY = "GET_PROPERTY";
 export const RESET_PROPERTY = "RESET_PROPERTY";

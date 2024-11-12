@@ -5,7 +5,7 @@ import {
 import { actual } from "../../urls";
 
 //---LOGIN--------------------------------------------------------
-export function login(data){ console.log("enetré")
+export function login(data){
     return async function (dispatch) {
         const resp = await axios.post(`${actual}/auth/login`, data); 
         //asigno data del user al localStorage
@@ -20,13 +20,6 @@ export function resetLogin(){
 }
 
 //---PROPIEDADES----------------------------------------------------
-//crea
-export const creaProp = (data) => {
-    return async function(dispatch) {
-        await axios.post(`${actual}/propiedades`, data);
-        
-    }
-};
 //trae props
 export const getProps = (limit, offset, operacion, tipo, precioMin, precioMax) => {
     return async function (dispatch) {

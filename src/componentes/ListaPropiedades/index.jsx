@@ -15,33 +15,19 @@ function ListaPropiedades({allProps}) {
                             <div className='cont-card' key={p.id}>
                                 <Card className='card' key={p.id}
                                     id={p.id}
-                                    codigoReferencia={p.codigoReferencia}
-                                    direccionF={p.direccionF}
-                                    descripcion={p.descripcion}
-                                    disposicion={p.disposicion}
-                                    expensas={p.expensas}
-                                    geoLat={p.geoLat}
-                                    geoLong={p.geoLong}
-                                    cantPisos={p.cantPisos}
-                                    rentaTemporaria={p.rentaTemporaria}
-                                    destacadaEnWeb={p.destacadaEnWeb}
-                                    baños={p.baños}
+                                    tituloPublicacion={p.tituloPublicacion}
+                                    tipoPropiedad={p.tipoPropiedad}
                                     ubicacion={p.ubicacion}
                                     operacion={p.operacion}
                                     imagenes={p.imagenes}
-                                    productor={p.productor}
-                                    tituloPublicacion={p.tituloPublicacion}
-                                    supTechada={p.supTechada}
-                                    ambientes={p.ambientes}
-                                    supSemiCub={p.supSemiCub}
                                     dormitorios={p.dormitorios}
-                                    unidadMedida={p.unidadMedida}
-                                    bañoSuit={p.bañoSuit}
                                     cantCocheras={p.cantCocheras}
                                     supTotal={p.supTotal}
-                                    tipo={p.tipo}
                                     supDescubierta={p.supDescubierta}
-                                    servicios={p.servicios}                                    
+                                    ambientes={p.ambientes}
+                                    supCubierta={p.supCubierta}
+                                    supSemiCub={p.supSemiCub}
+                                    baños={p.baños}                                  
                                 />
                             </div>
                         )
