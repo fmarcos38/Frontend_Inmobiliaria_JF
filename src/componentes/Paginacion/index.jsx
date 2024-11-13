@@ -2,7 +2,7 @@ import React from 'react';
 import './estilos.css';
 
 function Paginacion({ currentPage, onPageChange, totalPropiedades, propiedadesPorPagina }) {
-//console.log("propsXpag:", propiedadesPorPagina)
+
     // Calcular el número total de páginas basado en el total de propiedades y propiedades por página
     const totalPaginas = Math.ceil(totalPropiedades / propiedadesPorPagina);
 

@@ -70,6 +70,7 @@ function Home() {
                       currentPage={currentPage}
                       onPageChange={setCurrentPage}
                       totalPropiedades={totalPropiedades}
+                      propiedadesPorPagina={propiedadesPorPagina}
                     />
                   )
               }

@@ -33,7 +33,7 @@ export default function rootReducer (state = initialState, action) {
                 ...state,
                 loading: false,
                 propiedades: action.payload.propiedades,
-                totPropiedades: action.payload.total,
+                totPropiedades: action.payload.totPropsFiltradas,
             };
         case GET_PROPERTY:
             return{

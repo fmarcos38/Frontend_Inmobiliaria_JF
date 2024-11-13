@@ -26,7 +26,7 @@ function Card({
     supSemiCub ,
     baños
 }) {
-console.log("tipoPropiedad", tipoPropiedad);
+
     //estado para el hover
     const [showDetail, setShowDetail] = useState(false);
 
@@ -61,7 +61,7 @@ console.log("tipoPropiedad", tipoPropiedad);
                     <span className='tituloPublicacion'>{tituloPublicacion}</span>
                 </div>
                 <div className='cont-info1'>
-                    <LocationOnIcon />
+                    <LocationOnIcon sx={{'color':'grey', 'marginRight':'3px'}}/>
                     <span className='direccion-card'>
                         {ubicacion.direccionPublicacion}
                     </span>
@@ -104,8 +104,7 @@ console.log("tipoPropiedad", tipoPropiedad);
                     || tipoPropiedad === "Departamento"
                     || tipoPropiedad === "PH" 
                     || tipoPropiedad === "Oficina" ?
-                        (
-                            <>
+                        <>
                             <div className='div-info2'>
                                 <IconoAmb />
                                 <p className='info2'>Ambientes</p>
@@ -124,7 +123,7 @@ console.log("tipoPropiedad", tipoPropiedad);
                                 <p className='info2'>{cantCocheras}</p>
                             </div>
                         </>
-                        ) : null
+                        : null
                 }
                 {/* local, cochera, galpón */}
                 {
@@ -145,7 +144,7 @@ console.log("tipoPropiedad", tipoPropiedad);
                             <div className='div-info2'>
                                 <WcIcon sx={{'color': 'rgba(171, 132, 94, 1)'}}/>
                                 <p className='info2'>Baños</p>
-                                <p className='info2'>{baños}m2</p>
+                                <p className='info2'>{baños}</p>
                             </div>                            
                         </> : null
                     

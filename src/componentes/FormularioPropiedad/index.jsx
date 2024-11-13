@@ -50,7 +50,7 @@ function FormularioProp() {
         provincia: '',
     });
     //estado imgs
-    const [imagenes, setImagenes] = useState([]); console.log(imagenes);
+    const [imagenes, setImagenes] = useState([]);
     const [vistaPrevia, setVistaPrevia] = useState([]);//vista previa
     //estado video
     const [video, setVideos] = useState();  
