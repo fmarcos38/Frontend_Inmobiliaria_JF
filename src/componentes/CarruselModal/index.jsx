@@ -31,7 +31,7 @@ function CarruselModal({imagenes}) {
                 </button>
 
                 {/* imagen a ostrar */}
-                <img src={imagenes[indexImgActual].original} alt='' className='img-carruselM' />
+                <img src={imagenes[indexImgActual]} alt='' className='img-carruselM' />
 
                 {/* btn prox */}
                 <button className='btn-carrusel-next' onClick={() => handleClickNext()}>

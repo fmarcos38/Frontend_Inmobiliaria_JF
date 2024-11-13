@@ -15,19 +15,23 @@ function ListaFavoritos({allProps}) {
                             allProps[0] ?
                             allProps.map(p => {
                                 return (
-                                    <div className='cont-card-Fav-listaProps' key={p.id}>
-                                        <Card 
-                                            key={p.id}
-                                            id={p.id}
-                                            direccionF={p.direccionF}
-                                            cantCocheras={p.cantCocheras}
+                                    <div className='cont-card-Fav-listaProps' key={p._id}>
+                                        <Card
+                                            key={p._id}
+                                            id={p._id}
+                                            tituloPublicacion={p.tituloPublicacion}
+                                            ubicacion={p.ubicacion}
                                             operacion={p.operacion}
                                             imagenes={p.imagenes}
-                                            tituloPublicacion={p.tituloPublicacion}
+                                            cantCocheras={p.cantCocheras}
                                             ambientes={p.ambientes}
                                             dormitorios={p.dormitorios}
-                                            unidadMedida={p.unidadMedida}
-                                            tipo={p.tipo}
+                                            tipoPropiedad={p.tipoPropiedad}
+                                            supTotal={p.supTotal}
+                                            supDescubierta={p.supDescubierta}
+                                            supCubierta={p.supCubierta}
+                                            supSemiCub={p.supSemiCub}
+                                            baños={p.baños}
                                         />
                                     </div>
                                 )

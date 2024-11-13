@@ -63,7 +63,7 @@ function Card({
                 <div className='cont-info1'>
                     <LocationOnIcon sx={{'color':'grey', 'marginRight':'3px'}}/>
                     <span className='direccion-card'>
-                        {ubicacion.direccionPublicacion}
+                        {ubicacion?.direccionPublicacion}
                     </span>
                 </div>
 
@@ -74,17 +74,21 @@ function Card({
                         </p>
                     </div>
                     <div className='cont-fav'>
-                        <Favorito 
+                        <Favorito
                             id={id}
-                            direccionF={ubicacion.direccionPublicacion}
-                            cantCocheras={cantCocheras}
+                            tituloPublicacion={tituloPublicacion}
+                            ubicacion={ubicacion}
                             operacion={operacion}
                             imagenes={imagenes}
-                            tituloPublicacion={tituloPublicacion}
+                            cantCocheras={cantCocheras}
                             ambientes={ambientes}
                             dormitorios={dormitorios}
-                            unidadMedida={'m2'}
-                            tipo={tipoPropiedad}
+                            tipoPropiedad={tipoPropiedad}
+                            supTotal={supTotal}
+                            supDescubierta={supDescubierta}
+                            supCubierta={supCubierta}
+                            supSemiCub={supSemiCub}
+                            baños={baños}
                         />
                     </div>
                 </div>

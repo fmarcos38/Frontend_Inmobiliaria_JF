@@ -17,11 +17,11 @@ import './estilos.css';
 function DetalleProp(){
 
     const { id } = useParams();  //let id = props.match.params.id 
-    const propiedad = useSelector(state => state.propiedad);
+    const propiedad = useSelector(state => state.propiedad); console.log('propiedad:', propiedad);
     //obt el tipo de moneda
-    const moneda =  propiedad?.operacion?.[0]?.precios?.[0]?.moneda; 
+    const moneda =  propiedad?.operacion?.[0]?.moneda; 
     //otengo el precio de la prop
-    const precio =  propiedad?.operacion?.[0]?.precios?.[0]?.precio; 
+    const precio =  propiedad?.operacion?.[0]?.precio; 
     const navigate = useNavigate();
     const dispatch = useDispatch();    
     const contexto = useContext(InmobiliariaContext); 
@@ -50,7 +50,7 @@ function DetalleProp(){
         navigate('/');
     };
 
-    useEffect(() => {
+    useEffect(() => { 
         dispatch(getProperty(id));
         // Desplazarse hacia la parte superior de la página al cargar el componente
         window.scrollTo(0, 0);
@@ -66,9 +66,18 @@ function DetalleProp(){
                 <div className='info-1'>
                 {/* Titulo prop */}
                     <div className='cont-titulo-detalle'>
-                        <span className='detalle-titulo-prop'>
-                            {propiedad.tituloPublicacion}
-                        </span>
+                        <span className='detalle-titulo-prop'>{propiedad.tituloPublicacion}</span>
+                        {/* dirección */}
+                        <div className='cont-titulo-icono-direcc'>
+                            <LocationOnIcon sx={{'marginLeft':'10px'}}/>
+                            <p className='detalle-titulo-direccion'>
+                                {propiedad.ubicacion?.direccionPublicacion}
+                            </p>
+                        </div>
+                        <div className='cont-moned-precio-detalle'>
+                            <p className='detalle-precio'>{moneda}</p>
+                            <p className='detalle-precio'>{precio}</p>
+                        </div>
                     </div>
                     
                     <div className='cont-btns-direccion'>
@@ -85,13 +94,7 @@ function DetalleProp(){
                             {
                                 showTooltipVolver && <div className="tooltipVolver">{tooltipTextVolver}</div>
                             }
-                            {/* dirección */}
-                            <div className='cont-titulo-icono-direcc'>
-                                <LocationOnIcon />
-                                <span className='detalle-titulo-direccion'>
-                                    {propiedad.direccion}
-                                </span>
-                            </div>
+                            
                             {/* btn-video */}
                             <button
                                 onClick={() => contexto.handleIsOpen()}
@@ -112,7 +115,7 @@ function DetalleProp(){
                 <div className='cont-imgs-info'>
                     <div className='cont-imagenes'>
                         {
-                            propiedad?.imagenes
+                            propiedad?.imagenes?.length > 0
                                 ?
                                 <Carrusel imagenes={propiedad.imagenes} />
                                 :
@@ -149,11 +152,11 @@ function DetalleProp(){
                                 </div>
                                 <div className='cont-p-col-1'>
                                     <p className='p-col-1'>Sup. Cubierta:</p>
-                                    <p className='p-col-1'>{propiedad.supCubierta}{propiedad.unidadMedida}</p>
+                                    <p className='p-col-1'>{propiedad.supCubierta}m2</p>
                                 </div>
                                 <div className='cont-p-col-1'>
                                     <p className='p-col-1'>Sup. Total:</p>
-                                    <p className='p-col-1'>{propiedad.supTotal}{propiedad.unidadMedida}</p>
+                                    <p className='p-col-1'>{propiedad.supTotal}m2</p>
                                 </div>
                                 <div className='cont-p-col-1'>
                                     <p className='p-col-1'>Dormitorios:</p>
@@ -175,7 +178,7 @@ function DetalleProp(){
                                         propiedad.operacion?.map(o => {
                                             return (
                                                 <div key={o.operacion_id}>
-                                                    <p className='p-col-1'>{propiedad.operacion[0]?.operacion}</p>
+                                                    <p className='p-col-1'>{propiedad.operacion[0]?.tipoOperacion}</p>
                                                 </div>
                                             )
                                         })
@@ -183,7 +186,7 @@ function DetalleProp(){
                                 </div>
                                 <div className='cont-p-col-1'>
                                     <p className='p-col-1'>Tipo:</p>
-                                    <p className='p-col-1'>{propiedad.tipo?.nombre}</p>
+                                    <p className='p-col-1'>{propiedad.tipoPropiedad}</p>
                                 </div>
                             </div>
 

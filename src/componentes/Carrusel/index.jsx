@@ -52,7 +52,7 @@ function Carrusel({imagenes}) {
 
                 {/* imagen a mostrar */}
                 <img 
-                    src={imagenes[indexImgActual].original} 
+                    src={imagenes[indexImgActual]} 
                     alt='' 
                     onClick={() => handleOpenModal()}
                     onMouseEnter={handleMouseEnter}

@@ -88,7 +88,10 @@
     margin: 3px 0 3px 3px;
 }
 .cont-titulo-publicacion{
-    width: 95%;
+    width: 99%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 5px 0 3px 0;
 }
 /* titulo card */
@@ -120,8 +123,8 @@
 }
 .cont-fav {
     position: absolute;
-    top: 45px;
-    left: 90%;
+    top: 47px;
+    left: 92%;
     display: flex;
     justify-content: end;
     align-items: center;

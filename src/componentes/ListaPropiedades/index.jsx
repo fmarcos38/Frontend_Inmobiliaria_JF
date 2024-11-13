@@ -12,9 +12,9 @@ function ListaPropiedades({allProps}) {
                     allProps[0] ?
                     allProps.map(p => {
                         return (
-                            <div className='cont-card' key={p.id}>
-                                <Card className='card' key={p.id}
-                                    id={p.id}
+                            <div className='cont-card' key={p._id}>
+                                <Card className='card' key={p._id}
+                                    id={p._id}
                                     tituloPublicacion={p.tituloPublicacion}
                                     tipoPropiedad={p.tipoPropiedad}
                                     ubicacion={p.ubicacion}
