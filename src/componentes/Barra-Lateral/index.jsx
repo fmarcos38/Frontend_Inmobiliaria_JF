@@ -29,7 +29,7 @@ const BarraLateral = ({ muestraVentaAlq, soloAlq, setCurrentPage, setOperacion, 
                 <p className='titulo-filtros'>Filtros Propiedades</p>
             </div>
 
-                <div className='opc-venta-alq'>
+            <div className='opc-venta-alq'>
                     <div className='cont-venta-alq'>
                         {
                             muestraVentaAlq === 'true' && (
@@ -78,7 +78,7 @@ const BarraLateral = ({ muestraVentaAlq, soloAlq, setCurrentPage, setOperacion, 
                             </div>
                         )
                     }
-                </div>
+            </div>
 
             <div className='cont-btn-filtros'>
                 {

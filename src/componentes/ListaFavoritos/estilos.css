@@ -1,12 +1,16 @@
 .cont-listaProps-fav{
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url('../../imagenes/Textura-05.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .titulo-lista-props-fav{
     margin: 10px 0 10px 0;
+    background-color: aliceblue;
 }
 .cont-card-lista-props{
     width: 90%;
