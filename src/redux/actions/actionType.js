@@ -5,6 +5,7 @@ export const IS_OPEN_MODAL_PICTURE = "IS_OPEN_MODAL_PICTURE";
 //props
 export const GET_PROPS = "GET_PROPS";
 export const GET_PROPERTY = "GET_PROPERTY";
+export const ELIMINA_PROP = "ELIMINA_PROP";
 export const RESET_PROPERTY = "RESET_PROPERTY";
 export const MUESTRA_DESTACADAS = "MUESTRA_DESTACADAS";
 

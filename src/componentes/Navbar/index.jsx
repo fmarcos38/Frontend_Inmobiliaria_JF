@@ -112,7 +112,7 @@ function Navbar() {
                                                     </NavLink>
                                                 </li>
                                                 <li className="dropdown-item">
-                                                    <NavLink to='/listaPropiedadesAdmin' className='link-menu' >
+                                                    <NavLink to='/listaPropsAdmin' className='link-menu' >
                                                         Lista Propiedades                                        
                                                     </NavLink>
                                                 </li>

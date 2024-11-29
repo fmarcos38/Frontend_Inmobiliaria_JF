@@ -55,6 +55,13 @@ export const getProperty = (id) => {
     }
 };
 
+//elimina propiedad
+export const eliminaProp = (id) => {
+    return async function() {
+        await axios.delete(`${actual}/propiedades/${id}`);
+    }
+};
+
 //reset detalle
 export const resetProperty = () => {
     return function(dispatch) {
