@@ -80,11 +80,6 @@ function Navbar() {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to='/contacto' >
-                                    Contacto
-                                </NavLink>
-                            </li>
-                            <li>
                                 <NavLink to='/nosotros' >
                                     Nosotros
                                 </NavLink>
@@ -181,9 +176,6 @@ function Navbar() {
                                     </li>
                                     <li className='items-pChica'>
                                         <NavLink to='/favoritos' className='link-navbar'>Favoritos</NavLink>
-                                    </li>
-                                    <li className='items-pChica'>
-                                        <NavLink to='/contacto' className='link-navbar'>Contacto</NavLink>
                                     </li>
                                     <li className='items-pChica'>
                                         <NavLink to='/nosotros' className='link-navbar'>Nosotros</NavLink>

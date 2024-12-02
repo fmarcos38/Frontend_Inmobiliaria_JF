@@ -5,7 +5,7 @@ import './estilos.css';
 const BarraLateral = ({ muestraVentaAlq, soloAlq, setCurrentPage, setOperacion, setTipoPropiedad, precioMin, setPrecioMin, precioMax, setPrecioMax }) => {
 
     //array con los nombres de los botones
-    const botones = ['Departamento', 'Casa', 'PH', 'Local', 'Terreno', 'Oficina', 'Cochera', 'todas'];
+    const botones = ['Departamento', 'Casa', 'PH', 'Local', 'Terreno', 'Oficina', 'Cochera', 'Todas'];
     const [operacionLocal, setOperacioLocal] = useState(''); //estado para ver el tilde en los checkbox
     
 
@@ -85,7 +85,7 @@ const BarraLateral = ({ muestraVentaAlq, soloAlq, setCurrentPage, setOperacion, 
                     botones.map((boton, index) => (
                         <button
                             key={index}
-                            id={boton}
+                            id={boton === 'Todas' ? '' : boton}
                             onClick={handleClick}
                             className={'boton-filtros'}
                         >

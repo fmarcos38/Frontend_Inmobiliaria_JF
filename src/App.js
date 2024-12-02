@@ -7,7 +7,6 @@ import Footbar from './componentes/Footbar';
 import PropsVenta from './paginas/PropsVenta';
 import PropsAlquiler from './paginas/PropsAlquiler';
 import NosotrosPage from './paginas/Nosotros';
-import Contactanos from './paginas/Contactanos';
 import DetalleProp from './paginas/DetallePropiedad';
 import FavoritosPage from './paginas/Favoritos';
 import CreaPropiedad from './paginas/CreaPropiedad';
@@ -26,7 +25,6 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginPage/>} />
-          <Route path='/contacto' element={<Contactanos/>} />
           <Route path='/venta' element={<PropsVenta/>} />
           <Route path='/alquiler' element={<PropsAlquiler />} />
           <Route path='/nosotros' element={<NosotrosPage/>} />
