@@ -1,5 +1,6 @@
 import { 
-    LOGIN, RESET_LOGIN, GET_PROPERTY, GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING,  RESET_PROPERTY,   
+    LOGIN, RESET_LOGIN, GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING,  RESET_PROPERTY,
+    GET_PROPIEDAD,   
 } from "../actions/actionType";
 
 const initialState = {
@@ -35,7 +36,7 @@ export default function rootReducer (state = initialState, action) {
                 propiedades: action.payload.propiedades,
                 totPropiedades: action.payload.totPropsFiltradas,
             };
-        case GET_PROPERTY:
+        case GET_PROPIEDAD:
             return{
                 ...state,
                 propiedad: action.payload,

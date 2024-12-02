@@ -1,13 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { eliminaProp } from '../../redux/actions';
+import { eliminaProp, getProps } from '../../redux/actions';
 import Swal from 'sweetalert2';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
 
 
 function BotonEliminaProp({_id}) {
-    
+    console.log("_id:", _id);
     const dispatch = useDispatch();
     
     const handleOnClick = () => {
@@ -26,10 +26,12 @@ function BotonEliminaProp({_id}) {
                     'Eliminado!',
                     'La propiedad ha sido eliminada.',
                     'success'
-                )
+                );
+                //actualizo la lista de props
+                dispatch(getProps());
+                window.location.reload();
             }
-        })
-        dispatch(eliminaProp(_id));        
+        });
     };
 
     return (

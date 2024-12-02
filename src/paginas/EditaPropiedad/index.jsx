@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { actual } from '../../urls';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import FormularioProp from '../../componentes/FormularioPropiedad';
-import './estilos.css';
+import { getPropiedad } from '../../redux/actions';
 
-function CreaPropiedad() {
 
+function EditaPropiedad() {
+
+    const {_id} = useParams();
+    const dispatch = useDispatch();
+    const propiedad = useSelector((state) => state.propiedad);
     //tipo de propiedad
     const tipoProps = [
         'Casa', 'Departamento', 'PH', 'Oficina',
@@ -250,13 +256,13 @@ function CreaPropiedad() {
     });
 
         try {
-            const response = await fetch(`${actual}/propiedades`, {
-                method: 'POST',
+            const response = await fetch(`${actual}/propiedades/editaProp/${_id}`, {
+                method: 'PUT',
                 body: formData,
             });
             
             if(response.ok){
-                alert('Propiedad creada con éxito');
+                alert('Propiedad editada con éxito');
                 //limpio
                 setData({
                     tituloPublicacion: '',
@@ -318,19 +324,79 @@ function CreaPropiedad() {
         setVistaPrevia(previews);
     };
 
+    //efecto para buscar la propiedad por ID
+    useEffect(() => {
+        dispatch(getPropiedad(_id));
+    }, [dispatch, _id]); 
+    //efecto para cargar la info de la prop en el formulario
+    useEffect(()=>{
+        //actualizo los inputs del formulario con la info de la propiedad
+        setData({
+            tituloPublicacion: propiedad.tituloPublicacion,
+            descripcion: propiedad.descripcion,
+            tipoPropiedad: propiedad.tipoPropiedad,
+            expesnsas: propiedad.expesnsas,       
+            cantPisos: propiedad.cantPisos,
+            ambientes: propiedad.ambientes,
+            dormitorios: propiedad.dormitorios,
+            baños: propiedad.baños,
+            supCubierta: propiedad.supCubierta,
+            supSemiCub: propiedad.supSemiCub,
+            supDescubierta: propiedad.supDescubierta,
+            supTotal: propiedad.supTotal,
+            estado: propiedad.estado,
+            antiguedad: propiedad.antiguedad,
+            cantCocheras: propiedad.cantCocheras,
+        });
+        //actualizo los inputs de operacion
+        propiedad.operacion?.forEach((op) => {
+            if(op.tipoOperacion === 'Venta'){
+                setOpVenta(op.tipoOperacion);
+                setMonedaVenta(op.moneda);
+                setPrecioVenta(op.precio);
+            }
+            if(op.tipoOperacion === 'Alquiler'){
+                setOpAlquiler(op.tipoOperacion);
+                setMonedaAlq(op.moneda);
+                setPrecioAlq(op.precio);
+            }
+        });
+        //actualizo los inputs de ubicacion
+        setUbicacion({
+            direccionPublicacion: propiedad.ubicacion?.direccionPublicacion || "",
+            direccionReal: propiedad.ubicacion?.direccionReal || "",
+            barrio: propiedad.ubicacion?.barrio || "",
+            ciudad: propiedad.ubicacion?.ciudad || "",
+            provincia: propiedad.ubicacion?.provincia || "",
+        });
+        //actualizo las imgs
+        setImagenes(propiedad.imagenes);
+        //actualizo la vista previa
+        const previews = propiedad.imagenes.map((imagen) => ({
+            file: imagen,
+            url: `${imagen}`,
+        }));
+        setVistaPrevia(previews);
+        //actualizo el video
+        setVideos(propiedad.video);
+        //actualizo los servicios
+        setServicios(propiedad.servicios);
+    },[
+        dispatch, propiedad?.ambientes, propiedad?.antiguedad, propiedad?.baños, propiedad?.cantCocheras, 
+        propiedad?.cantPisos, propiedad?.descripcion, propiedad?.dormitorios, propiedad?.estado, propiedad?.expensas, propiedad?.expesnsas,
+        propiedad?.imagenes, propiedad?.operacion, propiedad?.servicios, propiedad?.supCubierta, propiedad?.supDescubierta, 
+        propiedad?.supSemiCub, propiedad?.supTotal, propiedad?.tipoPropiedad, propiedad?.tituloPublicacion, 
+        propiedad?.ubicacion?.barrio, propiedad?.ubicacion?.ciudad, propiedad?.ubicacion?.direccionPublicacion, 
+        propiedad?.ubicacion?.direccionReal, propiedad?.ubicacion?.provincia, propiedad?.video
+    ]);
+
     return (
-        <div className='cont-page-crea-prop'>
+        <div className='cont-page-edita-prop'>
             <FormularioProp 
-                tipoOperacion={"creacion"}
-                tipoProps={tipoProps}
+                tipoOperacion={"edita"}
                 data={data}
                 setData={setData}
-                errors={errors}
-                setErrors={setErrors}
-                ubicacion={ubicacion}
-                setUbicacion={setUbicacion}
-                errorsU={errorsU}
-                setErrorsU={setErrorsU}
+                tipoProps={tipoProps}
                 opVenta={opVenta}
                 setOpVenta={setOpVenta}
                 opAlquiler={opAlquiler}
@@ -345,6 +411,34 @@ function CreaPropiedad() {
                 setPrecioAlq={setPrecioAlq}
                 operacion={operacion}
                 setOperacion={setOperacion}
+                ubicacion={ubicacion}
+                setUbicacion={setUbicacion}
+                imagenes={imagenes}
+                setImagenes={setImagenes}
+                vistaPrevia={vistaPrevia}
+                setVistaPrevia={setVistaPrevia}
+                video={video}
+                setVideos={setVideos}
+                vistaPreviaVideo={vistaPreviaVideo}
+                setVistaPreviaVideo={setVistaPreviaVideo}
+                servicios={servicios}
+                setServicios={setServicios}
+                errors={errors}
+                setErrors={setErrors}
+                errorsU={errorsU}
+                setErrorsU={setErrorsU}
+                vista1={vista1}
+                setVista1={setVista1}
+                vista2={vista2}
+                setVista2={setVista2}
+                vista3={vista3}
+                setVista3={setVista3}
+                vista4={vista4}
+                setVista4={setVista4}
+                validaDatosVista1={validaDatosVista1}
+                validaDatosVista2={validaDatosVista2}
+                validaDatosVista3={validaDatosVista3}
+                validaDatosVista4={validaDatosVista4}
                 handleOnChangeData={handleOnChangeData}
                 handleOnChangeUbicacion={handleOnChangeUbicacion}
                 handleOnChangeOpVenta={handleOnChangeOpVenta}
@@ -356,27 +450,17 @@ function CreaPropiedad() {
                 handleOnChangeImgs={handleOnChangeImgs}
                 handleOnChangeVideos={handleOnChangeVideos}
                 handleOnChangeServicios={handleOnChangeServicios}
-                handleOnSubmit={handleOnSubmit}
-                validaDatosVista1={validaDatosVista1}
-                validaDatosVista2={validaDatosVista2}
-                validaDatosVista3={validaDatosVista3}
-                validaDatosVista4={validaDatosVista4}
                 onClickSgtVista1={onClickSgtVista1}
                 onClickAtrasVista2={onClickAtrasVista2}
                 onClickSgtVista2={onClickSgtVista2}
                 onClickAtrasVista3={onClickAtrasVista3}
                 onClickSgtVista3={onClickSgtVista3}
                 onClickAtrasVista4={onClickAtrasVista4}
+                handleOnSubmit={handleOnSubmit}
                 handleOnClickEliminaImg={handleOnClickEliminaImg}
-                vista1={vista1}
-                vista2={vista2}
-                vista3={vista3}
-                vista4={vista4}
-                vistaPrevia={vistaPrevia}
-                vistaPreviaVideo={vistaPreviaVideo}
             />
         </div>
     )
 }
 
-export default CreaPropiedad
+export default EditaPropiedad

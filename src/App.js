@@ -13,6 +13,7 @@ import FavoritosPage from './paginas/Favoritos';
 import CreaPropiedad from './paginas/CreaPropiedad';
 import ListaPropsAdminPage from './paginas/ListaProspAdminPage';
 import './App.css';
+import EditaPropiedad from './paginas/EditaPropiedad';
 
 
 function App() {
@@ -31,8 +32,9 @@ function App() {
           <Route path='/nosotros' element={<NosotrosPage/>} />
           <Route path='/detalle/:id' element={<DetalleProp/>} />
           <Route path='/favoritos' element={<FavoritosPage/>} />
-          <Route path='/creaPropiedad' element={<CreaPropiedad/>} />
-          <Route path='/listaPropsAdmin' element={<ListaPropsAdminPage/>} />
+          <Route path='/admin/creaPropiedad' element={<CreaPropiedad/>} />
+          <Route path='/admin/listaPropsAdmin' element={<ListaPropsAdminPage/>} />
+          <Route path='admin/editaProp/:_id' element={<EditaPropiedad/>} />
         </Routes>
 
         <Footbar />

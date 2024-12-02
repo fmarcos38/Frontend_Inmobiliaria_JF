@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProperty, resetProperty } from '../../redux/actions';
+import {  getPropiedad, resetProperty } from '../../redux/actions';
 import { formatMoney } from '../../Helps';
 import { InmobiliariaContext } from '../../context';
 import Carrusel from '../../componentes/Carrusel';
@@ -51,7 +51,7 @@ function DetalleProp(){
     };
 
     useEffect(() => { 
-        dispatch(getProperty(id));
+        dispatch(getPropiedad(id));
         // Desplazarse hacia la parte superior de la página al cargar el componente
         window.scrollTo(0, 0);
 

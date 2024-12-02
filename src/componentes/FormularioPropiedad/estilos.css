@@ -235,6 +235,7 @@
 }
 .cont-img-miniatura{
     width: 100px; /* Ajusta el tamaño de cada contenedor de miniatura */
+    position: relative; /* Permite posicionar el botón de eliminación */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -245,6 +246,18 @@
     width: 100px;
     height: 100px;
     margin-right: 2px;
+}
+.btn-elimina-img{
+    width: 20px;
+    height: 20px;
+    position: absolute; /* el padre debe tener position relative */
+    top: 0px;
+    right: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: red;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
 }
 .cont-botones-crea-prop {
     width: 100%;

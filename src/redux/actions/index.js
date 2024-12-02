@@ -1,6 +1,7 @@
 import axios from "axios";
 import { 
-    LOGIN, RESET_LOGIN, GET_PROPERTY,  GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING, MUESTRA_DESTACADAS, RESET_PROPERTY, 
+    LOGIN, RESET_LOGIN, GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING, MUESTRA_DESTACADAS, 
+    RESET_PROPERTY, GET_PROPIEDAD, 
 } from "./actionType.js";
 import { actual } from "../../urls";
 
@@ -44,11 +45,11 @@ export const getProps = (limit, offset, operacion, tipo, precioMin, precioMax) =
 };  
 
 //trae propiedad por ID
-export const getProperty = (id) => {
-    return async function(dispatch) {
+export const getPropiedad = (_id) => {
+    return async function(dispatch) { console.log("idAction:", _id);
         try {
-            const resp = await axios.get(`${actual}/propiedades/${id}`);
-            dispatch({type: GET_PROPERTY, payload: resp.data});
+            const resp = await axios.get(`${actual}/propiedades/${_id}`);
+            dispatch({type: GET_PROPIEDAD, payload: resp.data});
         } catch (error) {
             console.log(error);
         }
@@ -56,9 +57,16 @@ export const getProperty = (id) => {
 };
 
 //elimina propiedad
-export const eliminaProp = (id) => {
+export const eliminaProp = (_id) => {
     return async function() {
-        await axios.delete(`${actual}/propiedades/${id}`);
+        await axios.delete(`${actual}/propiedades/eliminaProp/${_id}`);
+    }
+};
+
+//edita propiedad
+export const editaProp = (data) => {
+    return async function() {
+        await axios.put(`${actual}/propiedades/editaProp`, data);
     }
 };
 

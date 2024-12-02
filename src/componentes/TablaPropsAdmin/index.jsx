@@ -3,6 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import './estilos.css';
 import BotonEliminaProp from '../BotonEliminaProp';
+import { NavLink } from 'react-router-dom';
 
 function TablaProspAdmin({propiedades}) {
 
@@ -18,8 +19,8 @@ function TablaProspAdmin({propiedades}) {
                             <th>Precio</th>
                             <th>Dorm</th>
                             <th>Baños</th>
-                            <th>Edita</th>
-                            <th>Elimina</th>
+                            <th>Detalle</th>
+                            <th>Edita/Elimina</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,11 +33,18 @@ function TablaProspAdmin({propiedades}) {
                                 <td>{propiedad.dormitorios}</td>
                                 <td>{propiedad.baños}</td>
                                 <td>
-                                    <button>
-                                        <EditIcon />
+                                    <button className='boton-detalle-prop'>
+                                        <NavLink to={`/detalle/${propiedad._id}`} className='link-detalle-prop'>
+                                            Detalle
+                                        </NavLink>
                                     </button>
                                 </td>
                                 <td>
+                                    <button className='boton-elimina-prop'>
+                                        <NavLink to={`/admin/editaProp/${propiedad._id}`} className='link-edita-prop'>
+                                            <EditIcon />
+                                        </NavLink>
+                                    </button>
                                     <BotonEliminaProp _id={propiedad._id}/>
                                 </td>
                             </tr>

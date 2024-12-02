@@ -107,12 +107,12 @@ function Navbar() {
                                         muestraMenuAdmin && (
                                             <ul className="dropdown-menu">
                                                 <li className="dropdown-item">
-                                                    <NavLink to='/creaPropiedad' className='link-menu' >
+                                                    <NavLink to='/admin/creaPropiedad' className='link-menu' >
                                                         Crea Propiedad                                        
                                                     </NavLink>
                                                 </li>
                                                 <li className="dropdown-item">
-                                                    <NavLink to='/listaPropsAdmin' className='link-menu' >
+                                                    <NavLink to='/admin/listaPropsAdmin' className='link-menu' >
                                                         Lista Propiedades                                        
                                                     </NavLink>
                                                 </li>
@@ -156,6 +156,20 @@ function Navbar() {
                         {
                             isOpen && (
                                 <ul className='ul-lista-pChica'>
+                                    {
+                                        context.nombreUser && (
+                                            <li className='items-pChica'>
+                                                <NavLink to='/admin/creaPropiedad' className='link-navbar'>Crea Propiedad</NavLink>
+                                            </li>
+                                        )
+                                    }
+                                    {
+                                        context.nombreUser && (
+                                            <li className='items-pChica'>
+                                                <NavLink to='/admin/listaPropsAdmin' className='link-navbar'>Lista Propiedades</NavLink>
+                                            </li>
+                                        )
+                                    }
                                     <li className='items-pChica'>
                                         <NavLink to='/' className='link-navbar'>Home</NavLink>
                                     </li>
