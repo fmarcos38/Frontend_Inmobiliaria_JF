@@ -59,7 +59,7 @@ function Carrusel({imagenes}) {
                     onMouseLeave={handleMouseLeave}
                     className='img-carrusel'
                 />
-                {/* msj toolTip */}
+                {/* msj toolTip "Agranda imagen"*/}
                 {
                     showTooltip && <div className="tooltipImg">{tooltipTextImg}</div>
                 }

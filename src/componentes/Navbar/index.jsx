@@ -180,6 +180,9 @@ function Navbar() {
                                     <li className='items-pChica'>
                                         <NavLink to='/nosotros' className='link-navbar'>Nosotros</NavLink>
                                     </li>
+                                    <li className='items-pChica'>
+                                        <NavLink to='/contacto' className='link-navbar'>Contacto</NavLink>
+                                    </li>
                                 </ul>
                             )
                         }

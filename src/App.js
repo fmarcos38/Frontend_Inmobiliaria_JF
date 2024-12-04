@@ -13,6 +13,7 @@ import CreaPropiedad from './paginas/CreaPropiedad';
 import ListaPropsAdminPage from './paginas/ListaProspAdminPage';
 import './App.css';
 import EditaPropiedad from './paginas/EditaPropiedad';
+import ContactoPAntallaCH from './componentes/ContactoPantallaCH';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path='/venta' element={<PropsVenta/>} />
           <Route path='/alquiler' element={<PropsAlquiler />} />
           <Route path='/nosotros' element={<NosotrosPage/>} />
+          <Route path='/contacto' element={<ContactoPAntallaCH/>} />
           <Route path='/detalle/:id' element={<DetalleProp/>} />
           <Route path='/favoritos' element={<FavoritosPage/>} />
           <Route path='/admin/creaPropiedad' element={<CreaPropiedad/>} />

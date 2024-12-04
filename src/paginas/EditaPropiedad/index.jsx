@@ -173,7 +173,7 @@ function EditaPropiedad() {
         setImagenes(filesArray);
         const files = Array.from(e.target.files);
         //para la vista previa
-        const previews = files.map((file) => ({
+        const previews = files?.map((file) => ({
             file,
             url: URL.createObjectURL(file),
         }));

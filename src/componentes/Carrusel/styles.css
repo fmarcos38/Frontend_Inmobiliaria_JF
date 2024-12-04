@@ -3,6 +3,7 @@
     height: auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     margin-top: 5px;
 }
@@ -57,20 +58,30 @@
 /* modal */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 80px;
+    /* centrar eje x */
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.7);    
-    z-index: 2;
+    background-color: rgba(19, 19, 19, 0.7);    
+    z-index: 1000;
 }
 
 /* responsive */
-@media screen and (max-width: 650px){
-    .img-carrusel{
+
+@media screen and (max-width: 800px) {
+    .img-carrusel {
         height: 300px;
+    }
+    .tooltipImg{
+        display: none;
+    }
+    /* modal */
+    .modal-overlay {
+        display: none;
     }
 }

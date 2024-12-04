@@ -1,0 +1,55 @@
+.cont-pantalla-chica{
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url('../../imagenes/edif-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.795); /* Color de fondo con opacidad */
+}
+.cont-pantalla-chica::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+    z-index: 1;
+}
+.cont-pantalla-chica > * {
+    position: relative;
+    z-index: 2;
+}
+.titulo-contactanos{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+.texto-contactanos{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #fff;
+}
+.btn-contacto{
+    width: 150px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #f8f9fa;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.whatsapp-button-contacto{
+    color: green;
+}

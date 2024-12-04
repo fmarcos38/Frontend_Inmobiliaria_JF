@@ -1,10 +1,13 @@
 .contModal{
+    width: 1000px;
+    height: 600px;
+    position: relative;
+    top: -60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
-    height: 90%;
+    z-index: 1000;
 }
 .cont-btn-cierra-modal{
     width: 70px;
@@ -25,14 +28,13 @@
 }
 
 /* responsive */
-@media screen and (max-width: 750px){
+@media screen and (max-width: 800px){
     .contModal{
-        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
         height: 95vh;
     }
-    .imgProp{
-        width: 95%;
-        height: 65%;
-        margin: 0;
-    }
+    
 }

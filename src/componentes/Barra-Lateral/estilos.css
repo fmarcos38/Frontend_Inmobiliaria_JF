@@ -6,7 +6,9 @@
   width: 100%;
   height: auto;
   border-radius: 0 10px 10px 0;
-  margin-top: 55px;
+  /* border: 2px solid var(--primary-color); */
+  /* background-color: rgba(234, 231, 229, 1); */
+  /* background-image: url('../../Imagenes/Texturas/Textura-02.jpg'); */
 }
 /* est. 1er div */
 .cont-titulo-filtro,
@@ -30,7 +32,7 @@
   align-items: center;
   font-size: 20px;
   font-weight: 600;
-  color: var(--color-negro);
+  color: black;
 }
 /* estilos 2do div */
 .opc-venta-alq{
@@ -48,7 +50,7 @@
 .label-filtro-tipo-ope-Alq-Temp {
   font-size: 20px;
   font-weight: 400;
-  color: var(--color-negro);
+  color: black;
 }
 .label-filtro-tipo-ope-Alq-Temp {
   font-size: 19px;
@@ -90,11 +92,11 @@
   top: 2px;
 }
 .label-precio-min-max{
-  color: var(--color-negro);
+  color: #fff;
 }
 
 /* responsive */
-@media screen and (max-width: 780px){
+@media screen and (max-width: 700px){
   .cont-barra {
     height: auto;
     margin-bottom: 20px;
@@ -108,7 +110,7 @@
     margin-bottom: 20px;
   }
   .boton-filtros {
-    width: 80px;
+    width: 95px;
     height: 35px;
     padding: 5px 5px;
     margin: 5px;

@@ -55,18 +55,20 @@ function PropsVenta() {
                             />
                         </div>
 
-                        <div className='cont-listaProps'>
-                            <ListaPropiedades allProps={allProps} id='listaProps' />
-                            {
-                                allProps[0] &&
-                                <Paginacion
-                                    allProps={allProps}
-                                    currentPage={currentPage}
-                                    onPageChange={setCurrentPage}
-                                    totalPropiedades={totalPropiedades}
-                                    propiedadesPorPagina={propiedadesPorPagina}
-                                />
-                            }
+                        {/* lista props y pag */}
+                        <div className='cont-listaProps-Y-paginacion'>
+                        <ListaPropiedades allProps={allProps} id='listaProps' />
+                        {
+                            allProps[0] && (
+                            <Paginacion
+                                allProps={allProps}
+                                currentPage={currentPage}
+                                onPageChange={setCurrentPage}
+                                totalPropiedades={totalPropiedades}
+                                propiedadesPorPagina={propiedadesPorPagina}
+                            />
+                            )
+                        }
                         </div>
                     </div>
                 )

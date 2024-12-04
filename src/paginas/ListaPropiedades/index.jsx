@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProps } from '../../redux/actions';
 import ListaPropiedades from '../../componentes/ListaPropiedades';
-import './estilos.css';
 
 
 function ListaPropiedadesPage() {

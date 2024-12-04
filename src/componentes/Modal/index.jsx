@@ -24,9 +24,7 @@ function Modal({imagenes}) {
             </div>
 
             {/* carrusel de imgs */}
-            <div style={{'width':'1100px','height':'650px'}}>
-                <CarruselModal imagenes={imagenes}/>
-            </div>
+            <CarruselModal imagenes={imagenes}/>
         </div>
     )
 }

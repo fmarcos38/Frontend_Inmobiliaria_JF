@@ -10,6 +10,7 @@ import ModalVideo from '../../componentes/ModalVideo';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import BotonWhatsApp from '../../componentes/BotonWhastApp';
 import './estilos.css';
 
 
@@ -31,11 +32,20 @@ function DetalleProp(){
     const tooltipTextVideo = "Ver video propiedad";
     const tooltipTextVolver = "Volver atrás";
 
-    //funcion reemplaza punto por salto de linea
-    function replaceDotsWithLineBreaks(text) {
-        return text.replace(/\./g, '.<br />');
+    // Función para reemplazar puntos por saltos de línea
+    function formatTextWithLineBreaks(text) {
+        // Divide el texto por los puntos seguidos, eliminando espacios extra
+        const sentences = text.split('.').filter(sentence => sentence.trim() !== '');
+        return sentences.map((sentence, index) => (
+            <div key={index} className="list-item">
+                {sentence.trim()}.
+            </div>
+        ));
     }
-    const textoConSaltosDeLinea = propiedad?.descripcion ? replaceDotsWithLineBreaks(propiedad.descripcion) : '';
+    //ejecuto la fuccion para formatear el texto
+    const formattedItems  = propiedad?.descripcion
+        ? formatTextWithLineBreaks(propiedad.descripcion)
+        : "";
 
     const handleMouseEnter = () => {
         setShowTooltipVideo(true);
@@ -66,9 +76,8 @@ function DetalleProp(){
     return(
         <div className='contGralDetalle'>
             <div className='cont-detail'>
-                {/* datos principales */}
+                {/* Titulo prop y botones atrás y video*/}
                 <div className='info-1'>
-                {/* Titulo prop */}
                     <div className='cont-titulo-detalle'>
                         <span className='detalle-titulo-prop'>{propiedad.tituloPublicacion}</span>
                         {/* dirección */}
@@ -77,10 +86,6 @@ function DetalleProp(){
                             <p className='detalle-titulo-direccion'>
                                 {propiedad.ubicacion?.direccionPublicacion}
                             </p>
-                        </div>
-                        <div className='cont-moned-precio-detalle'>
-                            <p className='detalle-precio'>{moneda}</p>
-                            <p className='detalle-precio'>{precio}</p>
                         </div>
                     </div>
                     
@@ -115,7 +120,7 @@ function DetalleProp(){
                     </div>
                 </div>
 
-                {/* carrusel y formulario */}
+                {/* carrusel y detalle prop */}
                 <div className='cont-imgs-info'>
                     <div className='cont-imagenes'>
                         {
@@ -127,7 +132,6 @@ function DetalleProp(){
                         }
                     </div>
 
-                    {/* <div className='cont-form-contacto-detalle'> */}
                     <div className='cont-detalle'>
                         <p className='titulo-detalle-prop'>Detalle Propiedad</p>
                         <div className='cont-p-col-1'>
@@ -175,7 +179,6 @@ function DetalleProp(){
                             <p className='p-col-1'>{propiedad.cantCocheras}</p>
                         </div>
                     </div>
-                    {/* </div> */}
                 </div>
 
                 {/* descrip prop */}
@@ -183,10 +186,9 @@ function DetalleProp(){
                     <div className='cont-descrip'>
                         <p className='titulo-descrip-prop'>Descripción Propiedad</p>
                         {/* Renderizar HTML dentro de la descripción */}
-                        <p
-                            className='p-descrip-detalle'
-                            dangerouslySetInnerHTML={{ __html: textoConSaltosDeLinea }}
-                        />
+                        <div className="description-list">
+                            {formattedItems}
+                        </div>
                     </div>
 
                     
@@ -196,16 +198,17 @@ function DetalleProp(){
                 <div className='cont-map'>
                     <p className='p-titulo-mapa'>Ubicacion Propiedad</p>
                     <MapProp 
-                        address={propiedad.ubicacion?.direccionPublicacion}
+                        address={propiedad.ubicacion?.direccionReal + ' ' + propiedad.ubicacion?.ciudad + ', ' + propiedad.ubicacion?.provincia}
                     />
                 </div>
 
-                {/* Modal Video */}
-                
-                    {
-                        contexto.isOpenModalVideo && <ModalVideo />
-                    }
-                
+                {/* Modal Video */}                
+                {
+                    contexto.isOpenModalVideo && <ModalVideo video={propiedad.video}/>
+                }
+
+                {/* btn whatsapp */}
+                <BotonWhatsApp />
             </div>
         </div>
     )

@@ -65,15 +65,15 @@ function Home() {
               <h1 className='titulo-lista-props'>Conocé nuestras Propiedades</h1>
               <ListaPropiedades allProps={allProps} id='listaProps' />
               {
-                  allProps[0] && (
-                    <Paginacion
-                      allProps={allProps}
-                      currentPage={currentPage}
-                      onPageChange={setCurrentPage}
-                      totalPropiedades={totalPropiedades}
-                      propiedadesPorPagina={propiedadesPorPagina}
-                    />
-                  )
+                allProps[0] && (
+                  <Paginacion
+                    allProps={allProps}
+                    currentPage={currentPage}
+                    onPageChange={setCurrentPage}
+                    totalPropiedades={totalPropiedades}
+                    propiedadesPorPagina={propiedadesPorPagina}
+                  />
+                )
               }
             </div>
           </div>
