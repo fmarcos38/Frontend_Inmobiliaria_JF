@@ -15,10 +15,10 @@ function ListaFavoritos({allProps}) {
                     allProps[0] ?
                         allProps.map(p => {
                             return (
-                                <div className='cont-card-Fav-listaProps' key={p._id}>
+                                <div className='cont-card-Fav-listaProps' key={p.id}>
                                     <Card
-                                        key={p._id}
-                                        id={p._id}
+                                        key={p.id}
+                                        id={p.id}
                                         tituloPublicacion={p.tituloPublicacion}
                                         ubicacion={p.ubicacion}
                                         operacion={p.operacion}

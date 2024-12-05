@@ -12,7 +12,7 @@ function FavoritosPage() {
     const [tipoPropiedad, setTipoPropiedad] = useState('');
     const [precioMin, setPrecioMin] = useState(1000);
     const [precioMax, setPrecioMax] = useState(10000000);
-    const [currentPage, setCurrentPage] = useState(1); // Agregar manejo de página
+    const [setCurrentPage] = useState(1); // Agregar manejo de página
 
     // 1. Cargar favoritos del localStorage
     useEffect(() => {
