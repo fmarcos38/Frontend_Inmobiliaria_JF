@@ -1,5 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import { InmobiliariaContext } from '../../context';
+import { resetLogin } from '../../redux/actions';
+import { logout } from '../../localStorage';
 import logo from '../../imagenes/ScreenShot146.jpg';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -8,8 +12,9 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Swal from 'sweetalert2';
 import './estilos.css';
-import { InmobiliariaContext } from '../../context';
+
 
 function Navbar() {
 
@@ -18,7 +23,7 @@ function Navbar() {
     //estado menú Admin
     const [muestraMenuAdmin, setMuestraMenuAdmin] = useState(false);
     const context = useContext(InmobiliariaContext);
-
+    const dispatch = useDispatch();
     const handleMouseEnterAdmin = () => {
         setMuestraMenuAdmin(true);
     };
@@ -28,6 +33,24 @@ function Navbar() {
     //abre/cierra menú Hambur
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+    //logout
+    const handleLogOut = () => {
+        Swal.fire({
+            title: "Salir?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logout();
+                context.setUserLog(null);
+                context.logout();
+                dispatch(resetLogin());
+            }
+        });        
     };
 
     return (
@@ -121,7 +144,9 @@ function Navbar() {
                                 {
                                     context.nombreUser ? (
                                         <>
-                                            <LogoutIcon sx={{'fontSize':'18px'}}/>
+                                            <button onClick={()=>{handleLogOut()}} style={{border:'none', backgroundColor:'transparent'}}>
+                                                <LogoutIcon sx={{'fontSize':'18px', 'color':'white'}} />
+                                            </button>
                                         </>
                                     ) : (
                                         <NavLink 

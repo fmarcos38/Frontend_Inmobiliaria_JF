@@ -44,6 +44,7 @@ export const InmobiliariaProvider = ({children}) => {
         <InmobiliariaContext.Provider 
             value={{
                 userLog,
+                setUserLog,
                 isAuthenticated,
                 nombreUser,
                 login,
