@@ -1,12 +1,8 @@
-.cont-listaPropsAdmin{
-    width: 100%;
+.cont-alta-usuario{
     min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    background-color: #cecdcd;
 }
-.msj-girar{
-    display: none;
-}
-

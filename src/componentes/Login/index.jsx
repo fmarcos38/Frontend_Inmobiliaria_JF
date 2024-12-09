@@ -43,14 +43,13 @@ function Login() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => { 
         e.preventDefault();
-        if (userLog === null) {
+        if (userLog === null) { 
             if(validaInputs()){
                 dispatch(login(input));
             }
         }
-        
     };
     
     useEffect(() => {

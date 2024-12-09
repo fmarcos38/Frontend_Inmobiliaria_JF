@@ -201,10 +201,17 @@
     position: relative;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    padding: 10px;
     border: 1px solid grey;
     background-color: rgb(229, 232, 231);
+}
+.sub-cont-servicios{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .titulo-servicio {
     position: absolute;
@@ -267,4 +274,115 @@
 .btn-crea {
     width: 50%;
     margin-bottom: 20px;
+}
+
+/* responsive */
+@media screen and (max-width: 1180px){
+    .formulario-crea-prop {
+        width: 98%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .operacion{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        align-items: start;
+    }
+    .cont-opVenta-y-precio,
+    .cont-opAlq-y-precio {
+        width: 100%;
+        margin-right: 5px;
+    }
+    .label-venta{
+        margin-right: 0;
+    }
+    
+    .cont-precio-venta,
+    .cont-precio-alq {
+        width: 70%;
+        align-items: start;
+    }
+    .label-precio-venta,
+    .label-precio-alq {
+        margin-right: 5px;
+    }
+    .btn-sgt-vista1{
+        width: 50%;
+    }
+}
+/* para la vista 3 */
+@media screen and (max-width:720px) {
+    .cont-ambts{
+        width: 90%;
+        flex-direction: column;
+        align-items: start;
+    }
+    .cont-amb{
+        width: 90%;
+        margin-bottom: 10px;
+    }
+}
+@media screen and (max-width: 670px){
+    /* vista 1 */
+    .cont-opVenta-y-precio,
+    .cont-opAlq-y-precio {
+        width: 100%;
+        flex-direction: column;
+        align-items: start;
+    }
+    .cont-precio-venta,
+    .cont-precio-alq {
+        width: 100%;
+        align-items: start;
+    }
+    .input-precio-venta {
+        width: 100px;
+    }
+    .btn-sgt-vista1{
+        width: 70%;
+    }
+    /* vista 2 */
+    .cont-data-vista-2{
+        width: 90%;
+    }
+    .cont-ubicacion{
+        width: 100%;
+        flex-direction: column;
+        align-items: start;
+    }
+    .cont-ubicacion-direcc,
+    .cont-ubicacion-barrio {
+        width: 100%;
+    }
+    .cont-botones-sgt-atras-vista-2{
+        width: 70%;
+        justify-content: center;
+    }
+    .btn-atras-vista-2,
+    .btn-sgt-vista-2 {
+        width: 50%;
+    }
+}
+/* vista 4 */
+@media screen and (max-width:530px) {
+    .sub-cont-servicios{
+        flex-direction: column;
+        align-items: start;
+    }
+}
+@media screen and (max-width: 455px) {
+    .cont-campReq-botones{
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
+    .cont-campo-requerido,
+    .cont-botones-sgt-atras-vista-2{
+        width: 100%;
+    }
 }

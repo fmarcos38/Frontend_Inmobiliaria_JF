@@ -134,6 +134,16 @@ function Navbar() {
                                                         Lista Propiedades                                        
                                                     </NavLink>
                                                 </li>
+                                                <li className="dropdown-item">
+                                                    <NavLink to='/admin/creaUsuario' className='link-menu' >
+                                                        Crea Usuario                                        
+                                                    </NavLink>
+                                                </li>
+                                                <li className="dropdown-item">
+                                                    <NavLink to='/admin/listaUsuarios' className='link-menu' >
+                                                        Lista Usuarios
+                                                    </NavLink>
+                                                </li>
                                             </ul>
                                         )
                                     }
@@ -178,16 +188,20 @@ function Navbar() {
                                 <ul className='ul-lista-pChica'>
                                     {
                                         context.nombreUser && (
+                                            <>
                                             <li className='items-pChica'>
                                                 <NavLink to='/admin/creaPropiedad' className='link-navbar'>Crea Propiedad</NavLink>
                                             </li>
-                                        )
-                                    }
-                                    {
-                                        context.nombreUser && (
                                             <li className='items-pChica'>
-                                                <NavLink to='/admin/listaPropsAdmin' className='link-navbar'>Lista Propiedades</NavLink>
+                                            <NavLink to='/admin/listaPropsAdmin' className='link-navbar'>Lista Propiedades</NavLink>
                                             </li>
+                                            <li className='items-pChica'>
+                                                <NavLink to='/admin/creaUsuario' className='link-navbar'>Crea Usuario</NavLink>
+                                            </li>
+                                            <li className='items-pChica'>
+                                            <NavLink to='/admin/listaUsuario' className='link-navbar'>Lista Usuario</NavLink>
+                                            </li>
+                                            </>
                                         )
                                     }
                                     <li className='items-pChica'>

@@ -1,0 +1,8 @@
+.cont-lista-usuarios{
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin-top: 20px;
+}

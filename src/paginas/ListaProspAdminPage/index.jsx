@@ -18,9 +18,7 @@ function ListaPropsAdminPage() {
     return (
         <div className='cont-listaPropsAdmin'>
             <h1>Lista de Propiedades</h1>
-            <div className='cont-tabla-page'>
-                <TablaProspAdmin propiedades={propiedades}/>
-            </div>
+            <TablaProspAdmin propiedades={propiedades}/>
         </div>
     )
 }

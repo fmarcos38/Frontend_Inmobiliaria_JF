@@ -46,8 +46,6 @@ function FormularioProp(
     }
 ) {
 
-    
-
 
     return (
         <div className='cont-crea-prop'>
@@ -83,11 +81,12 @@ function FormularioProp(
                         </div>
                         {/* operacion */}
                         <div className='cont-dato'>
+                            {/* titulo */}
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Tipo operación</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
                             </div>
-                            <div className='cont-operaciones'>
+                            <div className='cont-operaciones operacion'>
                                 {/* venta */}
                                 <div className='cont-opVenta-y-precio'>
                                     <div className='cont-venta'>
@@ -101,7 +100,7 @@ function FormularioProp(
                                         />
                                     </div>
                                     <div className='cont-precio-venta'>
-                                        <label className='label-precio-venta'>P. Venta: </label>
+                                        <label className='label-precio-venta'>Valor: </label>
                                         <input 
                                             type='text' 
                                             id='monedaVenta' 
@@ -133,7 +132,7 @@ function FormularioProp(
                                         />
                                     </div>                                    
                                     <div className='cont-precio-alq'>
-                                        <label className='label-precio-venta'>P. Alquiler: </label>
+                                        <label className='label-precio-venta'>Valor: </label>
                                         <input 
                                             type='text' 
                                             id='monedaAlq' 
@@ -414,17 +413,19 @@ function FormularioProp(
                         {/* servicios */}
                         <div className='cont-servicios'>
                             <p className='titulo-servicio'>Servicios</p>
-                            <div className='cont-amb'>
-                                <label className='label-crea-prop'>Luz eléctrica</label>
-                                <input type='checkbox' id='luz' value={"luz"}  onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
-                            </div>
-                            <div className='cont-amb'>
-                                <label className='label-crea-prop'>Gas</label>
-                                <input type='checkbox' id='gas' value={"gas"}  onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
-                            </div>
-                            <div className='cont-amb'>
-                                <label className='label-crea-prop'>Cloaca</label>
-                                <input type='checkbox' id='luz' value={"cloaca"}  onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                            <div className='sub-cont-servicios'>
+                                <div className='cont-servicio'>
+                                    <label className='label-crea-prop'>Luz eléctrica</label>
+                                    <input type='checkbox' id='luz' value={"luz"} onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                                </div>
+                                <div className='cont-servicio'>
+                                    <label className='label-crea-prop'>Gas</label>
+                                    <input type='checkbox' id='gas' value={"gas"} onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                                </div>
+                                <div className='cont-servicio'>
+                                    <label className='label-crea-prop'>Cloaca</label>
+                                    <input type='checkbox' id='luz' value={"cloaca"} onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                                </div>
                             </div>
                         </div>
 

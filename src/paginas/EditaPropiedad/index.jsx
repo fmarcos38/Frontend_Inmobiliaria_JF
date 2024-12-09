@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { actual } from '../../urls';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import FormularioProp from '../../componentes/FormularioPropiedad';
 import { getPropiedad } from '../../redux/actions';
-
+import FormularioProp from '../../componentes/FormularioPropiedad';
+import './estilos.css';
 
 function EditaPropiedad() {
 
@@ -372,7 +372,7 @@ function EditaPropiedad() {
         //actualizo las imgs
         setImagenes(propiedad.imagenes);
         //actualizo la vista previa
-        const previews = propiedad.imagenes.map((imagen) => ({
+        const previews = propiedad.imagenes?.map((imagen) => ({
             file: imagen,
             url: `${imagen}`,
         }));

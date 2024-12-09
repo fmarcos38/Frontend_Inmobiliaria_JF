@@ -1,5 +1,5 @@
 .cont-tabla {
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,4 +48,17 @@
     height: 50px;
     border-radius: 5px;
     object-fit: cover;
+}
+
+/* responsive */
+@media screen and (max-width:680px) {
+    .cont-tabla {
+        width: 100%;
+    }
+    .tabla-props-admin thead th{
+        font-size: 10px;
+    }
+    .tabla-props-admin tbody tr{
+        font-size: 12px;
+    }
 }

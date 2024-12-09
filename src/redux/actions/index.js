@@ -6,7 +6,7 @@ import {
 import { actual } from "../../urls";
 
 //---LOGIN--------------------------------------------------------
-export function login(data){
+export function login(data){ 
     return async function (dispatch) {
         const resp = await axios.post(`${actual}/auth/login`, data); 
         //asigno data del user al localStorage
@@ -19,6 +19,21 @@ export function resetLogin(){
         dispatch({type: RESET_LOGIN, payload: null})
     }
 }
+//--usuario------------------------------------------------------
+//crea usuario
+export const creaUsuario = (data) => {
+    return async function() {
+        await axios.post(`${actual}/usuarios/crea`, data);
+    }
+};
+
+//trae usuarios
+export const getUsuarios = () => {
+    return async function(dispatch) {
+        const resp = await axios.get(`${actual}/usuarios`);
+        dispatch({type: 'GET_USUARIOS', payload: resp.data});
+    }
+};
 
 //---PROPIEDADES----------------------------------------------------
 //trae props

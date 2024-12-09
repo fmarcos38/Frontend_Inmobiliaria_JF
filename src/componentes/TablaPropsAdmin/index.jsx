@@ -1,9 +1,9 @@
 import React from 'react';
-import EditIcon from '@mui/icons-material/Edit';
-
-import './estilos.css';
-import BotonEliminaProp from '../BotonEliminaProp';
 import { NavLink } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
+import BotonEliminaProp from '../BotonEliminaProp';
+import './estilos.css';
+
 
 function TablaProspAdmin({propiedades}) {
 
@@ -20,7 +20,7 @@ function TablaProspAdmin({propiedades}) {
                             <th>Dorm</th>
                             <th>Baños</th>
                             <th>Detalle</th>
-                            <th>Edita/Elimina</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

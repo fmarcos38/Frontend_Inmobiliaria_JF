@@ -11,9 +11,11 @@ import DetalleProp from './paginas/DetallePropiedad';
 import FavoritosPage from './paginas/Favoritos';
 import CreaPropiedad from './paginas/CreaPropiedad';
 import ListaPropsAdminPage from './paginas/ListaProspAdminPage';
-import './App.css';
 import EditaPropiedad from './paginas/EditaPropiedad';
 import ContactoPAntallaCH from './componentes/ContactoPantallaCH';
+import AltaUsuarioPage from './paginas/AltaUsuario';
+import './App.css';
+import ListaUsuariosPage from './paginas/ListaUsuariosPage';
 
 
 function App() {
@@ -35,6 +37,9 @@ function App() {
           <Route path='/admin/creaPropiedad' element={<CreaPropiedad/>} />
           <Route path='/admin/listaPropsAdmin' element={<ListaPropsAdminPage/>} />
           <Route path='admin/editaProp/:_id' element={<EditaPropiedad/>} />
+          <Route path='/admin/creaUsuario' element={<AltaUsuarioPage/>} />
+          <Route path='/admin/listaUsuarios' element={<ListaUsuariosPage/>} />
+          <Route path='*' element={<h1>404 Not Found</h1>} />
         </Routes>
 
         <Footbar />
