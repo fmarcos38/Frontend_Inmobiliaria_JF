@@ -13,5 +13,6 @@ export const RESET_PROPS = "RESET_PROPS";
 //ususarios
 export const CREA_USUARIO = "CREA_USUARIO";
 export const GET_USUARIOS = "GET_USUARIOS";
+export const GET_USUARIO = "GET_USUARIO";
 export const MODIFICA_USUARIO = "MODIFICA_USUARIO";
 export const ELIMINA_USUARIO = "ELIMINA_USUARIO";

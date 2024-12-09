@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { creaUsuario } from '../../redux/actions';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { creaUsuario, getUsuario, editaUsuario } from '../../redux/actions';
 import Swal from 'sweetalert2';
 import './estilos.css';
 
 
-const FormularioUsuario = () => {
+
+const FormularioUsuario = ({operacion}) => {
+
+    const {_id} = useParams();
+    //info usuario SI la operacion es editar
+    const usuario = useSelector((state) => state.user);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -29,15 +35,40 @@ const FormularioUsuario = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!validaInputs()) {
-            dispatch(creaUsuario({ email, password }));
+        if(operacion === 'edita'){
+            const data = {email, password};
+            dispatch(editaUsuario({ _id, data}));
             Swal.fire({
-                title: 'Usuario creado',
+                title: 'Usuario modificado con exito',
                 icon: 'success',
                 confirmButtonText: 'Ok'
             });
+        }else{
+            if (!validaInputs()) {
+                dispatch(creaUsuario({ email, password }));
+                Swal.fire({
+                    title: 'Usuario creado con exito',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            }
         }
     };
+
+    // Efecto para traer el usuario SI la operacion es editar
+    useEffect(() => {
+        if (operacion === 'edita' && _id) {
+            dispatch(getUsuario(_id));
+        }
+    }, [_id, dispatch, operacion]);
+
+    // Efecto para cargar los datos SI la operacion es editar
+    useEffect(() => {
+        if (operacion === 'edita' && usuario) {
+            setEmail(usuario.email);
+            setPassword(usuario.password);
+        }
+    }, [operacion, usuario]);
 
     return (
         <form onSubmit={handleSubmit} className='cont-form-crea-usuario'>
@@ -61,7 +92,9 @@ const FormularioUsuario = () => {
                 />
                 {errors.password && <p className='p-crea-usuario'>{errors.password}</p>}
             </div>
-            <button type="submit" className='btn-crea-usuario'>Crear usuario</button>
+            <button type="submit" className='btn-crea-usuario'>
+                {operacion === 'edita' ? 'Editar usuario' : 'Crear usuario'}
+            </button>
         </form>
     );
 };

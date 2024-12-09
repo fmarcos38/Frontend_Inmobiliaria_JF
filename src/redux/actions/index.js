@@ -35,6 +35,27 @@ export const getUsuarios = () => {
     }
 };
 
+//trae usuario por ID
+export const getUsuario = (_id) => {
+    return async function(dispatch) { 
+        const resp = await axios.get(`${actual}/usuarios/${_id}`);
+        dispatch({type: 'GET_USUARIO', payload: resp.data});
+    }
+};
+
+//edita usuario
+export const editaUsuario = ({_id, data}) => {
+    return async function() { 
+        await axios.put(`${actual}/usuarios/edita/${_id}`, data);
+    }
+};
+
+//elimina usuario
+export const eliminaUsuario = (email) => {
+    return async function() {
+        await axios.delete(`${actual}/usuarios/elimina/`, email);
+    }
+};
 //---PROPIEDADES----------------------------------------------------
 //trae props
 export const getProps = (limit, offset, operacion, tipo, precioMin, precioMax) => {

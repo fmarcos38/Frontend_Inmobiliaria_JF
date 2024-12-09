@@ -1,6 +1,6 @@
 import { 
     LOGIN, RESET_LOGIN, GET_PROPS, IS_OPEN_MODAL_PICTURE, LOADING,  RESET_PROPERTY,
-    GET_PROPIEDAD,   
+    GET_PROPIEDAD,GET_USUARIOS, GET_USUARIO,   
 } from "../actions/actionType";
 
 const initialState = {
@@ -24,11 +24,16 @@ export default function rootReducer (state = initialState, action) {
             ...state,
             user: action.payload
         }
-        case 'GET_USUARIOS':
-            return{
+        case GET_USUARIOS:
+            return {
                 ...state,
                 usuarios: action.payload
-            }
+        }
+        case GET_USUARIO:
+        return{
+            ...state,
+            user: action.payload
+        }
         case LOADING:
         return{
             ...state,

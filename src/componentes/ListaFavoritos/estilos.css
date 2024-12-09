@@ -4,12 +4,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('../../imagenes/Textura-05.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 .titulo-lista-props-fav{
-    margin: 10px 0 10px 0;
+    border-radius: 5px;
+    padding: 0 10px;
     background-color: aliceblue;
 }
 .cont-card-lista-props{
@@ -19,4 +17,5 @@
     flex-wrap: wrap; /* para el orden de las CARDS */
     justify-content: center;
     align-items: center;
+    margin: 10px 0;
 }

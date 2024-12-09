@@ -16,6 +16,7 @@ import ContactoPAntallaCH from './componentes/ContactoPantallaCH';
 import AltaUsuarioPage from './paginas/AltaUsuario';
 import './App.css';
 import ListaUsuariosPage from './paginas/ListaUsuariosPage';
+import EditaUsuarioPage from './paginas/EditaUsuario';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path='admin/editaProp/:_id' element={<EditaPropiedad/>} />
           <Route path='/admin/creaUsuario' element={<AltaUsuarioPage/>} />
           <Route path='/admin/listaUsuarios' element={<ListaUsuariosPage/>} />
+          <Route path='/admin/editaUsuario/:_id' element={<EditaUsuarioPage/>} />
           <Route path='*' element={<h1>404 Not Found</h1>} />
         </Routes>
 
