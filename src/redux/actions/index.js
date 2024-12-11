@@ -82,7 +82,7 @@ export const getProps = (limit, offset, operacion, tipo, precioMin, precioMax) =
 
 //trae propiedad por ID
 export const getPropiedad = (_id) => {
-    return async function(dispatch) { console.log("idAction:", _id);
+    return async function(dispatch) {
         try {
             const resp = await axios.get(`${actual}/propiedades/${_id}`);
             dispatch({type: GET_PROPIEDAD, payload: resp.data});

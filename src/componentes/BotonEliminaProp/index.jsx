@@ -7,7 +7,7 @@ import './estilos.css';
 
 
 function BotonEliminaProp({_id}) {
-    console.log("_id:", _id);
+    
     const dispatch = useDispatch();
     
     const handleOnClick = () => {

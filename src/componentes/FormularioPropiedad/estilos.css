@@ -46,6 +46,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    margin-bottom: 10px;
 }
 .cont-operaciones {
     width: 100%;
@@ -275,6 +276,11 @@
     width: 50%;
     margin-bottom: 20px;
 }
+/* msj error input */
+.input-error {
+    border: 1px solid red;
+}
+
 
 /* responsive */
 @media screen and (max-width: 1180px){

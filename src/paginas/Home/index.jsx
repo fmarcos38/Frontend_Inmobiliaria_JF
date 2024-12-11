@@ -15,7 +15,7 @@ import './estilos.css';
 function Home() {
   const loading = useSelector(state => state.loading);
   const [operacion, setOperacion] = useState('');
-  const [tipoPropiedad, setTipoPropiedad] = useState('');
+  const [tipoPropiedad, setTipoPropiedad] = useState('todos');
   const [precioMin, setPrecioMin] = useState(1000);
   const [precioMax, setPrecioMax] = useState(10000000);
   const [currentPage, setCurrentPage] = useState(1);
