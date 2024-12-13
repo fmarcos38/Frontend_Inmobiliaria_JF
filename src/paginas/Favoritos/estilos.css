@@ -1,9 +1,7 @@
-.cont-page-favoritos{
+.cont-filtros-listaProps-fav{
     width: 100%;
-    min-height: 90vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: var(--color-gris);
+    align-items: start;
+    margin-bottom: 10px;
 }

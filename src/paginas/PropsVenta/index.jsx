@@ -11,9 +11,9 @@ import './estilos.css';
 function PropsVenta() {
 
     const loading = useSelector(state => state.loading);
-    const [operacion, setOperacion] = useState('Venta');
-    const [tipoPropiedad, setTipoPropiedad] = useState('');
-    const [precioMin, setPrecioMin] = useState(10000);
+    const operacion = 'Venta';
+    const [tipoPropiedad, setTipoPropiedad] = useState('todos');
+    const [precioMin, setPrecioMin] = useState(1000);
     const [precioMax, setPrecioMax] = useState(1000000);
     const [currentPage, setCurrentPage] = useState(1);
     const allProps = useSelector(state => state.propiedades);
@@ -31,7 +31,7 @@ function PropsVenta() {
     
     useEffect(()=>{
         dispatch(getProps(limit, offset, operacion, tipoPropiedad, precioMin, precioMax));
-    },[dispatch, limit, offset, operacion, precioMax, precioMin, tipoPropiedad]);
+    },[dispatch, limit, offset, precioMax, precioMin, tipoPropiedad]);
 
     return (
         <div className='cont-prop-Venta'>
@@ -46,7 +46,6 @@ function PropsVenta() {
                                 muestraVentaAlq={'false'}
                                 soloAlq={'false'}
                                 setCurrentPage={setCurrentPage}
-                                setOperacion={setOperacion}
                                 setTipoPropiedad={setTipoPropiedad}
                                 precioMin={precioMin}
                                 setPrecioMin={setPrecioMin}
@@ -56,19 +55,19 @@ function PropsVenta() {
                         </div>
 
                         {/* lista props y pag */}
-                        <div className='cont-listaProps-Y-paginacion'>
-                        <ListaPropiedades allProps={allProps} id='listaProps' />
-                        {
-                            allProps[0] && (
-                            <Paginacion
-                                allProps={allProps}
-                                currentPage={currentPage}
-                                onPageChange={setCurrentPage}
-                                totalPropiedades={totalPropiedades}
-                                propiedadesPorPagina={propiedadesPorPagina}
-                            />
-                            )
-                        }
+                        <div className='cont-listaProps-Y-paginacion-ventas'>
+                            <ListaPropiedades allProps={allProps} id='listaProps' />
+                            {
+                                allProps[0] && (
+                                <Paginacion
+                                    allProps={allProps}
+                                    currentPage={currentPage}
+                                    onPageChange={setCurrentPage}
+                                    totalPropiedades={totalPropiedades}
+                                    propiedadesPorPagina={propiedadesPorPagina}
+                                />
+                                )
+                            }
                         </div>
                     </div>
                 )

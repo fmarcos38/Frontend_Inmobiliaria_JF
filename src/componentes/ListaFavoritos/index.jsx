@@ -7,9 +7,7 @@ import './estilos.css';
 function ListaFavoritos({allProps}) {
 
     return (
-        <div className='cont-listaProps-fav'>
-            <h1 className='titulo-lista-props-fav'>Tus Propiedades Favoritas</h1>
-
+        
             <div className='cont-card-lista-props'>
                 {
                     allProps[0] ?
@@ -17,11 +15,12 @@ function ListaFavoritos({allProps}) {
                             return (
                                 <div className='cont-card-Fav-listaProps' key={p.id}>
                                     <Card
-                                        key={p.id}
                                         id={p.id}
                                         tituloPublicacion={p.tituloPublicacion}
                                         ubicacion={p.ubicacion}
                                         operacion={p.operacion}
+                                        precioVenta={p.precioVenta}
+                                        precioAlquiler={p.precioAlquiler}
                                         imagenes={p.imagenes}
                                         cantCocheras={p.cantCocheras}
                                         ambientes={p.ambientes}
@@ -42,7 +41,7 @@ function ListaFavoritos({allProps}) {
                         )
                 }
             </div>
-        </div>
+        
     )
 }
 

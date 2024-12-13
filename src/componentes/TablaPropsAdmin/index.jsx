@@ -30,24 +30,24 @@ function TablaProspAdmin({propiedades}) {
                                 <td>{propiedad.ubicacion.direccionReal}</td>
                                 <td>
                                     {
-                                        propiedad.venta && !propiedad.alquiler ? "Venta" : null
+                                        propiedad.operacion === "Venta" && "Venta" 
                                     }
                                     {
-                                        propiedad.alquiler && !propiedad.venta ? "Alquiler" : null
+                                        propiedad.operacion === "Alquiler" && "Alquiler"
                                     }
                                     {
-                                        propiedad.venta && propiedad.alquiler ? "Venta / Alquiler" : null
+                                        propiedad.operacion === "Venta y Alquiler" && "Venta / Alquiler"
                                     }
                                 </td>
                                 <td>
                                     {
-                                        propiedad.venta && !propiedad.alquiler ? `$ ${propiedad.venta.precio}` : null
+                                        propiedad.operacion === "Venta" && `U$D ${propiedad.precioVenta}`
                                     }
                                     {
-                                        propiedad.alquiler && !propiedad.venta ? `$ ${propiedad.alquiler.precio}` : null
+                                        propiedad.operacion === "Alquiler" && `$ ${propiedad.precioAlquiler}`
                                     }
                                     {
-                                        propiedad.venta && propiedad.alquiler ? `$ ${propiedad.venta.precio} / $ ${propiedad.alquiler.precio}` : null
+                                        propiedad.operacion === "Venta y Alquiler" && `U$D ${propiedad.precioVenta} / $ ${propiedad.precioAlquiler}`
                                     }
                                 </td>
                                 <td>{propiedad.dormitorios}</td>

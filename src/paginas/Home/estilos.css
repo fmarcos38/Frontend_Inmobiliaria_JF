@@ -30,9 +30,10 @@
 }
 .cont-barraLateral {
     position: sticky;
-    top: 10px; /* La distancia desde la parte superior de la ventana */
+    top: 10%; /* La distancia desde la parte superior de la ventana */
     max-height: calc(100vh - 20px); /* Ajusta la altura máxima para evitar que salga del contenedor */
     overflow-y: auto; /* Permite el desplazamiento dentro de la barra lateral si el contenido es más largo */
+    margin-top: 70px;
 }
 
 .cont-listaProps-Y-paginacion {

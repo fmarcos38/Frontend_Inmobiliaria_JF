@@ -12,66 +12,46 @@ function EditaPropiedad() {
     const dispatch = useDispatch();
     const propiedad = useSelector((state) => state.propiedad);
     
-    const handleOnSubmit = async (
-        tituloPublicacion,
-        descripcion,
-        tipoPropiedad,
-        expesnsas,
-        cantPisos,
-        ambientes,
-        dormitorios,
-        baños,
-        supCubierta,
-        supSemiCub,
-        supDescubierta,
-        supTotal,
-        estado,
-        antiguedad,
-        cantCocheras,
-        operacion,
-        ubicacion,
-        imagenes,
-        video,
-        servicios,
-    ) => {
+    const handleOnSubmit = async (data) => {
 
         const formData = new FormData();
         formData.append('data', JSON.stringify({
-            tituloPublicacion,
-            descripcion,
-            tipoPropiedad,
-            expesnsas,
-            cantPisos,
-            ambientes,
-            dormitorios,
-            baños,
-            supCubierta,
-            supSemiCub,
-            supDescubierta,
-            supTotal,
-            estado,
-            antiguedad,
-            cantCocheras,
-            operacion,
-            ubicacion,
-            imagenes,
-            video,
-            servicios,
+            tituloPublicacion: data.tituloPublicacion,
+            descripcion: data.descripcion,
+            tipoPropiedad: data.tipoPropiedad,
+            expesnsas: data.expesnsas,
+            cantPisos: data.cantPisos,
+            ambientes: data.ambientes,
+            dormitorios: data.dormitorios,
+            baños: data.baños,
+            supCubierta: data.supCubierta,
+            supSemiCub: data.supSemiCub,
+            supDescubierta: data.supDescubierta,
+            supTotal: data.supTotal,
+            estado: data.estado,
+            antiguedad: data.antiguedad,
+            cantCocheras: data.cantCocheras,
+            venta: data.venta,
+            alquiler: data.alquiler,
+            ubicacion: data.ubicacion,
+            imagenes: data.imagenes,
+            video: data.video,
+            servicios: data.servicios,
         }));
 
-        imagenes.forEach((imagen, index) => {
+        data.imagenes?.forEach((imagen, index) => {
             formData.append('imagenes', imagen);
         });
 
         try {
-            const response = await fetch(`${actual}/propiedades`, {
-                method: 'POST',
+            const response = await fetch(`${actual}/propiedades/editaProp/${_id}`, {
+                method: 'PUT',
                 body: formData,
             });
             if (response.ok) {
-                alert('Propiedad creada con éxito');
+                alert('Propiedad modificar con éxito');
             } else {
-                alert('Error al crear la propiedad');
+                alert('Error al modificar la propiedad');
             }
         } catch (error) {
             console.log(error);

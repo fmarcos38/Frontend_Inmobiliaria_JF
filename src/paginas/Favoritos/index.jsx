@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BarraLateral from '../../componentes/Barra-Lateral';
 import ListaFavoritos from '../../componentes/ListaFavoritos';
+import WhatsAppButton from '../../componentes/BotonWhastApp';
 import './estilos.css';
 
 function FavoritosPage() {
@@ -26,9 +27,7 @@ function FavoritosPage() {
         let propsFiltradas = [...fav];
 
         if (operacion) {
-            propsFiltradas = propsFiltradas.filter(prop =>
-                prop.operacion.some(op => op.tipoOperacion === operacion)
-            );
+            propsFiltradas = propsFiltradas.filter(prop => prop.operacion === operacion)
         }
 
         if (tipoPropiedad) {
@@ -36,42 +35,52 @@ function FavoritosPage() {
         }
 
         //filtro por precio min
-        propsFiltradas = propsFiltradas.filter(prop => 
-            prop.operacion.some(op => op.precio >= precioMin)
-        )
+        propsFiltradas = propsFiltradas.filter(prop => prop.precioVenta >= precioMin || prop.precioAlquiler >= precioMin);
         //filtro por precio max
-        propsFiltradas = propsFiltradas.filter(prop => 
-            prop.operacion.some(op => op.precio <= precioMax)
-        )
+        propsFiltradas = propsFiltradas.filter(prop => prop.precioVenta <= precioMax || prop.precioAlquiler <= precioMax);
 
         setFilteredFav(propsFiltradas);
     }, [fav, operacion, tipoPropiedad, precioMin, precioMax]);
 
     // Render
     return (
-        <div className="home">
-            <div className="cont-barraLateral-Y-listaProps">
-                {/* Barra Lateral con los filtros */}
-                <div className="cont-barraLateral">
+        <div className='cont-prop-Venta'>
+            <h1 className='titulo-propsFav'>Tus propiedades favoritas</h1>
+            <div className='cont-filtros-listaProps-fav'>
+                <div className='cont-barraL'>
                     <BarraLateral
                         muestraVentaAlq={'true'}
                         soloAlq={'true'}
                         setOperacion={setOperacion}
+                        setCurrentPage={setCurrentPage}
                         setTipoPropiedad={setTipoPropiedad}
                         precioMin={precioMin}
                         setPrecioMin={setPrecioMin}
                         precioMax={precioMax}
                         setPrecioMax={setPrecioMax}
-                        setCurrentPage={setCurrentPage}
                     />
                 </div>
-                {/* Lista de propiedades favoritas (filtrada) */}
-                <div className="cont-listaProps-Y-paginacion">
-                    <ListaFavoritos allProps={filteredFav} /> {/* Muestra las propiedades filtradas */}
+
+                {/* lista props y pag */}
+                <div className='cont-listaProps-fav'>
+                    <ListaFavoritos allProps={filteredFav} />
                 </div>
             </div>
+            <WhatsAppButton />
         </div>
     );
 }
 
 export default FavoritosPage;
+
+/*
+
+
+                
+                <div className="cont-listaProps-Y-paginacion">
+                    <h1 className='titulo-lista-props-fav'>Tus Propiedades Favoritas</h1>
+                     
+                </div>
+            </div>
+
+*/

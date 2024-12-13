@@ -19,6 +19,8 @@ function ListaPropiedades({allProps}) {
                                     tipoPropiedad={p.tipoPropiedad}
                                     ubicacion={p.ubicacion}
                                     operacion={p.operacion}
+                                    precioVenta={p.precioVenta}
+                                    precioAlquiler={p.precioAlquiler}
                                     imagenes={p.imagenes}
                                     dormitorios={p.dormitorios}
                                     cantCocheras={p.cantCocheras}

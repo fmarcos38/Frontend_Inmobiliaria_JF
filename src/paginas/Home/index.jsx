@@ -14,7 +14,7 @@ import './estilos.css';
 
 function Home() {
   const loading = useSelector(state => state.loading);
-  const [operacion, setOperacion] = useState('');
+  const [operacion, setOperacion] = useState('todas');
   const [tipoPropiedad, setTipoPropiedad] = useState('todos');
   const [precioMin, setPrecioMin] = useState(1000);
   const [precioMax, setPrecioMax] = useState(10000000);
@@ -47,6 +47,7 @@ function Home() {
           <LandingB />
           <LandingC />
           <div className='cont-barraLateral-Y-listaProps'>
+          <h1 className='titulo-lista-props'>Conocé nuestras Propiedades</h1>
             <div className='cont-barraLateral'>
               <BarraLateral
                 muestraVentaAlq={'true'}
@@ -62,7 +63,6 @@ function Home() {
             </div>
             {/* lista props y pag */}
             <div className='cont-listaProps-Y-paginacion'>
-              <h1 className='titulo-lista-props'>Conocé nuestras Propiedades</h1>
               <ListaPropiedades allProps={allProps} id='listaProps' />
               {
                 allProps[0] && (

@@ -136,15 +136,17 @@ function DetalleProp(){
                         <p className='titulo-detalle-prop'>Detalle Propiedad</p>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Tipo Operacio:</p>
-                            {
-                                propiedad.operacion?.map(o => {
-                                    return (
-                                        <div key={o.operacion_id}>
-                                            <p className='p-col-1'>{propiedad.operacion[0]?.tipoOperacion}</p>
-                                        </div>
-                                    )
-                                })
-                            }
+                            <p className='p-col-1'>
+                                {
+                                    propiedad.alquiler?.precio === null && "Venta"
+                                }
+                                {
+                                    propiedad.venta?.precio === null && "Alquiler"
+                                }
+                                {
+                                    propiedad.venta?.precio !== null && propiedad.alquiler?.precio !== null && "Venta / Alquiler"
+                                }
+                            </p>
                         </div>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Tipo de Prop:</p>
@@ -152,7 +154,17 @@ function DetalleProp(){
                         </div>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Precio:</p>
-                            <p className='p-col-1'>{moneda}{formatMoney(precio)}</p>
+                            <p className='p-col-1'>
+                                {
+                                    propiedad.alquiler?.precio === null && `U$D ${propiedad.venta?.precio}`
+                                }
+                                {
+                                    propiedad.venta?.precio === null && `$ ${propiedad.alquiler?.precio}`
+                                }
+                                {
+                                    propiedad.venta?.precio !== null && propiedad.alquiler?.precio !== null && `U$D ${propiedad.venta?.precio} /  $ ${propiedad.alquiler?.precio}`
+                                }
+                            </p>
                         </div>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Sup. Cubierta:</p>

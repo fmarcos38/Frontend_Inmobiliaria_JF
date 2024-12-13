@@ -56,7 +56,7 @@ function PropsAlquiler() {
                             />
                         </div>
 
-                        <div className='cont-listaProps'>
+                        <div className='cont-listaProps-Y-paginacion-ventas'>
                             <ListaPropiedades allProps={allProps} id='listaProps' />
                             {
                                 allProps[0] &&

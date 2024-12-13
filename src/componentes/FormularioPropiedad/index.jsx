@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './estilos.css';
 
 
@@ -10,42 +10,42 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         'Local', 'Cochera', 'Galpón', 
         'Terreno', 'Quinta', 'Campo',
     ];
-    const [tituloPublicacion, setTituloPublicacion] = useState(propiedad?.tituloPublicacion || ''); 
-    const [descripcion, setDescripcion] = useState(propiedad?.descripcion || '');
-    const [tipoPropiedad, setTipoPropiedad] = useState(propiedad?.tipoPropiedad || '');
-    const [expesnsas, setExpensas] = useState(propiedad?.expesnsas || null);
-    const [cantPisos, setCantPisos] = useState(propiedad?.cantPisos || null);
-    const [ambientes, setAmbientes] = useState(propiedad?.ambientes || null);
-    const [dormitorios, setDormitorios] = useState(propiedad?.dormitorios || null);
-    const [baños, setBaños] = useState(propiedad?.baños || null);
-    const [supCubierta, setSupCubierta] = useState(propiedad?.supCubierta || null);
-    const [supSemiCub, setSupSemiCub] = useState(propiedad?.supSemiCub || null);
-    const [supDescubierta, setSupDescubierta] = useState(propiedad?.supDescubierta || null);
-    const [supTotal, setSupTotal] = useState(propiedad?.supTotal || null);
-    const [estado, setEstado] = useState(propiedad?.estado || '');
-    const [antiguedad, setAntiguedad] = useState(propiedad?.antiguedad || null);
-    const [cantCocheras, setCantCocheras] = useState(propiedad?.cantCocheras || null); 
+    const [tituloPublicacion, setTituloPublicacion] = useState(''); 
+    const [descripcion, setDescripcion] = useState('');
+    const [tipoPropiedad, setTipoPropiedad] = useState('');
+    const [expesnsas, setExpensas] = useState(null);
+    const [cantPisos, setCantPisos] = useState(null);
+    const [ambientes, setAmbientes] = useState(null);
+    const [dormitorios, setDormitorios] = useState(null);
+    const [baños, setBaños] = useState(null);
+    const [supCubierta, setSupCubierta] = useState(null);
+    const [supSemiCub, setSupSemiCub] = useState(null);
+    const [supDescubierta, setSupDescubierta] = useState(null);
+    const [supTotal, setSupTotal] = useState(null);
+    const [estado, setEstado] = useState('');
+    const [antiguedad, setAntiguedad] = useState(null);
+    const [cantCocheras, setCantCocheras] = useState(null); 
     //estado objeto tipo opeeracion
-    const [opVenta, setOpVenta] = useState(propiedad?.venta || null);
-    const [opAlquiler, setOpAlquiler] = useState(propiedad?.alquiler || null);
+    const [opVenta, setOpVenta] = useState(null);
+    const [opAlquiler, setOpAlquiler] = useState(null);
     //estado moneda
     const [monedaVenta, setMonedaVenta] = useState('U$D');
     const [monedaAlq, setMonedaAlq] = useState('$');
     //estado precios
-    const [precioVenta, setPrecioVenta] = useState(propiedad?.venta?.precio || null);
-    const [precioAlq, setPrecioAlq] = useState(propiedad?.alquiler?.precio || null); 
+    const [precioVenta, setPrecioVenta] = useState(null); 
+    const [precioAlq, setPrecioAlq] = useState(null); 
     //estados para ubicacion
-    const [direccionPublicacion, setDireccionPublicacion] = useState(propiedad?.ubicacion?.direccionPublicacion || '');
-    const [direccionReal, setDireccionReal] = useState(propiedad?.ubicacion?.direccionReal || '');
-    const [barrio, setBarrio] = useState(propiedad?.ubicacion?.barrio || '');
-    const [ciudad, setCiudad] = useState(propiedad?.ubicacion?.ciudad || '');
-    const [provincia, setProvincia] = useState(propiedad?.ubicacion?.provincia || ''); 
+    const [direccionPublicacion, setDireccionPublicacion] = useState('');
+    const [direccionReal, setDireccionReal] = useState('');
+    const [barrio, setBarrio] = useState('');
+    const [ciudad, setCiudad] = useState('');
+    const [provincia, setProvincia] = useState(''); 
     //estado imgs
-    const [imagenes, setImagenes] = useState(propiedad?.imagenes || []);  console.log("imagenes", imagenes);
-    const [vistaPrevia, setVistaPrevia] = useState(propiedad?.imagenes || []);//vista previa
+    const [imagenes, setImagenes] = useState([]);  
+    const [vistaPrevia, setVistaPrevia] = useState([]);//vista previa
     //estado video
-    const [video, setVideos] = useState(propiedad?.video || []);  
-    const [vistaPreviaVideo, setVistaPreviaVideo] = useState(propiedad?.video || []);//vista previa
+    const [video, setVideos] = useState([]);  
+    const [vistaPreviaVideo, setVistaPreviaVideo] = useState([]);//vista previa
     //servicios
     const [servicios, setServicios] = useState([]);
     //estado para errores
@@ -184,10 +184,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         setVistaPreviaVideo(URL.createObjectURL(file));
     };
     const handleOnChangeServicios = (e) => {
-        const {value, checked} = e.target;
-        
-        setServicios((prevServicios) => 
-            checked ? [...prevServicios, value] : prevServicios.filter(s => s !== value)
+        const { value, checked } = e.target;
+        setServicios((prevServicios) =>
+            checked ? [...prevServicios, value] : prevServicios.filter((s) => s !== value)
         );
     };
 
@@ -332,8 +331,14 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
             estado,
             antiguedad,
             cantCocheras,
-            venta: opVenta,
-            alquiler: opAlquiler,
+            venta: {
+                moneda: monedaVenta,
+                precio: precioVenta,
+            },
+            alquiler: {
+                moneda: monedaAlq,
+                precio: precioAlq,
+            },
             ubicacion: {
                 direccionPublicacion,
                 direccionReal,
@@ -349,6 +354,52 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         handleOnSubmit(data);
     }
 
+    //efecto para cargar los datos de la propiedad Si es editar
+    useEffect(() => {
+        if(propiedad){
+            setTituloPublicacion(propiedad.tituloPublicacion);
+            setDescripcion(propiedad.descripcion);
+            setTipoPropiedad(propiedad.tipoPropiedad);
+            setExpensas(propiedad.expesnsas);
+            setCantPisos(propiedad.cantPisos);
+            setAmbientes(propiedad.ambientes);
+            setDormitorios(propiedad.dormitorios);
+            setBaños(propiedad.baños);
+            setSupCubierta(propiedad.supCubierta);
+            setSupSemiCub(propiedad.supSemiCub);
+            setSupDescubierta(propiedad.supDescubierta);
+            setSupTotal(propiedad.supTotal);
+            setEstado(propiedad.estado);
+            setAntiguedad(propiedad.antiguedad);
+            setCantCocheras(propiedad.cantCocheras);
+            //operacion
+            if(propiedad.venta){
+                setOpVenta(propiedad.venta);
+                setMonedaVenta(propiedad.venta?.moneda);
+                setPrecioVenta(propiedad.venta?.precio);
+            }
+            if(propiedad.alquiler){
+                setOpAlquiler(propiedad.alquiler);
+                setMonedaAlq(propiedad.alquiler?.moneda);
+                setPrecioAlq(propiedad.alquiler?.precio);
+            }
+            //ubicacion
+            setDireccionPublicacion(propiedad.ubicacion?.direccionPublicacion);
+            setDireccionReal(propiedad.ubicacion?.direccionReal);
+            setBarrio(propiedad.ubicacion?.barrio);
+            setCiudad(propiedad.ubicacion?.ciudad);
+            setProvincia(propiedad.ubicacion?.provincia);
+            //imgs
+            setImagenes(propiedad.imagenes);
+            setVistaPrevia(propiedad.imagenes?.map((img) => ({ url: img })));
+            //video
+            setVideos(propiedad.video);
+            setVistaPreviaVideo(propiedad.video?.map((video) => ({ url: video })));
+            //servicios
+            setServicios(propiedad.servicios);
+        }
+    }
+    , [propiedad]);
 
     return (
         <div className='cont-crea-prop'>
@@ -387,8 +438,14 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                 <label className='label-crea-prop'>Tipo propiedad</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
                             </div>
-                            <select id='tipoPropiedad' onChange={(e) => { handleOnChangeTipoPropiedad(e) }} onBlur={handleOnBlur} className='input-tituloPublicacion'>
-                                <option value=''></option>
+                            <select 
+                                id='tipoPropiedad' 
+                                onChange={(e) => { handleOnChangeTipoPropiedad(e) }} 
+                                onBlur={handleOnBlur}
+                                placeholder={propiedad ? propiedad.tipoPropiedad : ''} 
+                                className='input-tituloPublicacion'
+                            >
+                                <option value=''>{propiedad.tipoPropiedad ? propiedad.tipoPropiedad : ''}</option>
                                 {
                                     tipoProps.map((tipo, index) => (
                                         <option key={index} value={tipo}>{tipo}</option>
@@ -883,15 +940,36 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                             <div className='sub-cont-servicios'>
                                 <div className='cont-servicio'>
                                     <label className='label-crea-prop'>Luz eléctrica</label>
-                                    <input type='checkbox' id='luz' value={"luz"} onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                                    <input 
+                                        type='checkbox' 
+                                        id='luz' 
+                                        value={"luz"} 
+                                        checked={servicios?.includes('luz')}
+                                        onChange={(e) => { handleOnChangeServicios(e) }} 
+                                        className='check-luz' 
+                                    />
                                 </div>
                                 <div className='cont-servicio'>
                                     <label className='label-crea-prop'>Gas</label>
-                                    <input type='checkbox' id='gas' value={"gas"} onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                                    <input 
+                                        type='checkbox' 
+                                        id='gas' 
+                                        value={"gas"}
+                                        checked={servicios?.includes('gas')} 
+                                        onChange={(e) => { handleOnChangeServicios(e) }} 
+                                        className='check-luz' 
+                                    />
                                 </div>
                                 <div className='cont-servicio'>
                                     <label className='label-crea-prop'>Cloaca</label>
-                                    <input type='checkbox' id='luz' value={"cloaca"} onChange={(e) => { handleOnChangeServicios(e) }} className='check-luz' />
+                                    <input 
+                                        type='checkbox' 
+                                        id='cloaca' 
+                                        value={"cloaca"}
+                                        checked={servicios?.includes('cloaca')} 
+                                        onChange={(e) => { handleOnChangeServicios(e) }} 
+                                        className='check-luz' 
+                                    />
                                 </div>
                             </div>
                         </div>
