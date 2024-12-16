@@ -17,11 +17,7 @@ import './estilos.css';
 function DetalleProp(){
 
     const { id } = useParams();  //let id = props.match.params.id 
-    const propiedad = useSelector(state => state.propiedad);
-    //obt el tipo de moneda
-    const moneda =  propiedad?.operacion?.[0]?.moneda; 
-    //otengo el precio de la prop
-    const precio =  propiedad?.operacion?.[0]?.precio; 
+    const propiedad = useSelector(state => state.propiedad);    
     const navigate = useNavigate();
     const dispatch = useDispatch();    
     const contexto = useContext(InmobiliariaContext); 
@@ -138,13 +134,13 @@ function DetalleProp(){
                             <p className='p-col-1'>Tipo Operacio:</p>
                             <p className='p-col-1'>
                                 {
-                                    propiedad.alquiler?.precio === null && "Venta"
+                                    propiedad.operacion === "Venta" && "Venta"
                                 }
                                 {
-                                    propiedad.venta?.precio === null && "Alquiler"
+                                    propiedad.operacion === "Alquiler" && "Alquiler"
                                 }
                                 {
-                                    propiedad.venta?.precio !== null && propiedad.alquiler?.precio !== null && "Venta / Alquiler"
+                                    propiedad.operacion === "Venta" && propiedad.operacion === "Alquiler" && "Venta / Alquiler"
                                 }
                             </p>
                         </div>
@@ -156,13 +152,14 @@ function DetalleProp(){
                             <p className='p-col-1'>Precio:</p>
                             <p className='p-col-1'>
                                 {
-                                    propiedad.alquiler?.precio === null && `U$D ${propiedad.venta?.precio}`
+                                    propiedad.operacion === "Venta" && `U$D ${formatMoney(propiedad.precioVenta)}`
                                 }
                                 {
-                                    propiedad.venta?.precio === null && `$ ${propiedad.alquiler?.precio}`
+                                    propiedad.operacion === "Alquiler" && `$ ${formatMoney(propiedad.precioAlquiler)}`
                                 }
                                 {
-                                    propiedad.venta?.precio !== null && propiedad.alquiler?.precio !== null && `U$D ${propiedad.venta?.precio} /  $ ${propiedad.alquiler?.precio}`
+                                    propiedad.operacion === "Venta" && propiedad.operacion === "Alquiler" && 
+                                    `U$D ${formatMoney(propiedad.precioVenta)} /  $ ${formatMoney(propiedad.precioAlquiler)}`
                                 }
                             </p>
                         </div>

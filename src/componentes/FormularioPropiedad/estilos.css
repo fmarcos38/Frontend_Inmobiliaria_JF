@@ -111,12 +111,12 @@
 }
 .input-moneda-venta,
 .input-moneda-alq {
-    width: 35px;
+    width: auto;
     font-size: 15px;
     text-align: center;
 }
 .input-precio-venta {
-    width: 150px;
+    width: 110px;
 }
 /* botones */
 .cont-campReq-botones,

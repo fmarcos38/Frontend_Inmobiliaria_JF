@@ -31,6 +31,7 @@ const Favorito = ({
             // eslint-disable-next-line no-self-compare
             const updatedFavorites = favorites.filter(p => p.id !== id);
             localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            window.location.reload(); //recargo la pagina para que se actualice el estado de favoritos
         } else { //agrego
             //creo objeto propiedad
             const propiedad = {

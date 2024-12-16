@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './estilos.css';
+import Swal from 'sweetalert2';
+import { actual } from '../../urls';
 
 
 function FormularioProp({propiedad, handleOnSubmit, op}) {
@@ -11,8 +13,8 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         'Terreno', 'Quinta', 'Campo',
     ];
     const [tituloPublicacion, setTituloPublicacion] = useState(''); 
-    const [descripcion, setDescripcion] = useState('');
-    const [tipoPropiedad, setTipoPropiedad] = useState('');
+    const [descripcion, setDescripcion] = useState();
+    const [tipoPropiedad, setTipoPropiedad] = useState();
     const [expesnsas, setExpensas] = useState(null);
     const [cantPisos, setCantPisos] = useState(null);
     const [ambientes, setAmbientes] = useState(null);
@@ -26,14 +28,21 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
     const [antiguedad, setAntiguedad] = useState(null);
     const [cantCocheras, setCantCocheras] = useState(null); 
     //estado objeto tipo opeeracion
-    const [opVenta, setOpVenta] = useState(null);
-    const [opAlquiler, setOpAlquiler] = useState(null);
+    const [operacion, setOperacion] = useState(null); console.log("operacion:",operacion);
+    //estado para Venta
+    const [opVenta, setOpVenta] = useState(false); 
+    //estado para Alquiler
+    const [opAlquiler, setOpAlquiler] = useState(false); 
     //estado moneda
-    const [monedaVenta, setMonedaVenta] = useState('U$D');
-    const [monedaAlq, setMonedaAlq] = useState('$');
+    const [monedaVenta, setMonedaVenta] = useState('');
+    const [monedaAlq, setMonedaAlq] = useState('');
+    const [monedaVntAlq, setMonedaVntAlq] = useState('');
+    const [moneda, setMoneda] = useState(''); console.log("moneda:",moneda);
     //estado precios
     const [precioVenta, setPrecioVenta] = useState(null); 
     const [precioAlq, setPrecioAlq] = useState(null); 
+    const [precioVntAlq, setPrecioVntAlq] = useState(null);
+    const [precio, setPrecio] = useState(null); console.log("precio:",precio);
     //estados para ubicacion
     const [direccionPublicacion, setDireccionPublicacion] = useState('');
     const [direccionReal, setDireccionReal] = useState('');
@@ -50,6 +59,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
     const [servicios, setServicios] = useState([]);
     //estado para errores
     const [errors, setErrors] = useState({});
+    //estado para errores ubicacion
     const [errorsU, setErrorsU] = useState({});
     //estado para vistas
     const [vista1, setVista1] = useState(true);  
@@ -60,12 +70,37 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
     const handleOnChangeTituloPublicacion = (e) => {
         setTituloPublicacion(e.target.value);
     };
-    const handleOnChangeDescripcion = (e) => {
-        setDescripcion(e.target.value);
-    };
     const handleOnChangeTipoPropiedad = (e) => {
         setTipoPropiedad(e.target.value);
     };
+    const handleOnChangeOpVenta = (e) => {
+        setOpVenta(e.target.checked);
+    };
+    const handleOnChangeOpAlquiler = (e) => {
+        const { checked } = e.target;
+        if(checked){
+            setOpAlquiler("Alquiler");
+        }else{
+            setOpAlquiler(null);
+        }
+    };
+    const handleOnChangeMonedaVenta = (e) => {
+        setMonedaVenta(e.target.value);
+    };
+    const handleOnChangeMonedaAlq = (e) => {
+        setMonedaAlq(e.target.value);
+    };
+    const handleOnChangePrecioVenta = (e) => {
+        const value = e.target.value;
+        setPrecioVenta(value === "" ? null : Number(value));
+    };
+    const handleOnChangePrecioAlq = (e) => {
+        const value = e.target.value;
+        setPrecioAlq(value === "" ? null : Number(e.target.value));
+    };
+    const handleOnChangeDescripcion = (e) => {
+        setDescripcion(e.target.value);
+    };    
     const handleOnChangeExpensas = (e) => {
         const { value } = e.target;
         setExpensas(value === '' ? null : Number(value));
@@ -128,44 +163,6 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
     const handleOnChangeProvincia = (e) => {
         setProvincia(e.target.value);
     };
-    const handleOnChangeOpVenta = (e) => {
-        const { checked } = e.target;
-        if(checked){
-            setOpVenta({
-                moneda: monedaVenta,
-                precio: precioVenta,
-            });
-        }else{
-            setOpVenta(null);
-            setPrecioVenta(null);
-        }
-    };
-    const handleOnChangeOpAlquiler = (e) => {
-        const { checked } = e.target;
-        if(checked){
-            setOpAlquiler({
-                moneda: monedaAlq,
-                precio: precioAlq,
-            });
-        }else{
-            setOpAlquiler(null);
-            setPrecioAlq(null);
-        }
-    };
-    const handleOnChangeMonedaVenta = (e) => {
-        setMonedaVenta(e.target.value);
-    };
-    const handleOnChangeMonedaAlq = (e) => {
-        setMonedaAlq(e.target.value);
-    };
-    const handleOnChangePrecioVenta = (e) => {
-        const value = e.target.value;
-        setPrecioVenta(value === "" ? null : Number(value));
-    };
-    const handleOnChangePrecioAlq = (e) => {
-        const value = e.target.value;
-        setPrecioAlq(value === "" ? null : Number(e.target.value));
-    };
     const handleOnChangeImgs = (e) => {
         const filesArray = Array.from(e.target.files); //convierto e.target.files en un array
         setImagenes(filesArray);
@@ -199,9 +196,12 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
             setErrors({...errors, [id]: ''});
         }
     };
-    // Validación para habilitar/deshabilitar el botón "Siguiente" en la vista 1
+    // Validaciónes
     const validaDatosVista1 = () => {
-        return tituloPublicacion && descripcion && tipoPropiedad;
+        return tituloPublicacion 
+        && tipoPropiedad
+        && operacion
+        && descripcion;        
     };
     //valida vista 2
     const validaDatosVista2 = () => {
@@ -213,22 +213,11 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
     };
     //valida vista 3
     const validaDatosVista3 = () => {
-        if(
-            tipoPropiedad === 'Terreno' ||
-            tipoPropiedad === 'Cochera' ||
-            tipoPropiedad === 'Local' ||
-            tipoPropiedad === 'Quinta' ||
-            tipoPropiedad === 'Campo' ||
-            tipoPropiedad === 'Galpón'
-        ){
-            return true;
-        }
         return ambientes
             && dormitorios
             && baños
             && supCubierta
-            && supTotal
-            && cantCocheras;
+            && supTotal;
     };
     //valida vista 4
     const validaDatosVista4 = () => {
@@ -237,23 +226,38 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         }
         return false;
     };
-
     //btns vista 1
     const onClickSgtVista1 = () => {
+        let hasErrors = false;
+        const newErrors = {};
+
+        if (!tituloPublicacion) {
+            newErrors.tituloPublicacion = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!descripcion) {
+            newErrors.descripcion = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!tipoPropiedad) {
+            newErrors.tipoPropiedad = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!operacion) {
+            newErrors.operacion = 'Campo requerido';
+            hasErrors = true;
+        }
+
+        setErrors(newErrors);
+
+        // Si hay errores, no avanzar
+        if (hasErrors) {
+            return;
+        }
+
+        // Si no hay errores, avanzar a la siguiente vista
         setVista1(false);
         setVista2(true);
-
-        //actualizo operacion
-        /* if(opVenta){
-            setOperacion([
-                ...operacion, 
-                {
-                    tipoOperacion: opVenta,
-                    moneda: monedaVenta,
-                    precio: precioVenta,
-                }
-            ]);
-        } */
     };
     //btns vista 2
     const onClickAtrasVista2 = () => {
@@ -261,6 +265,36 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         setVista2(false);
     };
     const onClickSgtVista2 = () => {
+        let hasErrors = false;
+        const newErrors = {};
+
+        if (!direccionPublicacion) {
+            newErrors.direccionPublicacion = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!direccionReal) {
+            newErrors.direccionReal = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!barrio) {
+            newErrors.barrio = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!ciudad) {
+            newErrors.ciudad = 'Campo requerido';
+            hasErrors = true;
+        }
+        if (!provincia) {
+            newErrors.provincia = 'Campo requerido';
+            hasErrors = true;
+        }
+        
+        setErrorsU(newErrors);
+        // Si hay errores, no avanzar
+        if (hasErrors) {
+            return;
+        }
+        //avanzo
         setVista1(false);
         setVista2(false);
         setVista3(true);
@@ -272,6 +306,34 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         setVista3(false);
     };
     const onClickSgtVista3 = () => {
+        let hasErrors = false;
+        const newErrors = {};
+
+        if(!ambientes){
+            newErrors.ambientes = 'Campo requerido';
+            hasErrors = true;
+        }
+        if(!dormitorios){
+            newErrors.dormitorios = 'Campo requerido';
+            hasErrors = true;
+        }
+        if(!baños){
+            newErrors.baños = 'Campo requerido';
+            hasErrors = true;
+        }
+        if(!supCubierta){
+            newErrors.supCubierta = 'Campo requerido';
+            hasErrors = true;
+        }
+        if(!supTotal){
+            newErrors.supTotal = 'Campo requerido';
+            hasErrors = true;
+        }
+        setErrors(newErrors);
+        // Si hay errores, no avanzar
+        if (hasErrors) {
+            return;
+        }
         setVista1(false);
         setVista2(false);
         setVista3(false);
@@ -317,9 +379,18 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         // Construcción del objeto data
         const data = {
             tituloPublicacion,
-            descripcion,
+            operacion,
+            moneda,
+            precio,
             tipoPropiedad,
-            expesnsas,
+            descripcion,
+            ubicacion: {
+                direccionPublicacion,
+                direccionReal,
+                barrio,
+                ciudad,
+                provincia,
+            },
             cantPisos,
             ambientes,
             dormitorios,
@@ -330,6 +401,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
             supTotal,
             estado,
             antiguedad,
+            expesnsas,
             cantCocheras,
             venta: {
                 moneda: monedaVenta,
@@ -339,13 +411,6 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                 moneda: monedaAlq,
                 precio: precioAlq,
             },
-            ubicacion: {
-                direccionPublicacion,
-                direccionReal,
-                barrio,
-                ciudad,
-                provincia,
-            },
             imagenes,
             video,
             servicios,
@@ -354,6 +419,66 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         handleOnSubmit(data);
     }
 
+    //ejecuto la funcion para actualizar el tipo de operacion
+    useEffect(() => {
+        const asignoOperacion = () => {
+            if(opVenta && opAlquiler){
+                setOperacion("Venta y Alquiler");
+            }else if(opVenta){
+                setOperacion("Venta");
+                setOpAlquiler(false);
+            }else if(opAlquiler){
+                setOperacion("Alquiler");
+                setOpVenta(false);
+            }else{
+                setOperacion(null);
+                setOpVenta(false);
+                setOpAlquiler(false);
+            }
+        };
+        asignoOperacion();
+    }, [opVenta, opAlquiler]);
+    //ejecuto funcion para asignar moneda SI la prop está en Venta y Alq
+    useEffect(() => {
+        if(opVenta && opAlquiler && monedaVenta && monedaAlq){
+            setMoneda(`${monedaVenta} / ${monedaAlq}`);
+        }else if(opVenta && monedaVenta){
+            setMoneda(monedaVenta);
+            setMonedaAlq(null);
+            //vuelvo al elemento select id monedaAlq a su valor por defecto
+            document.getElementById('monedaAlq').value = 'Moneda';
+
+        }else if(opAlquiler && monedaAlq){
+            setMoneda(monedaAlq);
+            setMonedaVenta(null);
+            //vuelvo al elemento select id monedaVenta a su valor por defecto
+            document.getElementById('monedaVenta').value = 'Moneda';
+            //y lo desabilito
+            document.getElementById('monedaVenta').disabled = true;
+        }else if(!opVenta && !opAlquiler){
+            setMonedaAlq(null);
+            setMonedaVenta(null);
+            setMoneda(null);
+            document.getElementById('monedaAlq').value = 'Moneda';
+            document.getElementById('monedaVenta').value = 'Moneda';
+        }
+    }, [monedaVenta, monedaAlq, opVenta, opAlquiler]);
+    //ejecuto funcion para asignar precio SI la prop está en Venta y Alq
+    useEffect(() => {
+        if(opVenta && opAlquiler && precioVenta && precioAlq){
+            setPrecio(`${precioVenta} / ${precioAlq}`);	
+        }else if(opVenta && precioVenta){
+            setPrecio(precioVenta);
+            setPrecioAlq(null);
+        }else if(opAlquiler && precioAlq){
+            setPrecio(precioAlq);
+            setPrecioVenta(null);
+        }else if(!opVenta && !opAlquiler){
+            setPrecioVenta(null);
+            setPrecio(null);
+            setPrecioAlq(null);
+        }
+    }, [precioVenta, precioAlq, opVenta, opAlquiler]);
     //efecto para cargar los datos de la propiedad Si es editar
     useEffect(() => {
         if(propiedad){
@@ -417,6 +542,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Titulo publicación</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
+                                {errors.tituloPublicacion && (<p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{errors.tituloPublicacion}</p>)}
                             </div>
                             <input 
                                 type='text' 
@@ -426,11 +552,6 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                 onBlur={handleOnBlur} 
                                 className={`input-tituloPublicacion ${errors.tituloPublicacion ? 'input-error' : ''}`} 
                             />
-                            {errors.tituloPublicacion && (
-                                <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                    {errors.tituloPublicacion}
-                                </p>
-                            )}
                         </div>
                         {/* tipo prop */}
                         <div className='cont-dato'>
@@ -445,7 +566,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                 placeholder={propiedad ? propiedad.tipoPropiedad : ''} 
                                 className='input-tituloPublicacion'
                             >
-                                <option value=''>{propiedad.tipoPropiedad ? propiedad.tipoPropiedad : ''}</option>
+                                <option value=''>{propiedad?.tipoPropiedad ? propiedad.tipoPropiedad : ''}</option>
                                 {
                                     tipoProps.map((tipo, index) => (
                                         <option key={index} value={tipo}>{tipo}</option>
@@ -464,6 +585,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Tipo operación</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
+                                {errors.operacion && (<p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{errors.operacion}</p>)}
                             </div>
                             <div className='cont-operaciones operacion'>
                                 {/* venta */}
@@ -472,22 +594,26 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                         <label className='label-venta'>Venta</label>
                                         <input
                                             type='checkbox'
-                                            id='venta'
+                                            id='Venta'
                                             value={"Venta"}
                                             onChange={(e) => { handleOnChangeOpVenta(e) }}
                                             className='input-check-venta'
                                         />
                                     </div>
+                                    {/* valor */}
                                     <div className='cont-precio-venta'>
                                         <label className='label-precio-venta'>Valor: </label>
-                                        <input 
-                                            type='text' 
+                                        <select 
                                             id='monedaVenta' 
                                             value={monedaVenta} 
                                             onChange={(e) => { handleOnChangeMonedaVenta(e) }} 
                                             className='input-moneda-venta' 
-                                            disabled={opVenta === null}
-                                        />
+                                            disabled={opVenta === false}
+                                        >
+                                            <option value=''>Moneda</option>
+                                            <option value='USD'>USD</option>
+                                            <option value='$'>$</option>
+                                        </select>
                                         <input 
                                             type='number' 
                                             id='precioVenta' 
@@ -495,7 +621,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                             onChange={(e) => { handleOnChangePrecioVenta(e) }} 
                                             onBlur={handleOnBlur}
                                             className='input-precio-venta' 
-                                            disabled={opVenta === null}
+                                            disabled={opVenta === false}
                                         />
                                         {
                                             opVenta && errors.precioVenta && (
@@ -512,7 +638,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                         <label className='label-alq'>Alquiler</label>
                                         <input 
                                             type='checkbox' 
-                                            id='alquiler' 
+                                            id='Alquiler' 
                                             value={"Alquiler"}
                                             onChange={(e) => { handleOnChangeOpAlquiler(e) }} 
                                             className='input-check-venta' 
@@ -520,14 +646,18 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     </div>                                    
                                     <div className='cont-precio-alq'>
                                         <label className='label-precio-venta'>Valor: </label>
-                                        <input 
+                                        <select 
                                             type='text' 
                                             id='monedaAlq' 
                                             value={monedaAlq === null ? '' : monedaAlq} 
                                             onChange={(e) => { handleOnChangeMonedaAlq(e) }}                                             
                                             className='input-moneda-alq' 
-                                            disabled={!opVenta}
-                                        />
+                                            disabled={opAlquiler === false}
+                                        >
+                                            <option value=''>Moneda</option>
+                                            <option value='USD'>USD</option>
+                                            <option value='$'>$</option>
+                                        </select>
                                         <input 
                                             type='number' 
                                             id='precioAlq' 
@@ -535,7 +665,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                             onBlur={handleOnBlur} 
                                             onChange={(e) => { handleOnChangePrecioAlq(e) }} 
                                             className='input-precio-venta'
-                                            disabled={opAlquiler === null}
+                                            disabled={opAlquiler === false}
                                         />
                                         {
                                             opAlquiler && errors.precioAlq && (
@@ -553,6 +683,11 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                             <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
                                 <label className='label-crea-prop'>Descripción</label>
                                 <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
+                                {errors.descripcion && (
+                                <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+                                    {errors.descripcion}
+                                </p>
+                            )}
                             </div>
                             <textarea 
                                 id='descripcion' 
@@ -562,14 +697,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                 rows="8" 
                                 className='input-descripcion-prop' 
                             />
-                            {errors.descripcion && (
-                                <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                    {errors.descripcion}
-                                </p>
-                            )}
                         </div>
                         {/* btns Sgt-Atras */}
-                        <div className='cont-campReq-botones'>                            
+                        <div className='cont-campReq-botones'>
                                 <div className='cont-campo-requerido'>
                                     <p>Campo requerido</p>
                                     <p style={{'color':'red', 'marginLeft':'3px'}}>*</p>
@@ -579,7 +709,6 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                         type='button' //sino se recarga la pag pensando q es el submit
                                         className='btn-sgt-vista1'
                                         onClick={() => onClickSgtVista1()}
-                                        disabled={!validaDatosVista1()} // deshabilitado si no se completan todos los campos
                                     >
                                         Siguiente
                                     </button>
@@ -606,9 +735,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     placeholder='Lavalle 2500'
                                     className='input-tituloPublicacion' 
                                 />
-                                {errors.direccionPublicacion && (
+                                {errorsU.direccionPublicacion && (
                                     <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.direccionPublicacion}
+                                        {errorsU.direccionPublicacion}
                                     </p>
                                 )}
                             </div>
@@ -626,9 +755,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     placeholder='Lavalle 2570'
                                     className='input-tituloPublicacion' 
                                 />
-                                {errors.direccionReal && (
+                                {errorsU.direccionReal && (
                                     <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.direccionReal}
+                                        {errorsU.direccionReal}
                                     </p>
                                 )}
                             </div>
@@ -649,9 +778,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     placeholder='Centro'
                                     className='input-tituloPublicacion' 
                                 />
-                                {errors.barrio && (
+                                {errorsU.barrio && (
                                     <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.barrio}
+                                        {errorsU.barrio}
                                     </p>
                                 )}
                             </div>
@@ -669,9 +798,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     placeholder='Mar del Plata'
                                     className='input-tituloPublicacion' 
                                 />
-                                {errors.ciudad && (
+                                {errorsU.ciudad && (
                                     <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.ciudad}
+                                        {errorsU.ciudad}
                                     </p>
                                 )}
                             </div>
@@ -688,9 +817,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                 placeholder='Buenos Aires'
                                 className='input-tituloPublicacion'
                             />
-                            {errors.provincia && (
+                            {errorsU.provincia && (
                                 <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                    {errors.provincia}
+                                    {errorsU.provincia}
                                 </p>
                             )}
                         </div>
@@ -712,7 +841,6 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     type='button' 
                                     className='btn-sgt-vista-2' 
                                     onClick={()=>onClickSgtVista2()}
-                                    disabled={!validaDatosVista2()}
                                 >
                                     Siguiente
                                 </button>
@@ -725,6 +853,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                     <div className='cont-data-vista-3'>
                         {/* amb, dorm, baño,  */}
                         <div className='cont-ambts'>
+                            {/* amb */}
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Ambientes</label>
@@ -744,6 +873,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     </p>
                                 )}
                             </div>
+                            {/* dormitorios */}
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Dormitorios</label>
@@ -763,6 +893,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     </p>
                                 )}
                             </div>
+                            {/* baños */}
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Baños</label>
@@ -891,13 +1022,11 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                             <div className='cont-amb'>
                                 <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
                                     <label className='label-crea-prop'>Cant cocheras</label>
-                                    <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
                                 </div>
                                 <input 
                                     type='number' 
                                     id='cantCocheras' 
                                     value={cantCocheras}
-                                    onBlur={handleOnBlur} 
                                     onChange={(e) => { handleOnChangeCantCocheras(e) }} 
                                     className='input-tituloPublicacion' 
                                 />
@@ -923,7 +1052,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                     type='button' 
                                     className='btn-sgt-vista-2' 
                                     onClick={()=>onClickSgtVista3()}
-                                    disabled={!validaDatosVista3()}
+                                    /* disabled={!validaDatosVista3()} */
                                 >
                                     Siguiente
                                 </button>
