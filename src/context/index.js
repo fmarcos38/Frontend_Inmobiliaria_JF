@@ -8,11 +8,11 @@ export const InmobiliariaContext = createContext();
 export const InmobiliariaProvider = ({children}) => {
 
     //estado data usuario logeado, por eso null es un objeto
-    const [userLog, setUserLog] = useState(null);
+    const [userLog, setUserLog] = useState(null); console.log("userLOg:",userLog);
     //estado para login
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     //estado nombre admin logeado
-    const [nombreUser, setNombreUser] = useState('');
+    const [nombreUser, setNombreUser] = useState(''); console.log("nomb:",nombreUser);
     //estado para menú hamburguesa
     const [ isOpenModalVideo, setisOpenModalVideo ] = useState(false);
 
@@ -35,7 +35,7 @@ export const InmobiliariaProvider = ({children}) => {
         if(userLogin){
             setUserLog(userLogin);
             setIsAuthenticated(true);
-            setNombreUser(userLogin.user?.email);
+            setNombreUser(userLogin.user);
         }
     }, []);
 
