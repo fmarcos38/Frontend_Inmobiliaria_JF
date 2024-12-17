@@ -7,9 +7,13 @@
 }
 
 /* responsive */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
     .cont-filtros-listaProps-fav{
         flex-direction: column;
         align-items: center;
+    }
+    .cont-barraL {
+        position: relative;
+        height: auto;
     }
 }

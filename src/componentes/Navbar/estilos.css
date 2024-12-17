@@ -146,18 +146,19 @@ a, Link{
     transform: translateY(-8px) rotate(-45deg);
 }
 .menu-desplegable {
-    width: 100px;
+    width: auto;
     position: absolute;
-    top: 50px;
+    top: 55px;
     right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--color-negro);
-    /* padding: 5px; */ /* esta prop me ac aparecer el punto nugro */
+    text-align: center;
+    padding: 0 5px; /* esta prop me ac aparecer el punto nugro si solo pongo 5px*/
     overflow: hidden;
     transition: all 0.3s ease;
     z-index: 3;
+    background: var(--color-negro);
 }
 .ul-lista-pChica {
     list-style-type: none;

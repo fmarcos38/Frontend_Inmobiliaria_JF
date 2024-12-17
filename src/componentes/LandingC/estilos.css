@@ -102,7 +102,7 @@
 }
 
 /* responsive */
-@media screen and (max-width: 800px){
+@media screen and (max-width: 900px){
     .cont-landing-C{
         height: auto;
     }

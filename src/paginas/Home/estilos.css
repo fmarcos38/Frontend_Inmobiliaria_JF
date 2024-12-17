@@ -46,7 +46,8 @@
 }
 
 /* responsive */
-@media screen and (max-width: 780px){
+
+@media screen and (max-width: 900px){
     .cont-barraLateral-Y-listaProps {
         flex-direction: column;
         justify-content: center;
@@ -55,7 +56,6 @@
     .cont-barraLateral {
         position: relative;
         height: auto;
-        
     }
     .cont-listaProps-Y-paginacion {
         width: 95%;
