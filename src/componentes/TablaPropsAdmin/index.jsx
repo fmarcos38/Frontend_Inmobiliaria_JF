@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { formatMoney } from '../../Helps';
 import EditIcon from '@mui/icons-material/Edit';
 import BotonEliminaProp from '../BotonEliminaProp';
 import './estilos.css';
@@ -14,11 +15,10 @@ function TablaProspAdmin({propiedades}) {
                     <thead>
                         <tr>
                             <th>Foto</th>
+                            <th>Tipo</th>
                             <th>Dirección</th>
                             <th>Operación</th>
                             <th>Precio</th>
-                            <th>Dorm</th>
-                            <th>Baños</th>
                             <th>Detalle</th>
                             <th></th>
                         </tr>
@@ -27,31 +27,10 @@ function TablaProspAdmin({propiedades}) {
                         {propiedades?.map(propiedad => (
                             <tr key={propiedad._id}>
                                 <td><img src={propiedad.imagenes[0]} alt={propiedad.direccion} className='foto-tabla-prop'/></td>
+                                <td>{propiedad.tipoPropiedad}</td>
                                 <td>{propiedad.ubicacion.direccionReal}</td>
-                                <td>
-                                    {
-                                        propiedad.operacion === "Venta" && "Venta" 
-                                    }
-                                    {
-                                        propiedad.operacion === "Alquiler" && "Alquiler"
-                                    }
-                                    {
-                                        propiedad.operacion === "Venta y Alquiler" && "Venta / Alquiler"
-                                    }
-                                </td>
-                                <td>
-                                    {
-                                        propiedad.operacion === "Venta" && `U$D ${propiedad.precioVenta}`
-                                    }
-                                    {
-                                        propiedad.operacion === "Alquiler" && `$ ${propiedad.precioAlquiler}`
-                                    }
-                                    {
-                                        propiedad.operacion === "Venta y Alquiler" && `U$D ${propiedad.precioVenta} / $ ${propiedad.precioAlquiler}`
-                                    }
-                                </td>
-                                <td>{propiedad.dormitorios}</td>
-                                <td>{propiedad.baños}</td>
+                                <td>{propiedad.operacion}</td>
+                                <td>{formatMoney(propiedad.precio)}</td>
                                 <td>
                                     <button className='boton-detalle-prop'>
                                         <NavLink to={`/detalle/${propiedad._id}`} className='link-detalle-prop'>

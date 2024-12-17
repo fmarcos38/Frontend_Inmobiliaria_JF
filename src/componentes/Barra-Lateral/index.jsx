@@ -63,7 +63,7 @@ const BarraLateral = ({ muestraVentaAlq, soloAlq, setCurrentPage, setOperacion, 
                         }
                     </div>
 
-                    {
+                    {/* {
                         soloAlq === 'true' && (
                             <div className='cont-venta-alq'>
                                 <label className='label-filtro-tipo-ope-Alq-Temp'>ALQUILER TEMPORAL</label>
@@ -77,7 +77,7 @@ const BarraLateral = ({ muestraVentaAlq, soloAlq, setCurrentPage, setOperacion, 
                                 />
                             </div>
                         )
-                    }
+                    } */}
             </div>
 
             <div className='cont-btn-filtros'>

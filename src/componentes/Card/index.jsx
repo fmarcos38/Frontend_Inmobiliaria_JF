@@ -14,9 +14,9 @@ function Card({
     id, 
     tituloPublicacion,
     operacion,
+    moneda,
+    precio,
     ubicacion,
-    precioVenta,
-    precioAlquiler,
     imagenes,
     cantCocheras,
     ambientes, 
@@ -81,17 +81,7 @@ function Card({
 
                 <div className='cont-precio-fav'>
                     <div className='cont-precio'>
-                        <p className='precio'>
-                            {
-                                operacion === "Venta" && <p>U$D {formatMoney(precioVenta)}</p>
-                            }
-                            {
-                                operacion === "Alquiler" && <p>U$D {formatMoney(precioAlquiler)}</p>
-                            }
-                            {
-                                operacion === "Venta y Alquiler" && <p>U$D {formatMoney(precioVenta)} / $ formatMoney(precioAlquiler)</p>
-                            }
-                        </p>
+                        <p className='precio'>{moneda} {formatMoney(precio)}</p>
                     </div>
                     <div className='cont-fav'>
                         <Favorito
@@ -99,8 +89,8 @@ function Card({
                             tituloPublicacion={tituloPublicacion}
                             ubicacion={ubicacion}
                             operacion={operacion}
-                            precioVenta={precioVenta}
-                            precioAlquiler={precioAlquiler}
+                            moneda={moneda}
+                            precio={precio}
                             imagenes={imagenes}
                             cantCocheras={cantCocheras}
                             ambientes={ambientes}

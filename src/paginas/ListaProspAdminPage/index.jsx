@@ -12,7 +12,7 @@ function ListaPropsAdminPage() {
 
     useEffect(()=>{
         dispatch(getProps());
-    },[dispatch]);
+    },[dispatch, propiedades]); //al cambiar propiedades(por ejem CUANDO ELIMINO), se vuelve a cargar la lista
 
 
     return (

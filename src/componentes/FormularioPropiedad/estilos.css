@@ -6,6 +6,13 @@
     justify-content: center;
     align-items: center;
 }
+.titulo-crea-prop {
+    position: fixed;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
 .formulario-crea-prop {
     width: 70%;
     height: auto;
@@ -94,6 +101,9 @@
     margin-right: 2px;
 }
 /* estilos inputs */
+.input-tituloPublicacion{
+    background-color: rgb(234, 233, 233);
+}
 .input-precio-venta,
 .input-check-venta,
 .input-tituloPublicacion,
@@ -103,7 +113,7 @@
     border-radius: 5px;
     border: none;
     padding: 3px;
-    background-color: rgb(236, 235, 235);
+    background-color: rgb(234, 233, 233);
 }
 .input-check-venta {
     width: 15px;
@@ -114,6 +124,7 @@
     width: auto;
     font-size: 15px;
     text-align: center;
+    background-color: rgb(234, 233, 233);
 }
 .input-precio-venta {
     width: 110px;
@@ -123,7 +134,7 @@
 .cont-campReq-botones-vista-2 {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     margin-top: 10px;
 }
@@ -179,11 +190,19 @@
     margin-top: 20px;
 }
 /* vista 3 */
+.vista-3{
+    width: 95%;
+    height: 300px;
+}
+.cont-data-vista-3{
+    height: 300px;
+}
 .cont-ambts{
-    width: 100%;
+    width: 98%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 5px;
 }
 .cont-amb{
     width: 23%;
@@ -195,7 +214,7 @@
     border-radius: 5px;
     border: none;
     padding: 3px;
-    background-color: rgb(236, 235, 235);
+    background-color: rgb(234, 233, 233);
 }
 /* vista 4 */
 .cont-servicios {

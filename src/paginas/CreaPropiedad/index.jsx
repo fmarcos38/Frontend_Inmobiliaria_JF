@@ -1,7 +1,9 @@
 import React from 'react';
 import { actual } from '../../urls';
 import FormularioProp from '../../componentes/FormularioPropiedad';
+import Swal from 'sweetalert2';
 import './estilos.css';
+
 
 function CreaPropiedad() {
 
@@ -10,9 +12,12 @@ function CreaPropiedad() {
         const formData = new FormData();
         formData.append('data', JSON.stringify({
             tituloPublicacion: data.tituloPublicacion,
-            descripcion: data.descripcion,
             tipoPropiedad: data.tipoPropiedad,
-            expesnsas: data.expesnsas,
+            operacion: data.operacion,
+            moneda: data.moneda,
+            precio: data.precio,
+            descripcion: data.descripcion,
+            ubicacion: data.ubicacion,            
             cantPisos: data.cantPisos,
             ambientes: data.ambientes,
             dormitorios: data.dormitorios,
@@ -24,12 +29,11 @@ function CreaPropiedad() {
             estado: data.estado,
             antiguedad: data.antiguedad,
             cantCocheras: data.cantCocheras,
-            venta: data.venta,
-            alquiler: data.alquiler,
-            ubicacion: data.ubicacion,
+            expensas: data.expensas,            
+            servicios: data.servicios,
             imagenes: data.imagenes,
             video: data.video,
-            servicios: data.servicios,
+            
         }));
 
         data.imagenes?.forEach((imagen, index) => {
@@ -42,9 +46,21 @@ function CreaPropiedad() {
                 body: formData,
             });
             if(response.ok){
-                alert('Propiedad creada con éxito');
+                Swal.fire({
+                    title: 'Propiedad creada con éxito',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#3f51b5',
+                });
+                //redirijo a la lista de propiedades
+                window.location.href = '/admin/listaPropsAdmin';
             }else{
-                alert('Error al crear la propiedad');
+                Swal.fire({
+                    title: 'Error al crear la propiedad',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#3f51b5',
+                });
             }           
         } catch (error) {
             console.log(error);

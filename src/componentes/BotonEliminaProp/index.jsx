@@ -22,15 +22,15 @@ function BotonEliminaProp({_id}) {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(eliminaProp(_id));
+                //actualizo la lista de props
+                dispatch(getProps());
                 Swal.fire(
                     'Eliminado!',
                     'La propiedad ha sido eliminada.',
                     'success'
                 );
-                //actualizo la lista de props
-                dispatch(getProps());
-                window.location.reload();
             }
+            //window.location.reload();
         });
     };
 

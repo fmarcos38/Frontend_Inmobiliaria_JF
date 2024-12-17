@@ -35,9 +35,9 @@ function FavoritosPage() {
         }
 
         //filtro por precio min
-        propsFiltradas = propsFiltradas.filter(prop => prop.precioVenta >= precioMin || prop.precioAlquiler >= precioMin);
+        propsFiltradas = propsFiltradas.filter(prop => prop.precio >= precioMin );
         //filtro por precio max
-        propsFiltradas = propsFiltradas.filter(prop => prop.precioVenta <= precioMax || prop.precioAlquiler <= precioMax);
+        propsFiltradas = propsFiltradas.filter(prop => prop.precio <= precioMax );
 
         setFilteredFav(propsFiltradas);
     }, [fav, operacion, tipoPropiedad, precioMin, precioMax]);

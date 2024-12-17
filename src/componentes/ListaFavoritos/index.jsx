@@ -19,8 +19,8 @@ function ListaFavoritos({allProps}) {
                                         tituloPublicacion={p.tituloPublicacion}
                                         ubicacion={p.ubicacion}
                                         operacion={p.operacion}
-                                        precioVenta={p.precioVenta}
-                                        precioAlquiler={p.precioAlquiler}
+                                        moneda={p.moneda}
+                                        precio={p.precio}
                                         imagenes={p.imagenes}
                                         cantCocheras={p.cantCocheras}
                                         ambientes={p.ambientes}

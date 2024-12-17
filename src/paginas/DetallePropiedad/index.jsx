@@ -132,17 +132,7 @@ function DetalleProp(){
                         <p className='titulo-detalle-prop'>Detalle Propiedad</p>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Tipo Operacio:</p>
-                            <p className='p-col-1'>
-                                {
-                                    propiedad.operacion === "Venta" && "Venta"
-                                }
-                                {
-                                    propiedad.operacion === "Alquiler" && "Alquiler"
-                                }
-                                {
-                                    propiedad.operacion === "Venta" && propiedad.operacion === "Alquiler" && "Venta / Alquiler"
-                                }
-                            </p>
+                            <p className='p-col-1'>{ propiedad.operacion }</p>
                         </div>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Tipo de Prop:</p>
@@ -150,18 +140,7 @@ function DetalleProp(){
                         </div>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Precio:</p>
-                            <p className='p-col-1'>
-                                {
-                                    propiedad.operacion === "Venta" && `U$D ${formatMoney(propiedad.precioVenta)}`
-                                }
-                                {
-                                    propiedad.operacion === "Alquiler" && `$ ${formatMoney(propiedad.precioAlquiler)}`
-                                }
-                                {
-                                    propiedad.operacion === "Venta" && propiedad.operacion === "Alquiler" && 
-                                    `U$D ${formatMoney(propiedad.precioVenta)} /  $ ${formatMoney(propiedad.precioAlquiler)}`
-                                }
-                            </p>
+                            <p className='p-col-1'>{propiedad.moneda} {formatMoney(propiedad.precio)}</p>
                         </div>
                         <div className='cont-p-col-1'>
                             <p className='p-col-1'>Sup. Cubierta:</p>
