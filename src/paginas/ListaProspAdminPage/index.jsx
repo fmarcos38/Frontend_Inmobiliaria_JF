@@ -18,6 +18,7 @@ function ListaPropsAdminPage() {
     return (
         <div className='cont-listaPropsAdmin'>
             <h1>Lista de Propiedades</h1>
+            <p className='msj-girar-pantalla'>Girar el dispositivo para una mejor vista de la tabala</p>
             <TablaProspAdmin propiedades={propiedades}/>
         </div>
     )

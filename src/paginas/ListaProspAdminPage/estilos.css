@@ -6,7 +6,15 @@
     justify-content: start;
     align-items: center;
 }
-.msj-girar{
+.msj-girar-pantalla{
     display: none;
 }
 
+/* responsive */
+@media screen and (max-width: 500px) {
+    .msj-girar-pantalla{
+        display: block;
+        color: red;
+        font-weight: 400;
+    }
+}

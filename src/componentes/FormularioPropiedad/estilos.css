@@ -3,15 +3,8 @@
     min-height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-}
-.titulo-crea-prop {
-    position: fixed;
-    top: 45px;
-    left: 50%;
-    transform: translateX(-50%);
-    
 }
 .formulario-crea-prop {
     width: 70%;
@@ -122,7 +115,7 @@
 .input-moneda-venta,
 .input-moneda-alq {
     width: auto;
-    font-size: 15px;
+    font-size: 20px;
     text-align: center;
     background-color: rgb(234, 233, 233);
 }
@@ -358,11 +351,13 @@
     .cont-opAlq-y-precio {
         width: 100%;
         flex-direction: column;
-        align-items: start;
+        justify-content: center;
+        align-items: center;
     }
     .cont-precio-venta,
     .cont-precio-alq {
         width: 100%;
+        justify-content: center;
         align-items: start;
     }
     .input-precio-venta {

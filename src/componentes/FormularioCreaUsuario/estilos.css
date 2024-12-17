@@ -9,18 +9,15 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 .cont-dato-crea-usuario {
     margin-bottom: 15px;
 }
-
 .label-crea-usuario {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #333;
 }
-
 .input-crea-usuario {
     width: 100%;
     padding: 10px;
@@ -30,12 +27,10 @@
     font-size: 16px;
     transition: border-color 0.3s;
 }
-
 .input-crea-usuario:focus {
     border-color: #007BFF;
     outline: none;
 }
-
 .btn-crea-usuario {
     width: 100%;
     padding: 10px;
@@ -48,11 +43,9 @@
     margin-top: 20px;
     transition: background-color 0.3s;
 }
-
 .btn-crea-usuario:hover {
     background-color: #0056b3;
 }
-
 .p-crea-usuario {
     margin: 0;
     font-size: 14px;
@@ -74,10 +67,9 @@
         padding: 8px;
     }
 }
-
 @media (max-width: 480px) {
     .cont-form-crea-usuario {
-        padding: 10px;
+        width: 90%;
     }
 
     .input-crea-usuario {

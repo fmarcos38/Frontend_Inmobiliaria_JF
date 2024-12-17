@@ -199,7 +199,7 @@ function Navbar() {
                                                 <NavLink to='/admin/creaUsuario' className='link-navbar'>Crea Usuario</NavLink>
                                             </li>
                                             <li className='items-pChica'>
-                                            <NavLink to='/admin/listaUsuario' className='link-navbar'>Lista Usuario</NavLink>
+                                            <NavLink to='/admin/listaUsuarios' className='link-navbar'>Lista Usuarios</NavLink>
                                             </li>
                                             </>
                                         )

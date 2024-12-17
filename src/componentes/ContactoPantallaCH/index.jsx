@@ -10,7 +10,7 @@ function ContactoPAntallaCH() {
     return (
         <div className='cont-pantalla-chica'>
             <h2 className='titulo-contactanos'>Contáctanos</h2>
-            <p className='texto-contactanos'>Si tienes alguna duda o consulta, no dudes en contactarnos.</p>
+            <p className='texto-contactanos'>Si tienes alguna consulta, no dudes en contactarnos.</p>
             <p className='texto-contactanos'>Estamos a tu disposición.</p>
             <div>
                 <button className='btn-contacto'>
