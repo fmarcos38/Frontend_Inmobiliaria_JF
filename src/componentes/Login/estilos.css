@@ -73,3 +73,10 @@
 .btn-login{
     width: 70%;
 }
+
+/* responsive */
+@media screen and (max-width: 768px){
+    .cont-componente-login{
+        width: 90%;
+    }
+}

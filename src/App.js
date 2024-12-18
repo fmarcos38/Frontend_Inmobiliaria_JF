@@ -14,12 +14,13 @@ import ListaPropsAdminPage from './paginas/ListaProspAdminPage';
 import EditaPropiedad from './paginas/EditaPropiedad';
 import ContactoPAntallaCH from './componentes/ContactoPantallaCH';
 import AltaUsuarioPage from './paginas/AltaUsuario';
-import './App.css';
 import ListaUsuariosPage from './paginas/ListaUsuariosPage';
 import EditaUsuarioPage from './paginas/EditaUsuario';
+import './App.css';
 
 
 function App() {
+
   return (
     <InmobiliariaProvider>
       <div className="App">
@@ -35,12 +36,14 @@ function App() {
           <Route path='/contacto' element={<ContactoPAntallaCH/>} />
           <Route path='/detalle/:id' element={<DetalleProp/>} />
           <Route path='/favoritos' element={<FavoritosPage/>} />
-          <Route path='/admin/creaPropiedad' element={<CreaPropiedad/>} />
-          <Route path='/admin/listaPropsAdmin' element={<ListaPropsAdminPage/>} />
-          <Route path='admin/editaProp/:_id' element={<EditaPropiedad/>} />
-          <Route path='/admin/creaUsuario' element={<AltaUsuarioPage/>} />
-          <Route path='/admin/listaUsuarios' element={<ListaUsuariosPage/>} />
-          <Route path='/admin/editaUsuario/:_id' element={<EditaUsuarioPage/>} />
+          {/* rutas para Admin */}
+          <Route path='/admin/creaPropiedad' element={<CreaPropiedad />} />
+          <Route path='/admin/listaPropsAdmin' element={<ListaPropsAdminPage />} />
+          <Route path='admin/editaProp/:_id' element={<EditaPropiedad />} />
+          <Route path='/admin/creaUsuario' element={<AltaUsuarioPage />} />
+          <Route path='/admin/listaUsuarios' element={<ListaUsuariosPage />} />
+          <Route path='/admin/editaUsuario/:_id' element={<EditaUsuarioPage />} />
+          
           <Route path='*' element={<h1>404 Not Found</h1>} />
         </Routes>
 

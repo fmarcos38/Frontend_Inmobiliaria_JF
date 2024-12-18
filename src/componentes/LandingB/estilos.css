@@ -55,7 +55,7 @@
 }
 
 /* responsive */
-@media screen and (max-width: 500px){
+@media screen and (max-width: 700px){
     .logo-landing-B {
         height: 17rem;
         border-radius: 10px;

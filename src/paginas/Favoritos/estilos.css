@@ -5,7 +5,9 @@
     align-items: start;
     margin-bottom: 10px;
 }
-
+.titulo-propsFav{
+    text-align: center;
+}
 /* responsive */
 @media screen and (max-width: 900px) {
     .cont-filtros-listaProps-fav{

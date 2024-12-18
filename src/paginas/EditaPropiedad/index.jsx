@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { actual } from '../../urls';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPropiedad } from '../../redux/actions';
 import FormularioProp from '../../componentes/FormularioPropiedad';
 import './estilos.css';
+import { InmobiliariaContext } from '../../context';
 
 function EditaPropiedad() {
 
     const {_id} = useParams();
     const dispatch = useDispatch();
     const propiedad = useSelector((state) => state.propiedad);
+    const context = useContext(InmobiliariaContext);
     
     const handleOnSubmit = async (data) => {
 
@@ -67,10 +69,18 @@ function EditaPropiedad() {
 
     return (
         <div className='cont-page-edita-prop'>
-            <FormularioProp
-                propiedad={propiedad} 
-                handleOnSubmit={handleOnSubmit}
-            />
+            {
+                context.isAuthenticated ? (
+                    <>
+                        <FormularioProp
+                            propiedad={propiedad}
+                            handleOnSubmit={handleOnSubmit}
+                        />
+                    </>
+                ) : (
+                    <h1>Acceso denegado</h1>
+                )
+            }
         </div>
     )
 }

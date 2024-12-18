@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { InmobiliariaContext } from '../../context';
@@ -24,16 +24,41 @@ function Navbar() {
     const [muestraMenuAdmin, setMuestraMenuAdmin] = useState(false);
     const context = useContext(InmobiliariaContext);
     const dispatch = useDispatch();
+    const menuRef = useRef(null); // Referencia para el menú hamburguesa
+    const menuItemsRef = useRef([]); // Referencia para los elementos del menú
+
+    // Abre/cierra menú hamburguesa
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    // Cierra el menú hamburguesa al hacer clic o tocar fuera de él
+    useEffect(() => {
+        function handleClickOutside(event) {
+            // Verificar si el clic o toque es fuera del menú
+            if (
+                menuRef.current && !menuRef.current.contains(event.target) && 
+                !menuItemsRef.current.some(item => item.contains(event.target))
+            ) {
+                setIsOpen(false); // Cierra el menú si no es clic en el menú
+            }
+        }
+
+        // Escuchar el evento pointerdown (compatible con mouse y táctil)
+        document.addEventListener('pointerdown', handleClickOutside);
+        return () => {
+            // Limpiar el evento cuando el componente se desmonta
+            document.removeEventListener('pointerdown', handleClickOutside);
+        };
+    }, []);
+
     const handleMouseEnterAdmin = () => {
         setMuestraMenuAdmin(true);
     };
     const handleMouseLeaveAdmin = () => {
         setMuestraMenuAdmin(false);
     };
-    //abre/cierra menú Hambur
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    
     //logout
     const handleLogOut = () => {
         Swal.fire({
@@ -50,8 +75,11 @@ function Navbar() {
                 context.logout();
                 dispatch(resetLogin());
             }
+            //redirijo a home
+            window.location.href = '/';
         });        
     };
+
 
     return (
         <nav>
@@ -90,6 +118,7 @@ function Navbar() {
                             </li>
                         </ul>
                     </div>
+                    {/* items */}
                     <div className='nav-cont-inf'>
                         <ul className='ul-nav-inf'>
                             <li>
@@ -176,6 +205,7 @@ function Navbar() {
                     <div
                         className={`menu-icon ${isOpen ? 'open' : ''}`}
                         onClick={toggleMenu}
+                        ref={menuRef}
                     >
                         <span></span>
                         <span></span>
@@ -190,38 +220,51 @@ function Navbar() {
                                         context.nombreUser && (
                                             <>
                                             <li className='items-pChica'>
-                                                <NavLink to='/admin/creaPropiedad' className='link-navbar'>Crea Propiedad</NavLink>
+                                                <NavLink to='/admin/creaPropiedad' className='link-navbar' ref={el => menuItemsRef.current[0] = el}>Crea Propiedad</NavLink>
                                             </li>
                                             <li className='items-pChica'>
-                                            <NavLink to='/admin/listaPropsAdmin' className='link-navbar'>Lista Propiedades</NavLink>
+                                            <NavLink to='/admin/listaPropsAdmin' className='link-navbar' ref={el => menuItemsRef.current[1] = el}>Lista Propiedades</NavLink>
                                             </li>
                                             <li className='items-pChica'>
-                                                <NavLink to='/admin/creaUsuario' className='link-navbar'>Crea Usuario</NavLink>
+                                                <NavLink to='/admin/creaUsuario' className='link-navbar' ref={el => menuItemsRef.current[2] = el}>Crea Usuario</NavLink>
                                             </li>
                                             <li className='items-pChica'>
-                                            <NavLink to='/admin/listaUsuarios' className='link-navbar'>Lista Usuarios</NavLink>
+                                            <NavLink to='/admin/listaUsuarios' className='link-navbar' ref={el => menuItemsRef.current[3] = el}>Lista Usuarios</NavLink>
                                             </li>
                                             </>
                                         )
                                     }
                                     <li className='items-pChica'>
-                                        <NavLink to='/' className='link-navbar'>Home</NavLink>
+                                        <NavLink to='/' className='link-navbar' ref={el => menuItemsRef.current[4] = el}>Home</NavLink>
                                     </li>
                                     <li className='items-pChica'>
-                                        <Link to='/venta' className='link-navbar'>Venta</Link>
+                                        <Link to='/venta' className='link-navbar' ref={el => menuItemsRef.current[5] = el}>Venta</Link>
                                     </li>
                                     <li className='items-pChica'>
-                                        <NavLink to='/alquiler' className='link-navbar'>Alquiler</NavLink>
+                                        <NavLink to='/alquiler' className='link-navbar' ref={el => menuItemsRef.current[6] = el}>Alquiler</NavLink>
                                     </li>
                                     <li className='items-pChica'>
-                                        <NavLink to='/favoritos' className='link-navbar'>Favoritos</NavLink>
+                                        <NavLink to='/favoritos' className='link-navbar' ref={el => menuItemsRef.current[7] = el}>Favoritos</NavLink>
                                     </li>
                                     <li className='items-pChica'>
-                                        <NavLink to='/nosotros' className='link-navbar'>Nosotros</NavLink>
+                                        <NavLink to='/nosotros' className='link-navbar' ref={el => menuItemsRef.current[8] = el}>Nosotros</NavLink>
                                     </li>
                                     <li className='items-pChica'>
-                                        <NavLink to='/contacto' className='link-navbar'>Contacto</NavLink>
+                                        <NavLink to='/contacto' className='link-navbar' ref={el => menuItemsRef.current[9] = el}>Contacto</NavLink>
                                     </li>
+                                    {
+                                        context.nombreUser ? (
+                                            <li className='items-pChica'>
+                                                <button onClick={()=>{handleLogOut()}} style={{border:'none', backgroundColor:'transparent'}}>
+                                                    <LogoutIcon sx={{'fontSize':'18px', 'color':'white'}} />
+                                                </button>
+                                            </li>
+                                        ) : (
+                                            <li className='items-pChica'>
+                                                <NavLink to='/login' className='link-navbar' ref={el => menuItemsRef.current[10] = el}>Login</NavLink>
+                                            </li>
+                                        )
+                                    }
                                 </ul>
                             )
                         }

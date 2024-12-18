@@ -522,12 +522,13 @@
     .detalle-titulo-prop{
         margin-left: 10px;
         font-size: 20px;
-        font-weight: 300;
+        font-weight: 500;
         color: var(--primary-color);
     }
     .detalle-titulo-direccion{
         margin: 3px;
         font-size: 17px;
+        font-weight: 400;
         color: var(--primary-color);
     }
     .cont-imagenes{

@@ -48,6 +48,7 @@ function Home() {
           <LandingC />
           <div className='cont-barraLateral-Y-listaProps'>
           <h1 className='titulo-lista-props'>Conocé nuestras Propiedades</h1>
+            {/* barra lat */}
             <div className='cont-barraLateral'>
               <BarraLateral
                 muestraVentaAlq={'true'}

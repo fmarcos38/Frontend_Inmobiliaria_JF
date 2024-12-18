@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { actual } from '../../urls';
+import { InmobiliariaContext } from '../../context';
 import FormularioProp from '../../componentes/FormularioPropiedad';
 import Swal from 'sweetalert2';
 import './estilos.css';
 
-
 function CreaPropiedad() {
+
+    const context = useContext(InmobiliariaContext);
 
     const handleOnSubmit = async(data) => {
 
@@ -17,7 +19,7 @@ function CreaPropiedad() {
             moneda: data.moneda,
             precio: data.precio,
             descripcion: data.descripcion,
-            ubicacion: data.ubicacion,            
+            ubicacion: data.ubicacion,
             cantPisos: data.cantPisos,
             ambientes: data.ambientes,
             dormitorios: data.dormitorios,
@@ -29,11 +31,11 @@ function CreaPropiedad() {
             estado: data.estado,
             antiguedad: data.antiguedad,
             cantCocheras: data.cantCocheras,
-            expensas: data.expensas,            
+            expensas: data.expensas,
             servicios: data.servicios,
             imagenes: data.imagenes,
             video: data.video,
-            
+
         }));
 
         data.imagenes?.forEach((imagen, index) => {
@@ -68,8 +70,14 @@ function CreaPropiedad() {
     };
 
     return (
-        <div className='cont-page-crea-prop'>
-            <FormularioProp handleOnSubmit={handleOnSubmit} op='creacion'/>
+        <div className="contenedor-crea-prop">
+            {
+            context.isAuthenticated ? (                
+                    <FormularioProp handleOnSubmit={handleOnSubmit} />
+            ) : (
+                <h1>No tienes permisos para acceder a esta página</h1>
+            )
+        }
         </div>
     )
 }

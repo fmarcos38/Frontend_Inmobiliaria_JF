@@ -63,6 +63,7 @@ function Login() {
         contexto.setUserLog(userLogActual);
         contexto.login();
         navigate('/');
+        window.location.reload();
         }
         if(userLog?.message === 'Email incorrecto'){
             Swal.fire({

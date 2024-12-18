@@ -27,7 +27,11 @@ function TablaProspAdmin({propiedades}) {
                         {propiedades?.map(propiedad => (
                             <tr key={propiedad._id}>
                                 <td><img src={propiedad.imagenes[0]} alt={propiedad.direccion} className='foto-tabla-prop'/></td>
-                                <td>{propiedad.tipoPropiedad}</td>
+                                <td>
+                                    {
+                                        propiedad.tipoPropiedad === "Departamento" ? "Dpto" : propiedad.tipoPropiedad
+                                    }
+                                </td>
                                 <td>{propiedad.ubicacion.direccionReal}</td>
                                 <td>{propiedad.operacion}</td>
                                 <td>{formatMoney(propiedad.precio)}</td>
