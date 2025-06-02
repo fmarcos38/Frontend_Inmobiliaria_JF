@@ -16,6 +16,9 @@
     left: 0;
     z-index: 1;
 }
+.mesaj-pos-horizontal{
+    display: none;
+}
 .btn-close-modal{
     border-radius: 50%;
     border: none;
@@ -26,14 +29,33 @@
     cursor: pointer;
     font-size: 20px;
 }
+.cont-carrusel-modal{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* responsive */
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px) and (min-width: 671px){
     .contModal{
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 90%;
+        width: 100%;
+        height: 95vh;
+    }
+}
+@media screen and (max-width: 600px){
+    .mesaj-pos-horizontal{
+        display: flex;
+        color: red;
+    }
+    .contModal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         height: 95vh;
     }
     

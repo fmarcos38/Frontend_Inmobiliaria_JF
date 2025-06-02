@@ -7,6 +7,11 @@ function ContactoPAntallaCH() {
         window.location.href = `tel:${+5490228115359060}`;
     };
 
+    //efecto para iniciar la pagina en la parte superior
+    React.useEffect(() => {
+        window.scroll(0, 0);
+    }, []);
+
     return (
         <div className='cont-pantalla-chica'>
             <h2 className='titulo-contactanos'>Contáctanos</h2>

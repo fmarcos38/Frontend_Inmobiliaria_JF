@@ -126,7 +126,7 @@
 }
 /* estilos seccion imagenes */
 .cont-imgs-info{
-    width: 95%;
+    width: 85%;
     height: auto;
     display: flex;
     justify-content: space-between;
@@ -193,12 +193,12 @@
 /* cont descrip prop */
 .cont-descrip{
     display: flex;
+    width: 47.5%;
     min-height: 350px;
     height: auto;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    width: 47.5%;
     border-radius: 20px;
     background-color: var(--color-negro);
 }
@@ -217,10 +217,10 @@
 }
 .cont-detalle{
     width: 28%;
-    height: 100%;
+    height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     border-radius: 5px;
     background-color: black;
@@ -257,7 +257,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: rgb(249, 248, 248);
-    margin-top: 3px;
+    margin-bottom: 3px;
 }
 .ultimo{
     margin-bottom: 10px;
@@ -269,46 +269,42 @@
     padding-left: 5px;
     padding-right: 5px;
 }
-/* cont descripción */
+/* detalles */
 .cont-titulo-descripcion-form{
+    width: 85%;
+}
+.cont-descrip{
+    width: 100%;
+}
+.cont-texto-descrip-detalle {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
+    background-color: var(--fondo-navbar);
+}
+
+.subCont-texto-descrip-detalle {
     width: 90%;
-}
-.cont-descrip{
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-}
-/* Lista */
-.description-list{
-    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.description-list .list-item {
-    display: flex;
-    margin-left: 30px;
-    margin-bottom: 10px;
-    line-height: 1.5;
-    word-wrap: break-word;
+    justify-content: start;
+    color: rgb(252, 251, 251);
     font-size: 20px;
-    color: #fff;
+    padding: 10px;
 }
-/* Texto con margen alineado */
-.description-list .list-item {
-    text-indent: -1em;
-    /* Retrocede la primera línea para compensar la viñeta */
+
+.p-viñeta {
     padding-left: 1.5em;
-    /* Añade margen para el resto del texto */
-    overflow-wrap: break-word;
-    /* Divide palabras largas */
+    text-indent: -1.7em;
+    margin: 0;
+}
+
+.p-sinViñeta {
+    color: rgb(252, 251, 251);
+    margin: 0;
 }
 /* mapa */
 .cont-map{

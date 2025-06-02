@@ -44,7 +44,7 @@ function App() {
           <Route path='/admin/listaUsuarios' element={<ListaUsuariosPage />} />
           <Route path='/admin/editaUsuario/:_id' element={<EditaUsuarioPage />} />
           
-          <Route path='*' element={<h1>404 Not Found</h1>} />
+          <Route path='*' element={<Home />} />
         </Routes>
 
         <Footbar />

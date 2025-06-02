@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPropiedad } from '../../redux/actions';
 import FormularioProp from '../../componentes/FormularioPropiedad';
-import './estilos.css';
 import { InmobiliariaContext } from '../../context';
+import './estilos.css';
 
 function EditaPropiedad() {
 
@@ -73,6 +73,7 @@ function EditaPropiedad() {
                 context.isAuthenticated ? (
                     <>
                         <FormularioProp
+                            op='editar'
                             propiedad={propiedad}
                             handleOnSubmit={handleOnSubmit}
                         />

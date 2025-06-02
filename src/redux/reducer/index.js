@@ -14,7 +14,7 @@ const initialState = {
 
 export default function rootReducer (state = initialState, action) {
     switch(action.type){
-        case LOGIN: console.log("action.payload:", action.payload);
+        case LOGIN: 
         return{
             ...state,
             user: action.payload,
@@ -35,9 +35,9 @@ export default function rootReducer (state = initialState, action) {
             user: action.payload
         }
         case LOADING:
-        return{
-            ...state,
-            loading: false
+            return{
+                ...state,
+                loading: false
         };
         case GET_PROPS:
             return {

@@ -1,7 +1,7 @@
 //obtengo data user
 const userData = () => {
-    const data = JSON.parse(localStorage.getItem('userData'));
-    return data;
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    return userData;
 };
 
 //logOut

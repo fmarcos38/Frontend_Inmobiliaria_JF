@@ -34,23 +34,22 @@ function Navbar() {
 
     // Cierra el menú hamburguesa al hacer clic o tocar fuera de él
     useEffect(() => {
-        function handleClickOutside(event) {
-            // Verificar si el clic o toque es fuera del menú
-            if (
-                menuRef.current && !menuRef.current.contains(event.target) && 
-                !menuItemsRef.current.some(item => item.contains(event.target))
-            ) {
-                setIsOpen(false); // Cierra el menú si no es clic en el menú
-            }
+    function handleClickOutside(event) {
+        if (
+            menuRef.current &&
+            !menuRef.current.contains(event.target) &&
+            !menuItemsRef.current.some(item => item && item.contains(event.target))
+        ) {
+            setIsOpen(false);
         }
+    }
 
-        // Escuchar el evento pointerdown (compatible con mouse y táctil)
-        document.addEventListener('pointerdown', handleClickOutside);
-        return () => {
-            // Limpiar el evento cuando el componente se desmonta
-            document.removeEventListener('pointerdown', handleClickOutside);
-        };
-    }, []);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => {
+        document.removeEventListener('pointerdown', handleClickOutside);
+    };
+}, []);
+
 
     const handleMouseEnterAdmin = () => {
         setMuestraMenuAdmin(true);
@@ -255,13 +254,13 @@ function Navbar() {
                                     {
                                         context.nombreUser ? (
                                             <li className='items-pChica'>
-                                                <button onClick={()=>{handleLogOut()}} style={{border:'none', backgroundColor:'transparent'}}>
+                                                <button onClick={()=>{handleLogOut()}} style={{border:'none', backgroundColor:'transparent'}} ref={el => menuItemsRef.current[10] = el}>
                                                     <LogoutIcon sx={{'fontSize':'18px', 'color':'white'}} />
                                                 </button>
                                             </li>
                                         ) : (
                                             <li className='items-pChica'>
-                                                <NavLink to='/login' className='link-navbar' ref={el => menuItemsRef.current[10] = el}>Login</NavLink>
+                                                <NavLink to='/login' className='link-navbar' ref={el => menuItemsRef.current[11] = el}>Login</NavLink>
                                             </li>
                                         )
                                     }

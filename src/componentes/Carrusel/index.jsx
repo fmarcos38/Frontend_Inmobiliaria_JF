@@ -15,13 +15,13 @@ function Carrusel({imagenes}) {
     /* para tooltip */
     const [showTooltip, setShowTooltip] = useState(false);
     const tooltipTextImg = "Agrandar imágen";
+    
     const handleMouseEnter = () => {
         setShowTooltip(true);
     };
     const handleMouseLeave = () => {
         setShowTooltip(false);
     };
-
     const handleClickPrev = () => {
         if(indexImgActual === 0){ return }
         else{

@@ -345,7 +345,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         });
     };
     
-    //submit
+    //igualmente a pesar de que recibo del padre la función onsubmit, la vuelvo a definir acá
     const OnSubmit = (e) => {
         e.preventDefault();
         //valido
@@ -488,11 +488,11 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         <div className='cont-crea-prop'>
             <h1 className='titulo-crea-prop'>
             {
-                op === 'creacion' ? "Crear propiedad" : "Editar propiedad"
+                op === 'editar' ? "Editar propiedad" : "Crear propiedad" 
             }
             </h1>
             <form onSubmit={OnSubmit} className='formulario-crea-prop'>
-                {/* vista-1 */}
+                {/* vista-1 */} {/* titulo, tipo Prop, Tipo Op, moneda, precio, Descrip */}
                 <div className={vista1 ? 'vista-1' : 'notVista1'} id='vista-1'>
                     <div className='cont-data-vista-1'>
                         {/* titulo prop */}
@@ -568,7 +568,11 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                             className='input-moneda-venta' 
                                             disabled={operacion !== "Venta"}
                                         >
-                                            <option value=''>Moneda</option>
+                                            {
+                                                op === "editar" ? 
+                                                <option value={monedaVenta}>{monedaVenta}</option> :
+                                                <option value=''>Moneda</option>
+                                            }
                                             <option value='USD'>USD</option>
                                             <option value='$'>$</option>
                                         </select>
@@ -675,7 +679,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                         </div>                
                     </div>
                 </div>
-                {/* vista-2 */}
+                {/* vista-2 */} {/* direcc real y publicacion, barrio, ciudad, provincia */}
                 <div className={vista2 ? 'vista-2' : 'notVista2'} id='vista-2'>
                     <div className='cont-data-vista-2'>
                         {/* direccPubli y direccReal */}
@@ -811,78 +815,81 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                 <div className={vista3 ? 'vista-3' : 'notVista3'} id='vista-3'>
                     <div className='cont-data-vista-3'>
                         {/* amb, dorm, baño,  */}
-                        <div className='cont-ambts'>
-                            {/* amb */}
-                            <div className='cont-amb'>
-                                <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
-                                    <label className='label-crea-prop'>Ambientes</label>
-                                    {/* <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p> */}
+                        {
+                            tipoPropiedad !== 'Terreno' &&
+                            <div className='cont-ambts'>
+                                {/* amb */}
+                                <div className='cont-amb'>
+                                    <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
+                                        <label className='label-crea-prop'>Ambientes</label>
+                                        {/* <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p> */}
+                                    </div>
+                                    <input
+                                        type='number'
+                                        id='ambientes'
+                                        value={ambientes === null ? '' : ambientes}
+                                        //onBlur={handleOnBlur}
+                                        onChange={(e) => { handleOnChangeAmbientes(e) }}
+                                        className='input-amb'
+                                    />
+                                    {errors.ambientes && (
+                                        <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+                                            {errors.ambientes}
+                                        </p>
+                                    )}
                                 </div>
-                                <input 
-                                    type='number' 
-                                    id='ambientes' 
-                                    value={ambientes === null ? '' : ambientes} 
-                                    //onBlur={handleOnBlur}
-                                    onChange={(e) => { handleOnChangeAmbientes(e) }} 
-                                    className='input-amb' 
-                                />
-                                {errors.ambientes && (
-                                    <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.ambientes}
-                                    </p>
-                                )}
-                            </div>
-                            {/* dormitorios */}
-                            <div className='cont-amb'>
-                                <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
-                                    <label className='label-crea-prop'>Dormitorios</label>
-                                    {/* <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p> */}
+                                {/* dormitorios */}
+                                <div className='cont-amb'>
+                                    <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
+                                        <label className='label-crea-prop'>Dormitorios</label>
+                                        {/* <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p> */}
+                                    </div>
+                                    <input
+                                        type='number'
+                                        id='dormitorios'
+                                        value={dormitorios}
+                                        //onBlur={handleOnBlur} 
+                                        onChange={(e) => { handleOnChangeDormitorios(e) }}
+                                        className='input-amb'
+                                    />
+                                    {errors.dormitorios && (
+                                        <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+                                            {errors.dormitorios}
+                                        </p>
+                                    )}
                                 </div>
-                                <input 
-                                    type='number' 
-                                    id='dormitorios' 
-                                    value={dormitorios}
-                                    //onBlur={handleOnBlur} 
-                                    onChange={(e) => { handleOnChangeDormitorios(e) }} 
-                                    className='input-amb' 
-                                />
-                                {errors.dormitorios && (
-                                    <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.dormitorios}
-                                    </p>
-                                )}
-                            </div>
-                            {/* baños */}
-                            <div className='cont-amb'>
-                                <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
-                                    <label className='label-crea-prop'>Baños</label>
-                                    {/* <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p> */}
+                                {/* baños */}
+                                <div className='cont-amb'>
+                                    <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
+                                        <label className='label-crea-prop'>Baños</label>
+                                        {/* <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p> */}
+                                    </div>
+                                    <input
+                                        type='number'
+                                        id='baños'
+                                        value={baños}
+                                        //onBlur={handleOnBlur} 
+                                        onChange={(e) => { handleOnChangeBaños(e) }}
+                                        className='input-amb'
+                                    />
+                                    {errors.baños && (
+                                        <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+                                            {errors.baños}
+                                        </p>
+                                    )}
                                 </div>
-                                <input 
-                                    type='number' 
-                                    id='baños' 
-                                    value={baños}
-                                    //onBlur={handleOnBlur} 
-                                    onChange={(e) => { handleOnChangeBaños(e) }} 
-                                    className='input-amb' 
-                                />
-                                {errors.baños && (
-                                    <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.baños}
-                                    </p>
-                                )}
+                                <div className='cont-amb'>
+                                    <label className='label-crea-prop'>Cant. pisos</label>
+                                    <input
+                                        type='number'
+                                        id='cantPisos'
+                                        value={cantPisos}
+                                        onChange={(e) => { handleOnChangeCantPisos(e) }}
+                                        className='input-amb'
+                                    />
+                                </div>
                             </div>
-                            <div className='cont-amb'>
-                                <label className='label-crea-prop'>Cant. pisos</label>
-                                <input 
-                                    type='number' 
-                                    id='cantPisos' 
-                                    value={cantPisos} 
-                                    onChange={(e) => { handleOnChangeCantPisos(e) }} 
-                                    className='input-amb' 
-                                />
-                            </div>
-                        </div>
+                        }
                         {/* superficies*/}
                         <div className='cont-ambts'>
                             <div className='cont-amb'>
@@ -949,53 +956,56 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                             </div>
                         </div>
                         {/* estado, antiguedad, cant cocheras */}
-                        <div className='cont-ambts'>
-                            <div className='cont-amb'>
-                                <label className='label-crea-prop'>Estado</label>
-                                <input 
-                                    type='text' 
-                                    id='estado' 
-                                    value={estado} 
-                                    onChange={(e) => { handleOnChangeEstado(e) }} 
-                                    className='input-tituloPublicacion' 
-                                />
-                            </div>
-                            <div className='cont-amb'>
-                                <label className='label-crea-prop'>Antiguedad</label>
-                                <input 
-                                    type='number' 
-                                    id='antiguedad' 
-                                    value={antiguedad}
-                                    onChange={(e) => { handleOnChangeAntiguedad(e) }} 
-                                    className='input-tituloPublicacion' 
-                                />
-                            </div>
-                            {
-                                tipoPropiedad === "Departamento" && (
-                                    <div className='cont-amb'>
-                                        <label className='label-crea-prop'>Expensas</label>
-                                        <input type='number' id='expensas' value={expesnsas} onChange={(e) => { handleOnChangeExpensas(e) }} className='input-tituloPublicacion' />
-                                    </div>
-                                )
-                            } 
-                            <div className='cont-amb'>
-                                <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
-                                    <label className='label-crea-prop'>Cant cocheras</label>
+                        {
+                            tipoPropiedad !== 'Terreno' &&
+                            <div className='cont-ambts'>
+                                <div className='cont-amb'>
+                                    <label className='label-crea-prop'>Estado</label>
+                                    <input
+                                        type='text'
+                                        id='estado'
+                                        value={estado}
+                                        onChange={(e) => { handleOnChangeEstado(e) }}
+                                        className='input-tituloPublicacion'
+                                    />
                                 </div>
-                                <input 
-                                    type='number' 
-                                    id='cantCocheras' 
-                                    value={cantCocheras}
-                                    onChange={(e) => { handleOnChangeCantCocheras(e) }} 
-                                    className='input-tituloPublicacion' 
-                                />
-                                {errors.cantCocheras && (
-                                    <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                        {errors.cantCocheras}
-                                    </p>
-                                )}
+                                <div className='cont-amb'>
+                                    <label className='label-crea-prop'>Antiguedad</label>
+                                    <input
+                                        type='number'
+                                        id='antiguedad'
+                                        value={antiguedad}
+                                        onChange={(e) => { handleOnChangeAntiguedad(e) }}
+                                        className='input-tituloPublicacion'
+                                    />
+                                </div>
+                                {
+                                    tipoPropiedad === "Departamento" && (
+                                        <div className='cont-amb'>
+                                            <label className='label-crea-prop'>Expensas</label>
+                                            <input type='number' id='expensas' value={expesnsas} onChange={(e) => { handleOnChangeExpensas(e) }} className='input-tituloPublicacion' />
+                                        </div>
+                                    )
+                                }
+                                <div className='cont-amb'>
+                                    <div style={{ 'display': 'flex', 'justifyContent': 'start', 'alignItems': 'center' }}>
+                                        <label className='label-crea-prop'>Cant cocheras</label>
+                                    </div>
+                                    <input
+                                        type='number'
+                                        id='cantCocheras'
+                                        value={cantCocheras}
+                                        onChange={(e) => { handleOnChangeCantCocheras(e) }}
+                                        className='input-tituloPublicacion'
+                                    />
+                                    {errors.cantCocheras && (
+                                        <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+                                            {errors.cantCocheras}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
-                        </div>
+                        }
                         {/* btns Sgt-Atras */}
                         <div className='cont-campReq-botones'>
                             {/* <div className='cont-campo-requerido'>

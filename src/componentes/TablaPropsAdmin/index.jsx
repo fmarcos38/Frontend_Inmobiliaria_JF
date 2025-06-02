@@ -34,7 +34,7 @@ function TablaProspAdmin({propiedades}) {
                                 </td>
                                 <td>{propiedad.ubicacion.direccionReal}</td>
                                 <td>{propiedad.operacion}</td>
-                                <td>{formatMoney(propiedad.precio)}</td>
+                                <td>{propiedad.moneda} {formatMoney(propiedad.precio)}</td>
                                 <td>
                                     <button className='boton-detalle-prop'>
                                         <NavLink to={`/detalle/${propiedad._id}`} className='link-detalle-prop'>
