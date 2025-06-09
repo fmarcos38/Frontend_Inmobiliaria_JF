@@ -29,7 +29,8 @@ function ListaPropiedades({allProps}) {
                                     ambientes={p.ambientes}
                                     supCubierta={p.supCubierta}
                                     supSemiCub={p.supSemiCub}
-                                    baños={p.baños}                                  
+                                    baños={p.baños}
+                                    estadoActual={p.estadoActual}                               
                                 />
                             </div>
                         )

@@ -10,24 +10,27 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import WcIcon from '@mui/icons-material/Wc';
 import './styles.css'
 
-function Card({ 
-    id, 
-    tituloPublicacion,
-    operacion,
-    moneda,
-    precio,
-    ubicacion,
-    imagenes,
-    cantCocheras,
-    ambientes, 
-    dormitorios, 
-    tipoPropiedad,
-    supTotal,
-    supDescubierta,
-    supCubierta,
-    supSemiCub ,
-    baños
-}) {
+function Card(
+    {
+        id,
+        tituloPublicacion,
+        operacion,
+        moneda,
+        precio,
+        ubicacion,
+        imagenes,
+        cantCocheras,
+        ambientes,
+        dormitorios,
+        tipoPropiedad,
+        supTotal,
+        supDescubierta,
+        supCubierta,
+        supSemiCub,
+        baños,
+        estadoActual
+    }
+) {
 
     //estado para el hover
     const [showDetail, setShowDetail] = useState(false);
@@ -60,6 +63,8 @@ function Card({
                         <img src={imagenes[0]} alt='not found' className='card-img' />
                     </div>
 
+                    {/* mensaje Vendida */}
+                    <p className={estadoActual ? 'p-estadoActual' : ''}>{estadoActual}</p>
                     {/* msj detalle si hay hover */}
                     <div className={`detail ${showDetail ? 'show' : ''}`}>
                         <p className='palabra-abre-detalle'>Detalle</p>

@@ -26,6 +26,7 @@
     font-weight: 200;
 }
 .navLink-car{
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -34,7 +35,7 @@
 /* manejo espacio img */
 .card-image {
     width: 100%;
-    max-height: 270px;
+    height: 270px;
     grid-area: image;
     display: flex;
     justify-content: center;
@@ -46,11 +47,22 @@
     height: auto; /* Mantiene la proporción de la imagen */
     transition: transform 0.3s ease;
 }
-
+.p-estadoActual {
+    position: absolute;
+    color: red;
+    font-size: 3rem;
+    font-weight: bold;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    top: 40%;
+    left: 50%;
+    padding: 0.2em 0.5em;
+    pointer-events: none; /* evita que bloquee clics */
+    background-color: rgba(255, 255, 255, 0.7); /* opcional: fondo blanco translúcido */
+}
 /* estilos msj detalle */
 .detail {
     position: absolute;
-    top: 40px;
+    top: -8px;
     left: 50;
     width: 100%;
     height: 280px;

@@ -10,7 +10,7 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
         'Local', 'Cochera', 'Galpón', 
         'Terreno', 'Quinta', 'Campo',
     ];
-    const [tituloPublicacion, setTituloPublicacion] = useState(''); 
+    const [tituloPublicacion, setTituloPublicacion] = useState('');
     //estado objeto tipo opeeracion
     const [operacion, setOperacion] = useState(null); 
     //estado moneda
@@ -50,6 +50,8 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
     const [vistaPreviaVideo, setVistaPreviaVideo] = useState([]);//vista previa
     //servicios
     const [servicios, setServicios] = useState([]);
+    //vendida o alquilada
+    const [estadoActual, setEstadoActual] = useState('');
     //estado para errores
     const [errors, setErrors] = useState({});
     //estado para errores ubicacion
@@ -171,7 +173,9 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
             checked ? [...prevServicios, value] : prevServicios.filter((s) => s !== value)
         );
     };
-
+    const handleOnChangeEstadoActual = (e) => {
+        setEstadoActual(e.target.value);
+    };
     //funcion valida errores de los inputs
     const handleOnBlur = (e) => {
         const { id, value } = e.target;
@@ -362,36 +366,37 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
             alert('Debe cargar al menos una imagen');
         }
         // Construcción del objeto data
-    const data = {
-        tituloPublicacion,
-        operacion: operacion,
-        moneda: moneda,
-        precio: precio,
-        tipoPropiedad,
-        descripcion,
-        ubicacion: {
-            direccionPublicacion,
-            direccionReal,
-            barrio,
-            ciudad,
-            provincia,
-        },
-        cantPisos,
-        ambientes,
-        dormitorios,
-        baños,
-        supCubierta,
-        supSemiCub,
-        supDescubierta,
-        supTotal,
-        estado,
-        antiguedad,
-        expesnsas,
-        cantCocheras,        
-        imagenes,
-        video,
-        servicios,
-    };
+        const data = {
+            tituloPublicacion,
+            operacion: operacion,
+            moneda: moneda,
+            precio: precio,
+            tipoPropiedad,
+            descripcion,
+            ubicacion: {
+                direccionPublicacion,
+                direccionReal,
+                barrio,
+                ciudad,
+                provincia,
+            },
+            cantPisos,
+            ambientes,
+            dormitorios,
+            baños,
+            supCubierta,
+            supSemiCub,
+            supDescubierta,
+            supTotal,
+            estado,
+            antiguedad,
+            expesnsas,
+            cantCocheras,        
+            imagenes,
+            video,
+            servicios,
+            estadoActual
+        };
         //envio
         handleOnSubmit(data);
     }
@@ -511,31 +516,47 @@ function FormularioProp({propiedad, handleOnSubmit, op}) {
                                 className="input-tituloPublicacion" 
                             />
                         </div>
-                        {/* tipo prop */}
-                        <div className='cont-dato'>
-                            <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
-                                <label className='label-crea-prop'>Tipo propiedad</label>
-                                <p style={{ 'margin':'0', 'color':'red', 'fontSize':'23px'}}>*</p>
+                        {/* tipo prop - estado Vendida/Alquilada */}
+                        <div className='cont-tipo-prop-EstadoActual'>
+                            <div className='cont-tipo-prop'>
+                                <div style={{ 'display': 'flex', 'justifyContent': 'center', 'alignItems': 'center' }}>
+                                    <label className='label-crea-prop'>Tipo propiedad</label>
+                                    <p style={{ 'margin': '0', 'color': 'red', 'fontSize': '23px' }}>*</p>
+                                </div>
+                                <select
+                                    id='tipoPropiedad'
+                                    onChange={(e) => { handleOnChangeTipoPropiedad(e) }}
+                                    onBlur={handleOnBlur}
+                                    placeholder={propiedad ? propiedad.tipoPropiedad : ''}
+                                    className='input-tituloPublicacion'
+                                >
+                                    <option value=''>{propiedad?.tipoPropiedad ? propiedad.tipoPropiedad : ''}</option>
+                                    {
+                                        tipoProps.map((tipo, index) => (
+                                            <option key={index} value={tipo}>{tipo}</option>
+                                        ))
+                                    }
+                                </select>
+                                {errors.tipoPropiedad && (
+                                    <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+                                        {errors.tipoPropiedad}
+                                    </p>
+                                )}
                             </div>
-                            <select 
-                                id='tipoPropiedad' 
-                                onChange={(e) => { handleOnChangeTipoPropiedad(e) }} 
-                                onBlur={handleOnBlur}
-                                placeholder={propiedad ? propiedad.tipoPropiedad : ''} 
-                                className='input-tituloPublicacion'
-                            >
-                                <option value=''>{propiedad?.tipoPropiedad ? propiedad.tipoPropiedad : ''}</option>
-                                {
-                                    tipoProps.map((tipo, index) => (
-                                        <option key={index} value={tipo}>{tipo}</option>
-                                    ))
-                                }
-                            </select>
-                            {errors.tipoPropiedad && (
-                                <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
-                                    {errors.tipoPropiedad}
-                                </p>
-                            )}
+                            <div className='cont-estado-Vendida-Alquilada'>
+                                <label className='label-crea-prop'>Vendida / Alquilada</label>
+                                <select
+                                    id='estadoActual'
+                                    onChange={(e) => {handleOnChangeEstadoActual(e)}}
+                                    onBlur={handleOnBlur}
+                                    placeholder={propiedad ? propiedad.estadoActual : ''}
+                                    className='input-tituloPublicacion'
+                                >
+                                    <option value=''>{propiedad.estadoActual ? propiedad.estadoActual : ''}</option>
+                                    <option value={'Vendida'}>Vendida</option>
+                                    <option value={'Alquilada'}>Alquilada</option>
+                                </select>
+                            </div>
                         </div>
                         {/* operacion */}
                         <div className='cont-dato'>

@@ -40,6 +40,7 @@ function EditaPropiedad() {
             imagenes: data.imagenes,
             video: data.video,
             servicios: data.servicios,
+            estadoActual: data.estadoActual
         }));
 
         data.imagenes?.forEach((imagen, index) => {
